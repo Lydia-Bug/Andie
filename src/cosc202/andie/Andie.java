@@ -23,7 +23,7 @@ import javax.imageio.*;
  * @version 1.0
  */
 public class Andie {
-
+    //Lydia test
     /**
      * <p>
      * Launches the main GUI for the ANDIE program.
@@ -105,7 +105,7 @@ public class Andie {
      */
     public static void main(String[] args) throws Exception {
 
-        System.out.println("How is everybody today?"); // This is a comment
+        System.out.println("How is everybody today?");
 
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
