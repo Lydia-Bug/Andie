@@ -26,6 +26,7 @@ import javax.imageio.*;
  */
 public class Andie {
     // Change made by Hamzah 2.0
+    //Test Lydia
     /**
      * <p>
      * Launches the main GUI for the ANDIE program.
@@ -113,7 +114,7 @@ public class Andie {
      */
     public static void main(String[] args) throws Exception {
 
-        System.out.println("How is everybody today?"); // This is a comment
+        System.out.println("How is everybody today?");
 
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
@@ -126,3 +127,5 @@ public class Andie {
         });
     }
 }
+
+// This comment is made by Callum Walker, swag
