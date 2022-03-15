@@ -112,7 +112,7 @@ public class Andie {
      */
     public static void main(String[] args) throws Exception {
 
-        System.out.println("How is everybody today?");
+        System.out.println("How is everybody today?"); // This is a comment
 
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
