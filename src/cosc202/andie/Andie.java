@@ -39,7 +39,7 @@ public class Andie {
      * These operations are implemented {@link ImageOperation}s and triggerd via
      * {@code ImageAction}s grouped by their general purpose into menus.
      * </p>
-     * hi
+     * change made by Ella 
      * @see ImagePanel
      * @see ImageAction
      * @see ImageOperation
