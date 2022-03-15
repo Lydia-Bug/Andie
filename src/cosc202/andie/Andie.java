@@ -104,6 +104,9 @@ public class Andie {
      * @see #createAndShowGUI()
      */
     public static void main(String[] args) throws Exception {
+
+        System.out.println("How is everybody today?");
+
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 try {
