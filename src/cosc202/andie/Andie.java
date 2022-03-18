@@ -26,7 +26,7 @@ import javax.imageio.*;
  */
 public class Andie {
     // Change made by Hamzah 2.0
-    //Tests Lydia
+    //Test Lydia
     /**
      * <p>
      * Launches the main GUI for the ANDIE program.
