@@ -120,7 +120,7 @@ public class ColourActions {
         AdjustBrightnessAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
-
+        
         /**
          * <p>
          * Callback for when the adjust brightness action is triggered.
@@ -134,7 +134,23 @@ public class ColourActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-            target.getImage().apply(new AdjustBrightness());
+            // Determine the brightness- ask the user.
+            double brightness = 1;
+
+            // Pop-up dialog box to ask for the brightness value.
+            SpinnerNumberModel brightnessModel = new SpinnerNumberModel(1, -100, 100, 1);
+            JSpinner brightnessSpinner = new JSpinner(brightnessModel);
+            int option = JOptionPane.showOptionDialog(null, brightnessSpinner, "Enter brightness value (negitve number for darkness)", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+
+            // Check the return value from the dialog box.
+            if (option == JOptionPane.CANCEL_OPTION) {
+                return;
+            } else if (option == JOptionPane.OK_OPTION) {
+                brightness = brightnessModel.getNumber().intValue();
+            }
+
+            
+            target.getImage().apply(new AdjustBrightness(brightness));
             target.repaint();
             target.getParent().revalidate();
         }
