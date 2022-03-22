@@ -36,6 +36,7 @@ public class ColourActions {
         actions = new ArrayList<Action>();
         actions.add(new ConvertToGreyAction("Greyscale", null, "Convert to greyscale", Integer.valueOf(KeyEvent.VK_G)));
         actions.add(new AdjustBrightnessAction("Brightness", null, "Adjust brightness", Integer.valueOf(KeyEvent.VK_B)));
+        actions.add(new AdjustContrastAction("Contrast", null, "Adjust contrast", Integer.valueOf(KeyEvent.VK_C)));
     }
 
     /**
@@ -151,6 +152,65 @@ public class ColourActions {
 
             
             target.getImage().apply(new AdjustBrightness(brightness));
+            target.repaint();
+            target.getParent().revalidate();
+        }
+
+    }
+
+    /**
+     * <p>
+     * Action change contrast of image
+     * </p>
+     * 
+     * @see AdjustBrightness
+     */
+    public class AdjustContrastAction extends ImageAction {
+
+        /**
+         * <p>
+         * Create a new change brightness action.
+         * </p>
+         * 
+         * @param name The name of the action (ignored if null).
+         * @param icon An icon to use to represent the action (ignored if null).
+         * @param desc A brief description of the action  (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
+         */
+        AdjustContrastAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+        
+        /**
+         * <p>
+         * Callback for when the adjust contrastaction is triggered.
+         * </p>
+         * 
+         * <p>
+         * This method is called whenever the AdjustContrastAction is triggered.
+         * It adjusts the images brightness
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
+        public void actionPerformed(ActionEvent e) {
+            // Determine the contrast- ask the user.
+            double contrast = 1;
+
+            // Pop-up dialog box to ask for the brightness value.
+            SpinnerNumberModel contrastModel = new SpinnerNumberModel(1, -100, 100, 1);
+            JSpinner contrastSpinner = new JSpinner(contrastModel);
+            int option = JOptionPane.showOptionDialog(null, contrastSpinner, "Enter brightness value (negitve number for darkness)", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+
+            // Check the return value from the dialog box.
+            if (option == JOptionPane.CANCEL_OPTION) {
+                return;
+            } else if (option == JOptionPane.OK_OPTION) {
+                contrast = contrastModel.getNumber().intValue();
+            }
+
+            
+            target.getImage().apply(new AdjustContrast(contrast));
             target.repaint();
             target.getParent().revalidate();
         }
