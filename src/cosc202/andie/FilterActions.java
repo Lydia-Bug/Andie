@@ -35,6 +35,7 @@ public class FilterActions {
     public FilterActions() {
         actions = new ArrayList<Action>();
         actions.add(new MeanFilterAction("Mean filter", null, "Apply a mean filter", Integer.valueOf(KeyEvent.VK_M)));
+        actions.add(new SharpenFilterAction("Sharpen filter", null, "Apply a sharpening filter", null));
     }
 
     /**
@@ -53,6 +54,57 @@ public class FilterActions {
 
         return fileMenu;
     }
+
+    /**
+     * <p>
+     * Action to apply a sharpening filter to the image
+     * </p>
+     */
+    public class SharpenFilterAction extends ImageAction {
+
+        /**
+         * Creates a new Sharpen-Filter Action
+         * 
+         * @param name The name of the action
+         * @param icon Image icon associated with the action
+         * @param desc A description of what the action does
+         * @param mnemonic The shortcut for using the action
+         */
+        SharpenFilterAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name,icon,desc,mnemonic);
+        }
+
+        /**
+         * Prompts the user for the degree to which they want
+         * to sharpen the image. Then parses this data to the
+         * SharpenFilter class.
+         * 
+         * @param e The action which called the event
+         */
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            
+            int sharpness = 1;
+            
+            SpinnerNumberModel sharpNumModel = new SpinnerNumberModel(sharpness, 1, 5, 1);
+            JSpinner sharpnessSpinner = new JSpinner(sharpNumModel);
+            float option = JOptionPane.showOptionDialog(null, sharpnessSpinner, "Enter sharpness amount", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+            
+            if (option == JOptionPane.CANCEL_OPTION) {
+                return;
+            } else if (option == JOptionPane.OK_OPTION) {
+                sharpness = sharpNumModel.getNumber().intValue();
+            }
+
+            target.getImage().apply(new SharpenFilter(sharpness));
+            target.repaint();
+            target.getParent().revalidate();
+        }
+
+        
+
+    }
+
 
     /**
      * <p>
