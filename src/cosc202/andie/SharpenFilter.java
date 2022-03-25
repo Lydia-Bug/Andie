@@ -20,6 +20,7 @@ public class SharpenFilter implements ImageOperation, java.io.Serializable{
      * Constructor for the class
      * 
      * @param sharpness The degree of sharpening
+     * 
      */
     SharpenFilter(int sharpness) {
         this.sharpness = sharpness;
@@ -48,7 +49,7 @@ public class SharpenFilter implements ImageOperation, java.io.Serializable{
 
         float[] filterArray = {0, -sharpness, 0,
                                -sharpness, (4*sharpness)+1, -sharpness,
-                               0, -sharpness, 0};
+                               0, -sharpness, 0}; //This array defines the operation being down on each kernal. Total must be 1
 
         Kernel kernel = new Kernel(3,3, filterArray);
         ConvolveOp convOp = new ConvolveOp(kernel, ConvolveOp.EDGE_NO_OP, null);

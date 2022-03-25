@@ -36,6 +36,7 @@ public class FilterActions {
         actions = new ArrayList<Action>();
         actions.add(new MeanFilterAction("Mean filter", null, "Apply a mean filter", Integer.valueOf(KeyEvent.VK_M)));
         actions.add(new SharpenFilterAction("Sharpen filter", null, "Apply a sharpening filter", null));
+        actions.add(new MedianFilterAction("Median filter", null, "Apply a median filter", null));
     }
 
     /**
@@ -53,6 +54,21 @@ public class FilterActions {
         }
 
         return fileMenu;
+    }
+
+    public class MedianFilterAction extends ImageAction {
+
+        MedianFilterAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name,icon,desc,mnemonic);
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            target.getImage().apply(new MedianFilter());
+            target.repaint();
+            target.getParent().revalidate();
+        }
+
     }
 
     /**
