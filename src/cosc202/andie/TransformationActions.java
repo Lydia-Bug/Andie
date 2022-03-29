@@ -19,4 +19,14 @@ public class TransformationActions {
         public TransformationActions() {
             actions = new ArrayList<Action>();
         }
+
+        public JMenu createMenu() {
+            JMenu fileMenu = new JMenu("Colour");
+    
+            for(Action action: actions) {
+                fileMenu.add(new JMenuItem(action));
+            }
+    
+            return fileMenu;
+        }
 }
