@@ -35,7 +35,7 @@ public class TransformationActions {
         }
     
         public void actionPerformed(ActionEvent e) {
-            target.getImage().apply(new Rotate90(90));
+            target.getImage().apply(new Rotate(90));
             target.repaint();
             target.getParent().revalidate();
         }
@@ -48,7 +48,7 @@ public class TransformationActions {
         }
     
         public void actionPerformed(ActionEvent e) {
-            target.getImage().apply(new Rotate90(270));
+            target.getImage().apply(new Rotate(270));
             target.repaint();
             target.getParent().revalidate();
         }
