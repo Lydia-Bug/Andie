@@ -95,6 +95,10 @@ public class Andie {
         ColourActions colourActions = new ColourActions();
         menuBar.add(colourActions.createMenu());
 
+        TransformationActions transformActions = new TransformationActions();
+        menuBar.add(transformActions.createMenu());
+
+
         frame.setJMenuBar(menuBar);
         frame.pack();
         frame.setVisible(true);
