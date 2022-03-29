@@ -15,7 +15,7 @@ public class Flip implements ImageOperation {
         int height = input.getHeight();
 
         if(isVertical) {
-            g.drawImage(input, 0, height, width, -1 * height, null);
+            g.drawImage(input, width, 0, width, -1 * height, null);
         }
         else {
             g.drawImage(input, width, 0, -1 * width, height, null);
