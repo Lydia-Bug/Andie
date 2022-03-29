@@ -1,7 +1,10 @@
-package cosc202.andie;
+package cosc202.andie.Filters;
 
 import java.awt.image.BufferedImage;
 import java.util.Arrays;
+
+import cosc202.andie.ImageOperation;
+
 import java.awt.Color;
 
 /**

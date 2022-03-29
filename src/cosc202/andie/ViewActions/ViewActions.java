@@ -1,8 +1,10 @@
-package cosc202.andie;
+package cosc202.andie.ViewActions;
 
 import java.util.*;
 import java.awt.event.*;
 import javax.swing.*;
+
+import cosc202.andie.ImageAction;
 
 /**
  * <p>

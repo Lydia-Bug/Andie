@@ -1,18 +1,42 @@
-//Skeleton Class for rotating an image 90 degrees to the left - needs documentation!
-
-package cosc202.andie;
+package cosc202.andie.Transformations;
 import java.awt.*;
 import java.awt.image.*;
 
+import cosc202.andie.ImageOperation;
 
-public class Rotate90 implements ImageOperation, java.io.Serializable {
+/**
+ * <p>
+ * ImageOperation to rotate an image. 
+ * </p>
+ * 
+ * <p>
+ * <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>
+ * </p>
+ * 
+ * @author Ella Taylor
+ * @version 1.0
+ */
+
+public class Rotate implements ImageOperation, java.io.Serializable {
 
     private int angle;
-
-    Rotate90(int angle) {
+    /**
+     * <p>
+     * Create a new Rotate operation.
+     * </p>
+     * @param angle The angle by which to rotate the image.
+     */
+    Rotate(int angle) {
         this.angle = angle;
     }
-
+    
+    /**
+     * <p>
+     * Rotate an image. 
+     * </p>
+     * @param input The image to be rotated.
+     * @return rotatedImage The rotated image. 
+     */
     public BufferedImage apply(BufferedImage input) {
 
         double rad = Math.toRadians(angle);
