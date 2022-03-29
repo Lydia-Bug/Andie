@@ -1,8 +1,10 @@
-package cosc202.andie;
+package cosc202.andie.Filters;
 
 import java.util.*;
 import java.awt.event.*;
 import javax.swing.*;
+
+import cosc202.andie.ImageAction;
 
 /**
  * <p>
@@ -37,6 +39,7 @@ public class FilterActions {
         actions.add(new MeanFilterAction("Mean filter", null, "Apply a mean filter", Integer.valueOf(KeyEvent.VK_M)));
         actions.add(new SharpenFilterAction("Sharpen filter", null, "Apply a sharpening filter", null));
         actions.add(new MedianFilterAction("Median filter", null, "Apply a median filter", null));
+        actions.add(new GuassianFilterAction("Gaussian filter", null, "Apply a gaussian filter", null));
     }
 
     /**
@@ -56,12 +59,60 @@ public class FilterActions {
         return fileMenu;
     }
 
+    public class GuassianFilterAction extends ImageAction {
+
+        GuassianFilterAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name,icon,desc,mnemonic);
+        }
+
+        /**
+         * Prompt the user for what the radius of the filter should be
+         * 
+         * @param e The action that triggered the event
+         * 
+         */
+        @Override
+        public void actionPerformed(ActionEvent e) {            
+            int radius = 3;
+
+            SpinnerNumberModel radNumModel = new SpinnerNumberModel(radius, 3,11,2);
+            JSpinner radSpinner=  new JSpinner(radNumModel);
+            float option = JOptionPane.showOptionDialog(null, radSpinner, "Enter radius of blur", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+
+            if (option == JOptionPane.CANCEL_OPTION) {
+                return;
+            } else if (option == JOptionPane.OK_OPTION) {
+                radius = radNumModel.getNumber().intValue();
+            }
+
+            target.getImage().apply(new GaussianFilter(radius));
+            target.repaint();
+            target.getParent().revalidate();
+        }
+
+    }
+
     public class MedianFilterAction extends ImageAction {
 
+        /**
+         * Constructor for median filter action
+         * 
+         * @param name Name of the function
+         * @param icon Icon for the function
+         * @param desc Description of the function
+         * @param mnemonic Shortcut key for the function
+         * 
+         */
         MedianFilterAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name,icon,desc,mnemonic);
         }
 
+        /**
+         * Applies the median filter
+         * 
+         * @param e The event which triggered the action
+         * 
+         */
         @Override
         public void actionPerformed(ActionEvent e) {
             target.getImage().apply(new MedianFilter());
@@ -115,10 +166,7 @@ public class FilterActions {
             target.getImage().apply(new SharpenFilter(sharpness));
             target.repaint();
             target.getParent().revalidate();
-        }
-
-        
-
+        }       
     }
 
 

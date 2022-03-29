@@ -1,8 +1,10 @@
-package cosc202.andie;
+package cosc202.andie.Filters;
 
 import java.awt.image.BufferedImage;
 import java.awt.image.ConvolveOp;
 import java.awt.image.Kernel;
+
+import cosc202.andie.ImageOperation;
 
 /**
  * Class to apply a sharpening filter
