@@ -4,28 +4,34 @@ package cosc202.andie;
 import java.awt.*;
 import java.awt.image.*;
 
+
 public class Rotate90 implements ImageOperation, java.io.Serializable {
 
-    private int degreesOfRotation;
+    private int angle;
 
-    Rotate90(int degreesOfRotation) {
-        this.degreesOfRotation = degreesOfRotation;
+    Rotate90(int angle) {
+        this.angle = angle;
     }
 
     public BufferedImage apply(BufferedImage input) {
 
-        int height = input.getHeight();
+        double rad = Math.toRadians(angle);
+        double sin = Math.abs(Math.sin(rad));
+        double cos = Math.abs(Math.cos(rad));
+
         int width = input.getWidth();
+        int height = input.getHeight();
 
-        BufferedImage rotatedImage = new BufferedImage(width, height, input.getType());
+        int newWidth = (int) Math.floor(width * cos + height * sin);
+        int newHeight = (int) Math.floor(width * sin + height * cos);
 
+        BufferedImage rotatedImage = new BufferedImage(newWidth, newHeight, input.getType());
         Graphics2D g = rotatedImage.createGraphics();
 
-        g.rotate(Math.toRadians(degreesOfRotation), width/2, height/2);
+        g.translate((newWidth - width) / 2, (newHeight - height) / 2);
+        g.rotate(rad, width / 2, height / 2);
         g.drawImage(input, null, 0, 0);
 
-
         return rotatedImage;
-    }
-    
+    } 
 }
