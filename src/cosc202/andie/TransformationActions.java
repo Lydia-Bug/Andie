@@ -16,6 +16,8 @@ public class TransformationActions {
         actions = new ArrayList<Action>();
         actions.add(new Rotate90ClockwiseAction("Rotate 90° clockwise", null, null, null));
         actions.add(new Rotate90AnticlockwiseAction("Rotate 90° anticlockwise", null, null, null));
+        actions.add(new VerticalFlipAction("Flip vertically", null, null, null));
+        actions.add(new HorizontalFlipAction("Flip horizontally", null, null, null));
     }
 
     public JMenu createMenu() {
@@ -53,4 +55,31 @@ public class TransformationActions {
             target.getParent().revalidate();
         }
     }
+
+    public class VerticalFlipAction extends ImageAction {
+
+        VerticalFlipAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+    
+        public void actionPerformed(ActionEvent e) {
+            target.getImage().apply(new Flip(true));
+            target.repaint();
+            target.getParent().revalidate();
+        }
+    }
+
+    public class HorizontalFlipAction extends ImageAction {
+
+        HorizontalFlipAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+    
+        public void actionPerformed(ActionEvent e) {
+            target.getImage().apply(new Flip(false));
+            target.repaint();
+            target.getParent().revalidate();
+        }
+    }
+
 }

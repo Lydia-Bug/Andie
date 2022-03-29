@@ -15,7 +15,7 @@ import java.awt.image.*;
  * @version 1.0
  */
 
-public class Rotate implements ImageOperation, java.io.Serializable {
+public class Rotate implements ImageOperation {
 
     private int angle;
     /**
