@@ -1,6 +1,8 @@
-package cosc202.andie;
+package cosc202.andie.Transformations;
 import java.awt.*;
 import java.awt.image.*;
+
+import cosc202.andie.ImageOperation;
 
 public class Flip implements ImageOperation {
     private boolean isVertical = true;
