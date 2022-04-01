@@ -51,9 +51,9 @@ public class AdjustBrightness implements ImageOperation, java.io.Serializable {
                 int g = (argb & 0x0000FF00) >> 8;
                 int b = (argb & 0x000000FF);
 
-                int newR = Math.max(Math.min((int)Math.round((r-127.5)+127.5*(1+(brightness/100))),255),0);
-                int newG = Math.max(Math.min((int)Math.round((g-127.5)+127.5*(1+(brightness/100))),255),0);
-                int newB = Math.max(Math.min((int)Math.round((b-127.5)+127.5*(1+(brightness/100))),255),0);
+                int newR = Math.max(Math.min((int)Math.round((r-127.5)+127.5*(1+(brightness/50))),255),0);
+                int newG = Math.max(Math.min((int)Math.round((g-127.5)+127.5*(1+(brightness/50))),255),0);
+                int newB = Math.max(Math.min((int)Math.round((b-127.5)+127.5*(1+(brightness/50))),255),0);
 
                 argb = (a << 24) | (newR << 16) | (newG << 8) | newB;
                 input.setRGB(x, y, argb);
