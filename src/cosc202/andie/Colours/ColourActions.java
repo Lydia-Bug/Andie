@@ -143,7 +143,7 @@ public class ColourActions {
             // Pop-up dialog box to ask for the brightness value.
             SpinnerNumberModel brightnessModel = new SpinnerNumberModel(1, -100, 100, 1);
             JSpinner brightnessSpinner = new JSpinner(brightnessModel);
-            int option = JOptionPane.showOptionDialog(null, brightnessSpinner, "Enter brightness value (negitve number for darkness)", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+            int option = JOptionPane.showOptionDialog(null, brightnessSpinner, "Enter brightness percentage", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 
             // Check the return value from the dialog box.
             if (option == JOptionPane.CANCEL_OPTION) {
@@ -199,10 +199,10 @@ public class ColourActions {
             // Determine the contrast- ask the user.
             double contrast = 1;
 
-            // Pop-up dialog box to ask for the brightness value.
+            // Pop-up dialog box to ask for the contrast value.
             SpinnerNumberModel contrastModel = new SpinnerNumberModel(1, -100, 100, 1);
             JSpinner contrastSpinner = new JSpinner(contrastModel);
-            int option = JOptionPane.showOptionDialog(null, contrastSpinner, "Enter brightness value (negitve number for darkness)", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+            int option = JOptionPane.showOptionDialog(null, contrastSpinner, "Enter contrast percentage", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 
             // Check the return value from the dialog box.
             if (option == JOptionPane.CANCEL_OPTION) {
