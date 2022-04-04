@@ -91,17 +91,17 @@ public class TransformationActions {
         }
 
         public void actionPerformed(ActionEvent e) {
-            int ScaleFactor = 1;
+            int ScaleFactor = 0;
 
-            SpinnerNumberModel sharpNumModel = new SpinnerNumberModel(ScaleFactor, 1, 5, 1);
-            JSpinner sharpnessSpinner = new JSpinner(sharpNumModel);
-            float option = JOptionPane.showOptionDialog(null, sharpnessSpinner, "Enter Image Scale factor",
+            SpinnerNumberModel ResizeNumModel = new SpinnerNumberModel(ScaleFactor, 0, 500, 10);
+            JSpinner ResizeSpinner = new JSpinner(ResizeNumModel);
+            float option = JOptionPane.showOptionDialog(null, ResizeSpinner, "Enter Image Scale factor",
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 
             if (option == JOptionPane.CANCEL_OPTION) {
                 return;
             } else if (option == JOptionPane.OK_OPTION) {
-                ScaleFactor = sharpNumModel.getNumber().intValue();
+                ScaleFactor = (ResizeNumModel.getNumber().intValue());
             }
 
             target.getImage().apply(new ResizeImage(ScaleFactor));

@@ -15,7 +15,7 @@ public class ResizeImage implements ImageOperation, java.io.Serializable {
 
     public ResizeImage(double scaleFactor) {
         this.scaleFactor = scaleFactor;
-        scaleFactor = scaleFactor / 1;
+        scaleFactor = scaleFactor;
         // this.newWidth = newWidth;
     }
 
@@ -26,13 +26,15 @@ public class ResizeImage implements ImageOperation, java.io.Serializable {
         int width = input.getWidth();
         int height = input.getHeight();
 
-        int newHeight = (int) (height * scaleFactor);
-        int newWidth = (int) (width * scaleFactor);
+        int newHeight = (int) (height * scaleFactor / 100);
+        int newWidth = (int) (width * scaleFactor / 100);
 
         Image img = input.getScaledInstance(newWidth, newHeight, Image.SCALE_AREA_AVERAGING);
         BufferedImage resizedImage = new BufferedImage(newWidth, newHeight, input.getType());
         Graphics2D g = resizedImage.createGraphics();
+
         g.drawImage(img, 0, 0, null);
+        g.dispose();
 
         return resizedImage;
     }
