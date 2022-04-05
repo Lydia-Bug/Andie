@@ -28,8 +28,15 @@ public class ResizeImage implements ImageOperation, java.io.Serializable {
 
         int newHeight = (int) (height * scaleFactor / 100);
         int newWidth = (int) (width * scaleFactor / 100);
+        Image img;
 
-        Image img = input.getScaledInstance(newWidth, newHeight, Image.SCALE_AREA_AVERAGING);
+        if (scaleFactor / 100 <= 1) {
+            img = input.getScaledInstance(newWidth, newHeight, Image.SCALE_AREA_AVERAGING);
+
+        } else {
+            img = input.getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH);
+        }
+
         BufferedImage resizedImage = new BufferedImage(newWidth, newHeight, input.getType());
         Graphics2D g = resizedImage.createGraphics();
 
