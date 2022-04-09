@@ -93,37 +93,49 @@ public class FileActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-            JFileChooser fileChooser = new JFileChooser();
-            int result = fileChooser.showOpenDialog(target);
-            
-            if (result == JFileChooser.APPROVE_OPTION) {
-                try {
-                    String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
-                    //checks if file is an image
-                    if(!(imageFilepath.substring(imageFilepath.length()-4).equals(".jpg") || imageFilepath.substring(imageFilepath.length()-4).equals(".png") || imageFilepath.substring(imageFilepath.length()-5).equals(".jpeg") || imageFilepath.substring(imageFilepath.length()-4).equals(".gif"))){
-                        JFrame exceptionFrame = new JFrame();
-                        JOptionPane.showMessageDialog(exceptionFrame, "Incorrect file type");
-                    }else{
-                        //checks if the file exists
-                        try{
-                            target.getImage();
-                            target.getImage().open(imageFilepath);
-                        } catch (Exception ex){
-                            JFrame exceptionFrame = new JFrame();
-                            JOptionPane.showMessageDialog(exceptionFrame, "File doesn't exist");
-                        }
-                    }
-                //will catch if image file is corrupt
-                } catch (Exception ex) {
-                    JFrame exceptionFrame = new JFrame();
-                    JOptionPane.showMessageDialog(exceptionFrame, "File didn't work");
-                   // System.exit(1);
-                    
+            boolean openImage = false;
+            if(EditableImage.isSaved()){
+                openImage = true;
+            }else{
+                int dialogButton = JOptionPane.YES_NO_OPTION;
+                int dialogResult = JOptionPane.showConfirmDialog (null, "Are you sure you want to open a new image without saving?","Warning",dialogButton);
+                if(dialogResult == JOptionPane.YES_OPTION){
+                    openImage = true;
                 }
-            }
+            } 
+            if(openImage){
+                JFileChooser fileChooser = new JFileChooser();
+                int result = fileChooser.showOpenDialog(target);
+                
+                if (result == JFileChooser.APPROVE_OPTION) {
+                    try {
+                        String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
+                        //checks if file is an image
+                        if(!(imageFilepath.substring(imageFilepath.length()-4).equals(".jpg") || imageFilepath.substring(imageFilepath.length()-4).equals(".png") || imageFilepath.substring(imageFilepath.length()-5).equals(".jpeg") || imageFilepath.substring(imageFilepath.length()-4).equals(".gif"))){
+                            JFrame exceptionFrame = new JFrame();
+                            JOptionPane.showMessageDialog(exceptionFrame, "Incorrect file type");
+                        }else{
+                            //checks if the file exists
+                            try{
+                                target.getImage();
+                                target.getImage().open(imageFilepath);
+                            } catch (Exception ex){
+                                JFrame exceptionFrame = new JFrame();
+                                JOptionPane.showMessageDialog(exceptionFrame, "File doesn't exist");
+                            }
+                        }
+                    //will catch if image file is corrupt
+                    } catch (Exception ex) {
+                        JFrame exceptionFrame = new JFrame();
+                        JOptionPane.showMessageDialog(exceptionFrame, "File didn't work");
+                    // System.exit(1);
+                        
+                    }
+                }
 
-            target.repaint();
-            target.getParent().revalidate();
+                target.repaint();
+                target.getParent().revalidate();
+            }
         }
 
     }
@@ -260,7 +272,15 @@ public class FileActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-            System.exit(0);
+            if(EditableImage.isSaved()){
+                System.exit(0);
+            }else{
+                int dialogButton = JOptionPane.YES_NO_OPTION;
+                int dialogResult = JOptionPane.showConfirmDialog (null, "Are you sure you want to exit without saving?","Warning",dialogButton);
+                if(dialogResult == JOptionPane.YES_OPTION){
+                    System.exit(0);
+                }
+            }    
         }
 
     }

@@ -46,6 +46,8 @@ public class EditableImage {
     /** The file where the operation sequence is stored. */
     private String opsFilename;
 
+    public static boolean isSaved;
+
     /**
      * <p>
      * Create a new EditableImage.
@@ -62,6 +64,8 @@ public class EditableImage {
         redoOps = new Stack<ImageOperation>();
         imageFilename = null;
         opsFilename = null;
+
+        isSaved = true;
     }
 
     /**
@@ -189,6 +193,8 @@ public class EditableImage {
         objOut.writeObject(this.ops);
         objOut.close();
         fileOut.close();
+
+        isSaved = true;
     }
 
 
@@ -223,6 +229,8 @@ public class EditableImage {
     public void apply(ImageOperation op) {
         current = op.apply(current);
         ops.add(op);
+
+        isSaved = false;
     }
 
     /**
@@ -233,6 +241,8 @@ public class EditableImage {
     public void undo() {
         redoOps.push(ops.pop());
         refresh();
+
+        isSaved = false;
     }
 
     /**
@@ -242,6 +252,8 @@ public class EditableImage {
      */
     public void redo()  {
         apply(redoOps.pop());
+
+        isSaved = false;
     }
 
     /**
@@ -272,6 +284,10 @@ public class EditableImage {
         for (ImageOperation op: ops) {
             current = op.apply(current);
         }
+    }
+
+    public static boolean isSaved(){
+        return isSaved;
     }
 
 }
