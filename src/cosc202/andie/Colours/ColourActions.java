@@ -138,7 +138,7 @@ public class ColourActions {
          */
         public void actionPerformed(ActionEvent e) {
             // Determine the brightness- ask the user.
-            double brightness = 1;
+            double brightness = 0;
 
             // Pop-up dialog box to ask for the brightness value.
             JSlider brightnessModel = new JSlider(JSlider.HORIZONTAL, -100, 100, 0);
@@ -202,7 +202,7 @@ public class ColourActions {
          */
         public void actionPerformed(ActionEvent e) {
             // Determine the contrast- ask the user.
-            double contrast = 1;
+            double contrast = 0;
 
             // Pop-up dialog box to ask for the contrast value.
             JSlider contrastModel = new JSlider(JSlider.HORIZONTAL, -100, 100, 0);

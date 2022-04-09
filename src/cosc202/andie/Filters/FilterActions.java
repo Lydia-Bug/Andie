@@ -73,16 +73,19 @@ public class FilterActions {
          */
         @Override
         public void actionPerformed(ActionEvent e) {            
-            int radius = 3;
-
-            SpinnerNumberModel radNumModel = new SpinnerNumberModel(radius, 3,11,2);
-            JSpinner radSpinner=  new JSpinner(radNumModel);
-            float option = JOptionPane.showOptionDialog(null, radSpinner, "Enter radius of blur", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
-
+            int radius = 1;
+            JSlider radNumModel = new JSlider(JSlider.HORIZONTAL, 0, 10, 0);
+        
+            radNumModel.setMajorTickSpacing(5);
+            radNumModel.setMinorTickSpacing(1);
+            radNumModel.setPaintTicks(true);
+            radNumModel.setPaintLabels(true);
+            
+            int option = JOptionPane.showOptionDialog(null, radNumModel, "Enter radius of blur",  JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
             if (option == JOptionPane.CANCEL_OPTION) {
                 return;
             } else if (option == JOptionPane.OK_OPTION) {
-                radius = radNumModel.getNumber().intValue();
+                radius = (int)radNumModel.getValue();
             }
 
             target.getImage().apply(new GaussianFilter(radius));
@@ -152,15 +155,19 @@ public class FilterActions {
         public void actionPerformed(ActionEvent e) {
             
             int sharpness = 1;
+            JSlider sharpNumModel = new JSlider(JSlider.HORIZONTAL, 0, 10, 0);
+        
+            sharpNumModel.setMajorTickSpacing(5);
+            sharpNumModel.setMinorTickSpacing(1);
+            sharpNumModel.setPaintTicks(true);
+            sharpNumModel.setPaintLabels(true);
             
-            SpinnerNumberModel sharpNumModel = new SpinnerNumberModel(sharpness, 1, 5, 1);
-            JSpinner sharpnessSpinner = new JSpinner(sharpNumModel);
-            float option = JOptionPane.showOptionDialog(null, sharpnessSpinner, "Enter sharpness amount", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+            int option = JOptionPane.showOptionDialog(null, sharpNumModel, "Enter sharpness amount",  JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
             
             if (option == JOptionPane.CANCEL_OPTION) {
                 return;
             } else if (option == JOptionPane.OK_OPTION) {
-                sharpness = sharpNumModel.getNumber().intValue();
+                sharpness = (int)sharpNumModel.getValue();
             }
 
             target.getImage().apply(new SharpenFilter(sharpness));
@@ -211,15 +218,20 @@ public class FilterActions {
             int radius = 1;
 
             // Pop-up dialog box to ask for the radius value.
-            SpinnerNumberModel radiusModel = new SpinnerNumberModel(1, 1, 10, 1);
-            JSpinner radiusSpinner = new JSpinner(radiusModel);
-            int option = JOptionPane.showOptionDialog(null, radiusSpinner, "Enter filter radius", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+            JSlider radiusModel = new JSlider(JSlider.HORIZONTAL, 0, 10, 0);
+        
+            radiusModel.setMajorTickSpacing(5);
+            radiusModel.setMinorTickSpacing(1);
+            radiusModel.setPaintTicks(true);
+            radiusModel.setPaintLabels(true);
+            
+            int option = JOptionPane.showOptionDialog(null, radiusModel, "Enter filter radius",  JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 
             // Check the return value from the dialog box.
             if (option == JOptionPane.CANCEL_OPTION) {
                 return;
             } else if (option == JOptionPane.OK_OPTION) {
-                radius = radiusModel.getNumber().intValue();
+                radius = (int)radiusModel.getValue();
             }
 
             // Create and apply the filter

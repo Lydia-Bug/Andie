@@ -93,15 +93,19 @@ public class TransformationActions {
         public void actionPerformed(ActionEvent e) {
             int ScaleFactor = 0;
 
-            SpinnerNumberModel ResizeNumModel = new SpinnerNumberModel(ScaleFactor, 0, 500, 10);
-            JSpinner ResizeSpinner = new JSpinner(ResizeNumModel);
-            float option = JOptionPane.showOptionDialog(null, ResizeSpinner, "Enter Image Scale factor",
-                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+            JSlider ResizeNumModel = new JSlider(JSlider.HORIZONTAL, 0, 500, 100);
+            
+            ResizeNumModel.setMajorTickSpacing(100);
+            ResizeNumModel.setMinorTickSpacing(10);
+            ResizeNumModel.setPaintTicks(true);
+            ResizeNumModel.setPaintLabels(true);
+            
+            int option = JOptionPane.showOptionDialog(null, ResizeNumModel, "Enter image scale factor",  JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 
             if (option == JOptionPane.CANCEL_OPTION) {
                 return;
             } else if (option == JOptionPane.OK_OPTION) {
-                ScaleFactor = (ResizeNumModel.getNumber().intValue());
+                ScaleFactor = (int)ResizeNumModel.getValue();
             }
 
             target.getImage().apply(new ResizeImage(ScaleFactor));
