@@ -95,13 +95,28 @@ public class FileActions {
         public void actionPerformed(ActionEvent e) {
             JFileChooser fileChooser = new JFileChooser();
             int result = fileChooser.showOpenDialog(target);
-
+            
             if (result == JFileChooser.APPROVE_OPTION) {
                 try {
                     String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
-                    target.getImage().open(imageFilepath);
+                    //checks if file is an image
+                    if(!(imageFilepath.substring(imageFilepath.length()-4).equals(".jpg") || imageFilepath.substring(imageFilepath.length()-4).equals(".png") || imageFilepath.substring(imageFilepath.length()-5).equals(".jpeg") || imageFilepath.substring(imageFilepath.length()-4).equals(".gif"))){
+                        JFrame exceptionFrame = new JFrame();
+                        JOptionPane.showMessageDialog(exceptionFrame, "Incorrect file type");
+                    }else{
+                        try{
+                            target.getImage();
+                            target.getImage().open(imageFilepath);
+                        } catch (Exception ex){
+                            JFrame exceptionFrame = new JFrame();
+                            JOptionPane.showMessageDialog(exceptionFrame, "File doesn't exist");
+                        }
+                    }
                 } catch (Exception ex) {
-                    System.exit(1);
+                    JFrame exceptionFrame = new JFrame();
+                    JOptionPane.showMessageDialog(exceptionFrame, "That file didn't work");
+                   // System.exit(1);
+                    
                 }
             }
 
