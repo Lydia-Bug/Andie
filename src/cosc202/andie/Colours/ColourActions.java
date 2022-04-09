@@ -141,15 +141,20 @@ public class ColourActions {
             double brightness = 1;
 
             // Pop-up dialog box to ask for the brightness value.
-            SpinnerNumberModel brightnessModel = new SpinnerNumberModel(1, -100, 100, 1);
-            JSpinner brightnessSpinner = new JSpinner(brightnessModel);
-            int option = JOptionPane.showOptionDialog(null, brightnessSpinner, "Enter brightness percentage", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
-
+            JSlider brightnessModel = new JSlider(JSlider.HORIZONTAL, -100, 100, 0);
+            
+            brightnessModel.setMajorTickSpacing(50);
+            brightnessModel.setMinorTickSpacing(5);
+            brightnessModel.setPaintTicks(true);
+            brightnessModel.setPaintLabels(true);
+            
+            int option = JOptionPane.showOptionDialog(null, brightnessModel, "Enter brightness percentage",  JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+            
             // Check the return value from the dialog box.
             if (option == JOptionPane.CANCEL_OPTION) {
                 return;
             } else if (option == JOptionPane.OK_OPTION) {
-                brightness = brightnessModel.getNumber().intValue();
+                brightness = (int)brightnessModel.getValue();
             }
 
             
@@ -200,15 +205,20 @@ public class ColourActions {
             double contrast = 1;
 
             // Pop-up dialog box to ask for the contrast value.
-            SpinnerNumberModel contrastModel = new SpinnerNumberModel(1, -100, 100, 1);
-            JSpinner contrastSpinner = new JSpinner(contrastModel);
-            int option = JOptionPane.showOptionDialog(null, contrastSpinner, "Enter contrast percentage", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+            JSlider contrastModel = new JSlider(JSlider.HORIZONTAL, -100, 100, 0);
+        
+            contrastModel.setMajorTickSpacing(50);
+            contrastModel.setMinorTickSpacing(5);
+            contrastModel.setPaintTicks(true);
+            contrastModel.setPaintLabels(true);
+            
+            int option = JOptionPane.showOptionDialog(null, contrastModel, "Enter contrast percentage",  JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 
             // Check the return value from the dialog box.
             if (option == JOptionPane.CANCEL_OPTION) {
                 return;
             } else if (option == JOptionPane.OK_OPTION) {
-                contrast = contrastModel.getNumber().intValue();
+                contrast = (int)contrastModel.getValue();
             }
 
             
