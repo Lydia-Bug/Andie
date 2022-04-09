@@ -104,6 +104,7 @@ public class FileActions {
                         JFrame exceptionFrame = new JFrame();
                         JOptionPane.showMessageDialog(exceptionFrame, "Incorrect file type");
                     }else{
+                        //checks if the file exists
                         try{
                             target.getImage();
                             target.getImage().open(imageFilepath);
@@ -112,9 +113,10 @@ public class FileActions {
                             JOptionPane.showMessageDialog(exceptionFrame, "File doesn't exist");
                         }
                     }
+                //will catch if image file is corrupt
                 } catch (Exception ex) {
                     JFrame exceptionFrame = new JFrame();
-                    JOptionPane.showMessageDialog(exceptionFrame, "That file didn't work");
+                    JOptionPane.showMessageDialog(exceptionFrame, "File didn't work");
                    // System.exit(1);
                     
                 }
