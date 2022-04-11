@@ -1,15 +1,3 @@
-This is just for reference I'll delete it later
-
-    The people who contributed to that task
-    All the ways to access that feature (e.g. menu, toolbar, keyboard shortcut)
-    How you went about testing that feature (this should be brief, say 2-3 lines, and say what tools you used and what cases you checked)
-    Any known issues with the current implementation, 
-
-For the more general features we'd also like some additional information:
-
-    For the Toolbar and Keyboard Shortcuts, a brief discussion about how you decided what features to make accessible
-    For Exception Handling and Error Avoidance a list of errors that you fixed and exceptions that you caught in the project generally (e.g. in File operations) not covered in the testing of the specific features you implemented 
-
 # Features
 
 ## **Filters**
@@ -32,12 +20,12 @@ For the more general features we'd also like some additional information:
 #### *Implmented by Lydia Acton*
 ### Brightness adjustment
 - Accessed via: Colour menu (Brightness option)
-- Tested on...
-- Known issues...
+- Tested on various images including different file types, and images with transparant backgrounds. Also tested that -100% would make it completly black, and 100% would make it completly white.
+- No known issues
 ### Contrast adjustment
-- Accessed via: 
-- Tested on...
-- Known issues...
+- Accessed via: Colour menu (Contrast option)
+- Tested on various images including different file types, and images with transparant backgrounds. 
+- No known issues
 <br/><br/>
 
 ## **Image Transform**
@@ -66,27 +54,19 @@ For the more general features we'd also like some additional information:
 - Known issues...
 <br/><br/>
 
-### **Image Export**
-#### *Implmented by Noah Greig*
-- Accessed via: 
-- Tested on...
-- Known issues...
-<br/><br/>
-
 ### **Exception handling**
 #### *Implmented by Lydia Acton*
-- Accessed via: 
-- Tested on...
-- Known issues...
-- For Exception Handling and Error Avoidance a list of errors that you fixed and exceptions that you caught in the project generally (e.g. in File operations) not covered in the testing of the specific features you implemented 
+- Opening an image: When you try and open an image it will give you an apropiate error message if you open a file that isn't an image, or try and open a file that doesn't exist, and if neither if those are the issue (such as a corrupt file) then it will still give an error message saying it was unable to open the image.
+- Tested by seeing what would happen if I tried to open files that weren't images, files that were images (.jpg, .png, .gif), files that weren't there, and corrupt files(a txt file name image.png). They all worked as expected.
+- The code can't tell spesifically if a file is corrupt, just if its unable to open it, so I can't give a spesific error message in that instant, but as far as I can tell thats not possible
+- Input for filters, adjustements, and transforms: Some of the filters, etc can't or it doesn't make sense for it to take a value above of below a certain range, for example negitive values wouldn't make sense for the filters. So instead of giving an error message, I have implemented silders instead of input boxes for the user is unable to go above or below a certain range. I think it also makes the input more intutive, rather then blindly inputing numbers. 
+- Tested the new sliders to make sure they did what was expected to the images, I didn't feel I had to be too comprehensive about this as it was an asthetic change mostly.
 <br/><br/>
 
 ### **Other error avoidance/prevention**
 #### *Implmented by Lydia Acton*
-- Accessed via: 
-- Tested on...
-- Known issues...
-- For Exception Handling and Error Avoidance a list of errors that you fixed and exceptions that you caught in the project generally (e.g. in File operations) not covered in the testing of the specific features you implemented 
+- Exiting without saving: If you try to exit or open a new image, without having saved the current one, it'll ask you if you want to continue since your work isn't saved. If your work is saved this dialog box won't come up.
+- Tested by making changes then exiting or opening a new image, and by either making no changes, or saving before exiting or opening a new image, both worked as expected.
 <br/><br/>
 
 ### **Toolbar for common operations**
