@@ -2,6 +2,10 @@ package cosc202.andie.ViewActions;
 
 import java.util.*;
 import java.awt.event.*;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import cosc202.andie.ImageAction;
@@ -63,6 +67,22 @@ public class ViewActions {
         return viewMenu;
     }
 
+    public JButton createZoomOutButton() throws IOException {
+        ImageIcon zoomOutIcon = new ImageIcon(ImageIO.read(new File("./src/zoom-out.png")));
+        JButton zoomOutButton = new JButton(zoomOutIcon);
+        zoomOutButton.addActionListener(new ZoomOutAction());
+
+        return zoomOutButton;
+    }
+
+    public JButton createZoomInButton() throws IOException {
+        ImageIcon zoomInIcon = new ImageIcon(ImageIO.read(new File("./src/zoom-in.png")));
+        JButton zoomInButton = new JButton(zoomInIcon);
+        zoomInButton.addActionListener(new ZoomInAction());
+
+        return zoomInButton;
+    }
+
     /**
      * <p>
      * Action to zoom in on an image.
@@ -88,6 +108,8 @@ public class ViewActions {
         ZoomInAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
+
+        ZoomInAction() {}
 
         /**
          * <p>
@@ -134,6 +156,8 @@ public class ViewActions {
         ZoomOutAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
+
+        ZoomOutAction() {}
 
         /**
          * <p>

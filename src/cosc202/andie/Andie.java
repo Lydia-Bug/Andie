@@ -3,8 +3,6 @@ package cosc202.andie;
 import java.io.*;
 import java.awt.*;
 import javax.swing.*;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 import cosc202.andie.Colours.ColourActions;
 import cosc202.andie.Filters.FilterActions;
@@ -32,7 +30,15 @@ import javax.imageio.*;
  * @author Steven Mills
  * @version 1.0
  */
-public class Andie implements ActionListener{
+public class Andie{
+    private static FileActions fileActions = new FileActions();
+    private static EditActions editActions = new EditActions();
+    private static ViewActions viewActions = new ViewActions();
+    private static FilterActions filterActions = new FilterActions();
+    private static ColourActions colourActions = new ColourActions();
+    private static TransformationActions transformActions = new TransformationActions();
+
+    
     /**
      * <p>
      * Launches the main GUI for the ANDIE program.
@@ -71,7 +77,6 @@ public class Andie implements ActionListener{
 
         frame.add(toolbar, BorderLayout.NORTH);
 
-
         // The main content area is an ImagePanel
         ImagePanel imagePanel = new ImagePanel();
         ImageAction.setTarget(imagePanel);
@@ -83,28 +88,22 @@ public class Andie implements ActionListener{
 
         // File menus are pretty standard, so things that usually go in File menus go
         // here.
-        FileActions fileActions = new FileActions();
         menuBar.add(fileActions.createMenu());
 
         // Likewise Edit menus are very common, so should be clear what might go here.
-        EditActions editActions = new EditActions();
         menuBar.add(editActions.createMenu());
 
         // View actions control how the image is displayed, but do not alter its actual
         // content
-        ViewActions viewActions = new ViewActions();
         menuBar.add(viewActions.createMenu());
 
         // Filters apply a per-pixel operation to the image, generally based on a local
         // window
-        FilterActions filterActions = new FilterActions();
         menuBar.add(filterActions.createMenu());
 
-        // Actions that affect the representation of colour in the image
-        ColourActions colourActions = new ColourActions();
+        // Actions that affect the representation of colour in the image        
         menuBar.add(colourActions.createMenu());
 
-        TransformationActions transformActions = new TransformationActions();
         menuBar.add(transformActions.createMenu());
 
         frame.setJMenuBar(menuBar);
@@ -118,58 +117,15 @@ public class Andie implements ActionListener{
     public static JButton zoomInButton;
     public static JButton saveButton;
 
-    private static void createJButtons(JToolBar toolbar) throws Exception{
-        ActionListener al = new Andie();
+    private static void createJButtons(JToolBar toolbar) throws Exception{       
+        toolbar.add(editActions.createUndoButton());
+        toolbar.add(editActions.createRedoButton());
+
+        toolbar.add(viewActions.createZoomOutButton());
+        toolbar.add(viewActions.createZoomInButton());
         
-        ImageIcon undoIcon = new ImageIcon(ImageIO.read(new File("./src/undo.png")));
-        undoButton = new JButton(undoIcon);        
-        undoButton.addActionListener(al);
-        toolbar.add(undoButton);
-
-        ImageIcon redoIcon = new ImageIcon(ImageIO.read(new File("./src/redo.png")));
-        redoButton = new JButton(redoIcon);
-        redoButton.addActionListener(al);
-        toolbar.add(redoButton);
-
-        ImageIcon zoomOutIcon = new ImageIcon(ImageIO.read(new File("./src/zoom-out.png")));
-        zoomOutButton = new JButton(zoomOutIcon);
-        zoomOutButton.addActionListener(al);
-        toolbar.add(zoomOutButton);
-
-        ImageIcon zoomInIcon = new ImageIcon(ImageIO.read(new File("./src/zoom-in.png")));
-        zoomInButton = new JButton(zoomInIcon);
-        zoomInButton.addActionListener(al);
-        toolbar.add(zoomInButton);
-
-        ImageIcon saveIcon = new ImageIcon(ImageIO.read(new File("./src/save.png")));
-        saveButton = new JButton(saveIcon);
-        saveButton.addActionListener(al);
-        toolbar.add(saveButton);
-
+        toolbar.add(fileActions.createSaveButton());
     }
-
-    public void actionPerformed(ActionEvent e) {
-        if(e.getSource() == undoButton) {
-            
-        }
-
-        if(e.getSource() == redoButton) {
-
-        }
-
-        if(e.getSource() == zoomOutButton) {
-
-        }
-
-        if(e.getSource() == zoomInButton) {
-
-        }
-
-        if(e.getSource() == saveButton) {
-
-        }
-    }
-    
 
     /**
      * <p>

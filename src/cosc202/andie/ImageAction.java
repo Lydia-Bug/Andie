@@ -61,6 +61,8 @@ public abstract class ImageAction extends AbstractAction {
         }
     }
 
+    protected ImageAction() {}
+
     /**
      * <p>
      * Set the target for ImageActions.
