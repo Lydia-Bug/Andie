@@ -31,6 +31,8 @@ import javax.imageio.*;
  * @version 1.0
  */
 public class Andie{
+
+    //There mught be reasons as to why I shouldn't do this but I really don't know
     private static FileActions fileActions = new FileActions();
     private static EditActions editActions = new EditActions();
     private static ViewActions viewActions = new ViewActions();
@@ -111,12 +113,12 @@ public class Andie{
         frame.setVisible(true);
     }
 
-    public static JButton undoButton;
-    public static JButton redoButton;
-    public static JButton zoomOutButton;
-    public static JButton zoomInButton;
-    public static JButton saveButton;
-
+    /**
+     * Create the JButtons for the toolbar
+     * 
+     * @param toolbar The toolbar for quick access to common commands
+     * @throws Exception
+     */
     private static void createJButtons(JToolBar toolbar) throws Exception{       
         toolbar.add(editActions.createUndoButton());
         toolbar.add(editActions.createRedoButton());

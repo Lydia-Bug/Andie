@@ -4,9 +4,6 @@ package cosc202.andie.Transformations;
 
 import java.awt.*;
 import java.awt.image.*;
-import java.lang.annotation.Target;
-import java.io.*;
-import javax.imageio.*;
 
 import cosc202.andie.ImageOperation;
 
@@ -15,7 +12,6 @@ public class ResizeImage implements ImageOperation, java.io.Serializable {
 
     public ResizeImage(double scaleFactor) {
         this.scaleFactor = scaleFactor;
-        scaleFactor = scaleFactor;
         // this.newWidth = newWidth;
     }
 

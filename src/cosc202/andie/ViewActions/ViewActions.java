@@ -67,6 +67,12 @@ public class ViewActions {
         return viewMenu;
     }
 
+    /**
+     * Create the zoom out button for the toolbar
+     * 
+     * @return A button which calls the zoom out action
+     * @throws IOException
+     */
     public JButton createZoomOutButton() throws IOException {
         ImageIcon zoomOutIcon = new ImageIcon(ImageIO.read(new File("./src/zoom-out.png")));
         JButton zoomOutButton = new JButton(zoomOutIcon);
@@ -75,6 +81,12 @@ public class ViewActions {
         return zoomOutButton;
     }
 
+    /**
+     * Create the zoom in button for the toolbar
+     * 
+     * @return A button which calls the zoom in action
+     * @throws IOException
+     */
     public JButton createZoomInButton() throws IOException {
         ImageIcon zoomInIcon = new ImageIcon(ImageIO.read(new File("./src/zoom-in.png")));
         JButton zoomInButton = new JButton(zoomInIcon);
@@ -109,6 +121,10 @@ public class ViewActions {
             super(name, icon, desc, mnemonic);
         }
 
+        /**
+        * Constructor which doesn't require parameters for use in the toolbar
+        * 
+        */
         ZoomInAction() {}
 
         /**
@@ -157,6 +173,10 @@ public class ViewActions {
             super(name, icon, desc, mnemonic);
         }
 
+        /**
+        * Constructor which doesn't require parameters for use in the toolbar
+        * 
+        */
         ZoomOutAction() {}
 
         /**

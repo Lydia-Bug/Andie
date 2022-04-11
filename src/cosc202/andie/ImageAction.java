@@ -61,6 +61,10 @@ public abstract class ImageAction extends AbstractAction {
         }
     }
 
+    /**
+     * Constructor which doesn't require parameters for use in the toolbar
+     * 
+     */
     protected ImageAction() {}
 
     /**
