@@ -2,6 +2,10 @@ package cosc202.andie;
 
 import java.util.*;
 import java.awt.event.*;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 /**
@@ -55,6 +59,20 @@ public class FileActions {
         }
 
         return fileMenu;
+    }
+
+    /**
+     * Create a save button for the tool bar
+     * 
+     * @return A button whichs calls the file save action
+     * @throws IOException
+     */
+    public JButton createSaveButton() throws IOException {
+        ImageIcon saveIcon = new ImageIcon(ImageIO.read(new File("./src/save.png")));
+        JButton saveButton = new JButton(saveIcon);
+        saveButton.addActionListener(new FileSaveAction());
+
+        return saveButton;
     }
 
     /**
@@ -162,6 +180,12 @@ public class FileActions {
         FileSaveAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
+
+        /**
+        * Constructor which doesn't require parameters for use in the toolbar
+        * 
+        */
+        FileSaveAction() {}
 
         /**
          * <p>

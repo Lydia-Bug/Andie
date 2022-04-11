@@ -2,6 +2,10 @@ package cosc202.andie;
 
 import java.util.*;
 import java.awt.event.*;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
  /**
@@ -22,7 +26,7 @@ import javax.swing.*;
  * @author Steven Mills
  * @version 1.0
  */
-public class EditActions {
+public class EditActions{
     
     /** A list of actions for the Edit menu. */
     protected ArrayList<Action> actions;
@@ -56,6 +60,34 @@ public class EditActions {
     }
 
     /**
+     * Create an undo button for the toolbar
+     * 
+     * @return A button which calls the undo action
+     * @throws IOException
+     */
+    public JButton createUndoButton() throws IOException {
+        ImageIcon undoIcon = new ImageIcon(ImageIO.read(new File("./src/undo.png")));
+        JButton undoButton = new JButton(undoIcon);
+        undoButton.addActionListener(new UndoAction());
+
+        return undoButton;
+    }
+
+    /**
+     * Create a redo button for the toolbar
+     * 
+     * @return A button which calls the redo action
+     * @throws IOException
+     */
+    public JButton createRedoButton() throws IOException{
+        ImageIcon redoIcon = new ImageIcon(ImageIO.read(new File("./src/redo.png")));
+        JButton redoButton = new JButton(redoIcon);
+        redoButton.addActionListener(new RedoAction());
+
+        return redoButton;
+    }
+
+    /**
      * <p>
      * Action to undo an {@link ImageOperation}.
      * </p>
@@ -77,6 +109,12 @@ public class EditActions {
         UndoAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
+
+        /**
+        * Constructor which doesn't require parameters for use in the toolbar
+        * 
+        */
+        UndoAction() {}
 
         /**
          * <p>
@@ -119,6 +157,12 @@ public class EditActions {
         RedoAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
+
+        /**
+        * Constructor which doesn't require parameters for use in the toolbar
+        * 
+        */
+        RedoAction() {}
 
         
         /**
