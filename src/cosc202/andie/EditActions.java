@@ -59,6 +59,12 @@ public class EditActions{
         return editMenu;
     }
 
+    /**
+     * Create an undo button for the toolbar
+     * 
+     * @return A button which calls the undo action
+     * @throws IOException
+     */
     public JButton createUndoButton() throws IOException {
         ImageIcon undoIcon = new ImageIcon(ImageIO.read(new File("./src/undo.png")));
         JButton undoButton = new JButton(undoIcon);
@@ -67,6 +73,12 @@ public class EditActions{
         return undoButton;
     }
 
+    /**
+     * Create a redo button for the toolbar
+     * 
+     * @return A button which calls the redo action
+     * @throws IOException
+     */
     public JButton createRedoButton() throws IOException{
         ImageIcon redoIcon = new ImageIcon(ImageIO.read(new File("./src/redo.png")));
         JButton redoButton = new JButton(redoIcon);
@@ -98,6 +110,10 @@ public class EditActions{
             super(name, icon, desc, mnemonic);
         }
 
+        /**
+        * Constructor which doesn't require parameters for use in the toolbar
+        * 
+        */
         UndoAction() {}
 
         /**
@@ -142,6 +158,10 @@ public class EditActions{
             super(name, icon, desc, mnemonic);
         }
 
+        /**
+        * Constructor which doesn't require parameters for use in the toolbar
+        * 
+        */
         RedoAction() {}
 
         

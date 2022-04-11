@@ -61,6 +61,12 @@ public class FileActions {
         return fileMenu;
     }
 
+    /**
+     * Create a save button for the tool bar
+     * 
+     * @return A button whichs calls the file save action
+     * @throws IOException
+     */
     public JButton createSaveButton() throws IOException {
         ImageIcon saveIcon = new ImageIcon(ImageIO.read(new File("./src/save.png")));
         JButton saveButton = new JButton(saveIcon);
@@ -175,6 +181,10 @@ public class FileActions {
             super(name, icon, desc, mnemonic);
         }
 
+        /**
+        * Constructor which doesn't require parameters for use in the toolbar
+        * 
+        */
         FileSaveAction() {}
 
         /**
