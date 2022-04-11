@@ -13,19 +13,21 @@ import cosc202.andie.ImageAction;
  * 
  * <p>
  * The Filter menu contains actions that update each pixel in an image based on
- * some small local neighbourhood. 
- * This includes a mean filter (a simple blur) in the sample code, but more operations will need to be added.
+ * some small local neighbourhood.
+ * This includes a mean filter (a simple blur) in the sample code, but more
+ * operations will need to be added.
  * </p>
  * 
- * <p> 
- * <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>
+ * <p>
+ * <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA
+ * 4.0</a>
  * </p>
  * 
  * @author Steven Mills
  * @version 1.0
  */
 public class FilterActions {
-    
+
     /** A list of actions for the Filter menu. */
     protected ArrayList<Action> actions;
 
@@ -52,7 +54,7 @@ public class FilterActions {
     public JMenu createMenu() {
         JMenu fileMenu = new JMenu("Filter");
 
-        for(Action action: actions) {
+        for (Action action : actions) {
             fileMenu.add(new JMenuItem(action));
         }
 
@@ -62,7 +64,7 @@ public class FilterActions {
     public class GuassianFilterAction extends ImageAction {
 
         GuassianFilterAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
-            super(name,icon,desc,mnemonic);
+            super(name, icon, desc, mnemonic);
         }
 
         /**
@@ -72,20 +74,21 @@ public class FilterActions {
          * 
          */
         @Override
-        public void actionPerformed(ActionEvent e) {            
+        public void actionPerformed(ActionEvent e) {
             int radius = 1;
             JSlider radNumModel = new JSlider(JSlider.HORIZONTAL, 5, 20, 5);
-        
+
             radNumModel.setMajorTickSpacing(5);
             radNumModel.setMinorTickSpacing(1);
             radNumModel.setPaintTicks(true);
             radNumModel.setPaintLabels(true);
-            
-            int option = JOptionPane.showOptionDialog(null, radNumModel, "Enter radius of blur",  JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+
+            int option = JOptionPane.showOptionDialog(null, radNumModel, "Enter radius of blur",
+                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
             if (option == JOptionPane.CANCEL_OPTION) {
                 return;
             } else if (option == JOptionPane.OK_OPTION) {
-                radius = (int)radNumModel.getValue();
+                radius = (int) radNumModel.getValue();
             }
 
             target.getImage().apply(new GaussianFilter(radius));
@@ -100,14 +103,14 @@ public class FilterActions {
         /**
          * Constructor for median filter action
          * 
-         * @param name Name of the function
-         * @param icon Icon for the function
-         * @param desc Description of the function
+         * @param name     Name of the function
+         * @param icon     Icon for the function
+         * @param desc     Description of the function
          * @param mnemonic Shortcut key for the function
          * 
          */
         MedianFilterAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
-            super(name,icon,desc,mnemonic);
+            super(name, icon, desc, mnemonic);
         }
 
         /**
@@ -135,13 +138,13 @@ public class FilterActions {
         /**
          * Creates a new Sharpen-Filter Action
          * 
-         * @param name The name of the action
-         * @param icon Image icon associated with the action
-         * @param desc A description of what the action does
+         * @param name     The name of the action
+         * @param icon     Image icon associated with the action
+         * @param desc     A description of what the action does
          * @param mnemonic The shortcut for using the action
          */
         SharpenFilterAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
-            super(name,icon,desc,mnemonic);
+            super(name, icon, desc, mnemonic);
         }
 
         /**
@@ -153,29 +156,29 @@ public class FilterActions {
          */
         @Override
         public void actionPerformed(ActionEvent e) {
-            
+
             int sharpness = 1;
             JSlider sharpNumModel = new JSlider(JSlider.HORIZONTAL, 0, 10, 0);
-        
+
             sharpNumModel.setMajorTickSpacing(5);
             sharpNumModel.setMinorTickSpacing(1);
             sharpNumModel.setPaintTicks(true);
             sharpNumModel.setPaintLabels(true);
-            
-            int option = JOptionPane.showOptionDialog(null, sharpNumModel, "Enter sharpness amount",  JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
-            
+
+            int option = JOptionPane.showOptionDialog(null, sharpNumModel, "Enter sharpness amount",
+                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+
             if (option == JOptionPane.CANCEL_OPTION) {
                 return;
             } else if (option == JOptionPane.OK_OPTION) {
-                sharpness = (int)sharpNumModel.getValue();
+                sharpness = (int) sharpNumModel.getValue();
             }
 
             target.getImage().apply(new SharpenFilter(sharpness));
             target.repaint();
             target.getParent().revalidate();
-        }       
+        }
     }
-
 
     /**
      * <p>
@@ -191,10 +194,10 @@ public class FilterActions {
          * Create a new mean-filter action.
          * </p>
          * 
-         * @param name The name of the action (ignored if null).
-         * @param icon An icon to use to represent the action (ignored if null).
-         * @param desc A brief description of the action  (ignored if null).
-         * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
+         * @param name     The name of the action (ignored if null).
+         * @param icon     An icon to use to represent the action (ignored if null).
+         * @param desc     A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
          */
         MeanFilterAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
@@ -207,7 +210,8 @@ public class FilterActions {
          * 
          * <p>
          * This method is called whenever the MeanFilterAction is triggered.
-         * It prompts the user for a filter radius, then applys an appropriately sized {@link MeanFilter}.
+         * It prompts the user for a filter radius, then applys an appropriately sized
+         * {@link MeanFilter}.
          * </p>
          * 
          * @param e The event triggering this callback.
@@ -219,19 +223,20 @@ public class FilterActions {
 
             // Pop-up dialog box to ask for the radius value.
             JSlider radiusModel = new JSlider(JSlider.HORIZONTAL, 0, 10, 0);
-        
+
             radiusModel.setMajorTickSpacing(5);
             radiusModel.setMinorTickSpacing(1);
             radiusModel.setPaintTicks(true);
             radiusModel.setPaintLabels(true);
-            
-            int option = JOptionPane.showOptionDialog(null, radiusModel, "Enter filter radius",  JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+
+            int option = JOptionPane.showOptionDialog(null, radiusModel, "Enter filter radius",
+                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 
             // Check the return value from the dialog box.
             if (option == JOptionPane.CANCEL_OPTION) {
                 return;
             } else if (option == JOptionPane.OK_OPTION) {
-                radius = (int)radiusModel.getValue();
+                radius = (int) radiusModel.getValue();
             }
 
             // Create and apply the filter

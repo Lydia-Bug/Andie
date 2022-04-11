@@ -15,11 +15,13 @@ public class TransformationActions {
 
     public TransformationActions() {
         actions = new ArrayList<Action>();
-        actions.add(new Rotate90ClockwiseAction("Rotate 90° clockwise", null, null, null));
-        actions.add(new Rotate90AnticlockwiseAction("Rotate 90° anticlockwise", null, null, null));
-        actions.add(new VerticalFlipAction("Flip vertically", null, null, null));
-        actions.add(new HorizontalFlipAction("Flip horizontally", null, null, null));
-        actions.add(new ResizeAction("Resize", null, null, null));
+        actions.add(new Rotate90ClockwiseAction("Rotate 90° clockwise", null, "Rotate 90° clockwise",
+                Integer.valueOf(KeyEvent.VK_H)));
+        actions.add(new Rotate90AnticlockwiseAction("Rotate 90° anticlockwise", null, "Rotate 90° anticlockwise",
+                Integer.valueOf(KeyEvent.VK_G)));
+        actions.add(new VerticalFlipAction("Flip vertically", null, "Flip vertically", null));
+        actions.add(new HorizontalFlipAction("Flip horizontally", null, "Flip horizontally", null));
+        actions.add(new ResizeAction("Resize", null, "Resize", Integer.valueOf(KeyEvent.VK_R)));
     }
 
     public JMenu createMenu() {
@@ -94,18 +96,19 @@ public class TransformationActions {
             int ScaleFactor = 0;
 
             JSlider ResizeNumModel = new JSlider(JSlider.HORIZONTAL, 0, 500, 100);
-            
+
             ResizeNumModel.setMajorTickSpacing(100);
             ResizeNumModel.setMinorTickSpacing(10);
             ResizeNumModel.setPaintTicks(true);
             ResizeNumModel.setPaintLabels(true);
-            
-            int option = JOptionPane.showOptionDialog(null, ResizeNumModel, "Enter image scale factor",  JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+
+            int option = JOptionPane.showOptionDialog(null, ResizeNumModel, "Enter image scale factor",
+                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 
             if (option == JOptionPane.CANCEL_OPTION) {
                 return;
             } else if (option == JOptionPane.OK_OPTION) {
-                ScaleFactor = (int)ResizeNumModel.getValue();
+                ScaleFactor = (int) ResizeNumModel.getValue();
             }
 
             target.getImage().apply(new ResizeImage(ScaleFactor));
