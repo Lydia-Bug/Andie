@@ -74,7 +74,7 @@ public class FilterActions {
         @Override
         public void actionPerformed(ActionEvent e) {            
             int radius = 1;
-            JSlider radNumModel = new JSlider(JSlider.HORIZONTAL, 0, 10, 0);
+            JSlider radNumModel = new JSlider(JSlider.HORIZONTAL, 5, 20, 5);
         
             radNumModel.setMajorTickSpacing(5);
             radNumModel.setMinorTickSpacing(1);

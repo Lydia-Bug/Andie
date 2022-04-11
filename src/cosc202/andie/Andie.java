@@ -3,6 +3,8 @@ package cosc202.andie;
 import java.io.*;
 import java.awt.*;
 import javax.swing.*;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 import cosc202.andie.Colours.ColourActions;
 import cosc202.andie.Filters.FilterActions;
@@ -30,11 +32,7 @@ import javax.imageio.*;
  * @author Steven Mills
  * @version 1.0
  */
-public class Andie {
-    // Change made by Hamzah 2.0
-    //Test Lydia
-    // blah blah 
-    // blah blah
+public class Andie implements ActionListener{
     /**
      * <p>
      * Launches the main GUI for the ANDIE program.
@@ -48,8 +46,6 @@ public class Andie {
      * These operations are implemented {@link ImageOperation}s and triggerd via
      * {@code ImageAction}s grouped by their general purpose into menus.
      * </p>
-     * change made by Ella 
-     * branch test by Ella
      * @see ImagePanel
      * @see ImageAction
      * @see ImageOperation
@@ -68,6 +64,13 @@ public class Andie {
         Image image = ImageIO.read(new File("./src/icon.png"));
         frame.setIconImage(image);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        JToolBar toolbar = new JToolBar("test");
+        toolbar.setFloatable(false);
+        createJButtons(toolbar);
+
+        frame.add(toolbar, BorderLayout.NORTH);
+
 
         // The main content area is an ImagePanel
         ImagePanel imagePanel = new ImagePanel();
@@ -104,11 +107,69 @@ public class Andie {
         TransformationActions transformActions = new TransformationActions();
         menuBar.add(transformActions.createMenu());
 
-
         frame.setJMenuBar(menuBar);
         frame.pack();
         frame.setVisible(true);
     }
+
+    public static JButton undoButton;
+    public static JButton redoButton;
+    public static JButton zoomOutButton;
+    public static JButton zoomInButton;
+    public static JButton saveButton;
+
+    private static void createJButtons(JToolBar toolbar) throws Exception{
+        ActionListener al = new Andie();
+        
+        ImageIcon undoIcon = new ImageIcon(ImageIO.read(new File("./src/undo.png")));
+        undoButton = new JButton(undoIcon);        
+        undoButton.addActionListener(al);
+        toolbar.add(undoButton);
+
+        ImageIcon redoIcon = new ImageIcon(ImageIO.read(new File("./src/redo.png")));
+        redoButton = new JButton(redoIcon);
+        redoButton.addActionListener(al);
+        toolbar.add(redoButton);
+
+        ImageIcon zoomOutIcon = new ImageIcon(ImageIO.read(new File("./src/zoom-out.png")));
+        zoomOutButton = new JButton(zoomOutIcon);
+        zoomOutButton.addActionListener(al);
+        toolbar.add(zoomOutButton);
+
+        ImageIcon zoomInIcon = new ImageIcon(ImageIO.read(new File("./src/zoom-in.png")));
+        zoomInButton = new JButton(zoomInIcon);
+        zoomInButton.addActionListener(al);
+        toolbar.add(zoomInButton);
+
+        ImageIcon saveIcon = new ImageIcon(ImageIO.read(new File("./src/save.png")));
+        saveButton = new JButton(saveIcon);
+        saveButton.addActionListener(al);
+        toolbar.add(saveButton);
+
+    }
+
+    public void actionPerformed(ActionEvent e) {
+        if(e.getSource() == undoButton) {
+            
+        }
+
+        if(e.getSource() == redoButton) {
+
+        }
+
+        if(e.getSource() == zoomOutButton) {
+
+        }
+
+        if(e.getSource() == zoomInButton) {
+
+        }
+
+        if(e.getSource() == saveButton) {
+
+        }
+    }
+    
 
     /**
      * <p>
@@ -137,5 +198,3 @@ public class Andie {
         });
     }
 }
-
-// This comment is made by Callum Walker, swag
