@@ -1,18 +1,66 @@
-## Getting Started
+# Features
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+## **Filters**
+#### *Implmented by Callum Walker*
+### Sharpen filter
+stuff
+### Gaussian blur filter
+stuff
+### Median filter
+stuff
+<br/><br/>
 
-## Folder Structure
+## **Colour Adjustments**
+#### *Implmented by Lydia Acton*
+### Brightness adjustment
+stuff
+### Contrast adjustment
+stuff
+<br/><br/>
 
-The workspace contains two folders by default, where:
+## **Image Transform**
+#### *Implmented by Ella Taylor*
+### Image rotations: 90◦ left; 90◦ right; 180◦
+stuff
+### Image flip: Horizontal; Vertical
+stuff
+<br/><br/>
 
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
+### **Image Resize**
+#### *Implmented by Hamzah Alansi*
+stuff
+<br/><br/>
 
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
+### **Image Export**
+#### *Implmented by Noah Greig*
+stuff
+<br/><br/>
 
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
+### **Image Export**
+#### *Implmented by Noah Greig*
+stuff
+<br/><br/>
 
-## Dependency Management
+### **Exception handling**
+#### *Implmented by Lydia Acton*
+stuff
+<br/><br/>
 
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+### **Other error avoidance/prevention**
+#### *Implmented by Lydia Acton*
+stuff
+<br/><br/>
+
+### **Toolbar for common operations**
+#### *Implmented by Callum Walker*
+stuff
+<br/><br/>
+
+### **Keyboard shortcuts**
+#### *Implmented by Hamzah Alansi*
+stuff
+<br/><br/>
+
+# Testing
+
+# Known Issues
