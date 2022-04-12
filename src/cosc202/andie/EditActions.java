@@ -51,10 +51,23 @@ public class EditActions{
      */
     public JMenu createMenu() {
         JMenu editMenu = new JMenu("Edit");
+        
+        editMenu.add(new JMenuItem(actions.get(0)));
+        JMenuItem item = new JMenuItem(actions.get(1));
 
+        //item.setAccelerator(KeyStroke.getKeyStroke('Y'));
+        //item.addActionListener(new RedoAction());
+        //editMenu.add(item);
+        actions.get(1).putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_Y, KeyEvent.CTRL_DOWN_MASK));
+        editMenu.add(new JMenuItem(actions.get(1)));
+
+/*
         for (Action action: actions) {
-            editMenu.add(new JMenuItem(action));
-        }
+            JMenuItem item = new JMenuItem(action);
+            item.setMnemonic(keys[i]);
+            editMenu.add(item);
+            i++;
+        }*/
 
         return editMenu;
     }
@@ -177,7 +190,7 @@ public class EditActions{
          * 
          * @param e The event triggering this callback.
          */
-        public void actionPerformed(ActionEvent e) {
+        public void actionPerformed(ActionEvent e) {   
             target.getImage().redo();
             target.repaint();
             target.getParent().revalidate();
