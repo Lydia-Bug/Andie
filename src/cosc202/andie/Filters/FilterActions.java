@@ -49,13 +49,14 @@ public class FilterActions {
 
     /**
      * <p>
-     * Create a menu contianing the list of Filter actions.
+     * Create a menu containing the list of Filter actions
+     * and add keyboard shortcuts to each Filter action.
      * </p>
      * 
      * @return The filter menu UI element.
      */
     public JMenu createMenu() {
-        JMenu fileMenu = new JMenu("Filter");
+        JMenu filterMenu = new JMenu("Filter");
 
         actions.get(0).putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_M, KeyEvent.CTRL_DOWN_MASK));
         actions.get(1).putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_J, KeyEvent.CTRL_DOWN_MASK));
@@ -64,18 +65,11 @@ public class FilterActions {
         actions.get(3).putValue(Action.ACCELERATOR_KEY,
                 KeyStroke.getKeyStroke(KeyEvent.VK_L, KeyEvent.CTRL_DOWN_MASK));
 
-        fileMenu.add(new JMenuItem(actions.get(0)));
-        fileMenu.add(new JMenuItem(actions.get(1)));
-        fileMenu.add(new JMenuItem(actions.get(2)));
-        fileMenu.add(new JMenuItem(actions.get(3)));
+        for (Action action : actions) {
+            filterMenu.add(new JMenuItem(action));
+        }
 
-        /*
-         * for (Action action : actions) {
-         * fileMenu.add(new JMenuItem(action));
-         * }
-         */
-
-        return fileMenu;
+        return filterMenu;
     }
 
     public class GuassianFilterAction extends ImageAction {

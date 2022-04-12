@@ -52,7 +52,8 @@ public class ViewActions {
 
     /**
      * <p>
-     * Create a menu containing the list of View actions.
+     * Create a menu containing the list of View actions
+     * and assign keyboard shortcuts to each View action.
      * </p>
      * 
      * @return The view menu UI element.
@@ -66,15 +67,9 @@ public class ViewActions {
         actions.get(2).putValue(Action.ACCELERATOR_KEY,
                 KeyStroke.getKeyStroke(KeyEvent.VK_1, KeyEvent.CTRL_DOWN_MASK));
 
-        viewMenu.add(new JMenuItem(actions.get(0)));
-        viewMenu.add(new JMenuItem(actions.get(1)));
-        viewMenu.add(new JMenuItem(actions.get(2)));
-
-        /*
-         * for (Action action : actions) {
-         * viewMenu.add(new JMenuItem(action));
-         * }
-         */
+        for (Action action : actions) {
+            viewMenu.add(new JMenuItem(action));
+        }
 
         return viewMenu;
     }

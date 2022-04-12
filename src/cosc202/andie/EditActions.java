@@ -46,30 +46,20 @@ public class EditActions {
 
     /**
      * <p>
-     * Create a menu contianing the list of Edit actions.
+     * Create a menu containing the list of Edit actions
+     * and assign keyboard shortcuts to each edit action.
      * </p>
      * 
      * @return The edit menu UI element.
      */
     public JMenu createMenu() {
         JMenu editMenu = new JMenu("Edit");
-
-        // item.setAccelerator(KeyStroke.getKeyStroke('Y'));
-        // item.addActionListener(new RedoAction());
-        // editMenu.add(item);
         actions.get(0).putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_Z, KeyEvent.CTRL_DOWN_MASK));
         actions.get(1).putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_Y, KeyEvent.CTRL_DOWN_MASK));
-        editMenu.add(new JMenuItem(actions.get(0)));
-        editMenu.add(new JMenuItem(actions.get(1)));
 
-        /*
-         * for (Action action: actions) {
-         * JMenuItem item = new JMenuItem(action);
-         * item.setMnemonic(keys[i]);
-         * editMenu.add(item);
-         * i++;
-         * }
-         */
+        for (Action action : actions) {
+            editMenu.add(new JMenuItem(action));
+        }
 
         return editMenu;
     }

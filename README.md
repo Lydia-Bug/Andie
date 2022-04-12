@@ -42,9 +42,9 @@
 
 ### **Image Resize**
 #### *Implmented by Hamzah Alansi*
-- Accessed via: 
-- Tested on...
-- Known issues...
+- Accessed via: Transform menu (Resize), and Key shortcuts (Ctrl + R);
+- Tested on: different type of images with different file types and transparent background.
+- No Known issues. 
 <br/><br/>
 
 ### **Image Export**
@@ -78,10 +78,10 @@
 <br/><br/>
 
 ### **Keyboard shortcuts**
-#### *Implmented by Hamzah Alansi*
-- Accessed via: 
-- Tested on...
-- Known issues...
-- For the Toolbar and Keyboard Shortcuts, a brief discussion about how you decided what features to make accessible
+#### *Implmented by Hamzah Alansi, Lydia Acton*
+- Accessed via: Keyboard keys
+- Tested on Different type of images with different background transparencies.
+- No Known issues. 
+- Keyboard shortcuts were chosen based on previous experience using Image Editing softwares and their shortcuts. However, for actions that were not marked with shortcuts in such softwares and therefore not experienced. I decided to add shortcuts to them that were a bit logical to the action for example, flip horizontal would be ctrl + UP_ARROW (OR DOWN_ARROW in which case I just happened to choose the UP_ARROW).
 <br/><br/>
 

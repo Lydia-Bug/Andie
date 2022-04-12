@@ -27,9 +27,19 @@ public class TransformationActions {
                 new ResizeAction("Resize", null, "Resize Image", Integer.valueOf(KeyEvent.VK_R)));
     }
 
+    /**
+     * <p>
+     * Create a menu containing the list of Transformation actions
+     * and assign keyboard shortcuts to Transformation action.
+     * </p>
+     * 
+     * @return The Transformation menu UI element.
+     */
+
     public JMenu createMenu() {
-        JMenu fileMenu = new JMenu("Transform");
-        actions.get(0).putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_H, KeyEvent.CTRL_DOWN_MASK));
+        JMenu TransformationMenu = new JMenu("Transform");
+        actions.get(0).putValue(Action.ACCELERATOR_KEY,
+                KeyStroke.getKeyStroke(KeyEvent.VK_COMMA, KeyEvent.CTRL_DOWN_MASK));
         actions.get(1).putValue(Action.ACCELERATOR_KEY,
                 KeyStroke.getKeyStroke(KeyEvent.VK_PERIOD, KeyEvent.CTRL_DOWN_MASK));
         actions.get(2).putValue(Action.ACCELERATOR_KEY,
@@ -38,19 +48,11 @@ public class TransformationActions {
                 KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, KeyEvent.CTRL_DOWN_MASK));
         actions.get(4).putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_R, KeyEvent.CTRL_DOWN_MASK));
 
-        fileMenu.add(new JMenuItem(actions.get(0)));
-        fileMenu.add(new JMenuItem(actions.get(1)));
-        fileMenu.add(new JMenuItem(actions.get(2)));
-        fileMenu.add(new JMenuItem(actions.get(3)));
-        fileMenu.add(new JMenuItem(actions.get(4)));
+        for (Action action : actions) {
+            TransformationMenu.add(new JMenuItem(action));
+        }
 
-        /*
-         * for (Action action : actions) {
-         * fileMenu.add(new JMenuItem(action));
-         * }
-         */
-
-        return fileMenu;
+        return TransformationMenu;
     }
 
     public class Rotate90ClockwiseAction extends ImageAction {
@@ -105,10 +107,55 @@ public class TransformationActions {
         }
     }
 
+    /**
+     * <p>
+     * Action to Resize an image.
+     * </p>
+     * 
+     * <p>
+     * Note that this action affects the way the image is displayed and its
+     * actual contents (Losing pixels/clarity).
+     * </p>
+     */
+
     public class ResizeAction extends ImageAction {
+
+        /**
+         * <p>
+         * Create a new Resize action.
+         * </p>
+         * 
+         * @param name     The name of the action (ignored if null).
+         * @param icon     An icon to use to represent the action (ignored if null).
+         * @param desc     A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
+         */
+
         ResizeAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
+
+        /**
+         * Default constructor which does not require parameters.
+         * 
+         */
+
+        ResizeAction() {
+        }
+
+        /**
+         * <p>
+         * Callback for when the Resize action is triggered.
+         * </p>
+         * 
+         * <p>
+         * This method is called whenever the ResizeAction is triggered.
+         * It pops up a new tab with a slider to resize the image, with the default
+         * percentage of the slider being 100%.
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
 
         public void actionPerformed(ActionEvent e) {
             int ScaleFactor = 0;

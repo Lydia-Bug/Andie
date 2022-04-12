@@ -47,7 +47,8 @@ public class FileActions {
 
     /**
      * <p>
-     * Create a menu contianing the list of File actions.
+     * Create a menu containing the list of File actions
+     * and assign keyboard shortcuts to each file action.
      * </p>
      * 
      * @return The File menu UI element.
@@ -60,16 +61,9 @@ public class FileActions {
         actions.get(2).putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_A, KeyEvent.CTRL_DOWN_MASK));
         actions.get(3).putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke("ESCAPE"));
 
-        fileMenu.add(new JMenuItem(actions.get(0)));
-        fileMenu.add(new JMenuItem(actions.get(1)));
-        fileMenu.add(new JMenuItem(actions.get(2)));
-        fileMenu.add(new JMenuItem(actions.get(3)));
-
-        /**
-         * for(Action action: actions) {
-         * fileMenu.add(new JMenuItem(action));
-         * }
-         */
+        for (Action action : actions) {
+            fileMenu.add(new JMenuItem(action));
+        }
 
         return fileMenu;
     }

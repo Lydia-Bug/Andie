@@ -48,28 +48,23 @@ public class ColourActions {
 
     /**
      * <p>
-     * Create a menu contianing the list of Colour actions.
+     * Create a menu containing the list of Colour actions
+     * and add keyboard shortcuts to each Colour action.
      * </p>
      * 
      * @return The colour menu UI element.
      */
     public JMenu createMenu() {
-        JMenu fileMenu = new JMenu("Colour");
-        actions.get(0).putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_U, KeyEvent.CTRL_DOWN_MASK));
+        JMenu ColourMenu = new JMenu("Colour");
+        actions.get(0).putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_G, KeyEvent.CTRL_DOWN_MASK));
         actions.get(1).putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_B, KeyEvent.CTRL_DOWN_MASK));
         actions.get(2).putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_C, KeyEvent.CTRL_DOWN_MASK));
 
-        fileMenu.add(new JMenuItem(actions.get(0)));
-        fileMenu.add(new JMenuItem(actions.get(1)));
-        fileMenu.add(new JMenuItem(actions.get(2)));
+        for (Action action : actions) {
+            ColourMenu.add(new JMenuItem(action));
+        }
 
-        /*
-         * for(Action action: actions) {
-         * fileMenu.add(new JMenuItem(action));
-         * }
-         */
-
-        return fileMenu;
+        return ColourMenu;
     }
 
     /**
