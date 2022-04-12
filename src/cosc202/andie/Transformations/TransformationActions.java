@@ -19,17 +19,36 @@ public class TransformationActions {
                 Integer.valueOf(KeyEvent.VK_H)));
         actions.add(new Rotate90AnticlockwiseAction("Rotate 90° anticlockwise", null, "Rotate 90° anticlockwise",
                 Integer.valueOf(KeyEvent.VK_G)));
-        actions.add(new VerticalFlipAction("Flip vertically", null, "Flip vertically", null));
-        actions.add(new HorizontalFlipAction("Flip horizontally", null, "Flip horizontally", null));
-        actions.add(new ResizeAction("Resize", null, "Resize", Integer.valueOf(KeyEvent.VK_R)));
+        actions.add(
+                new VerticalFlipAction("Flip vertically", null, "Flip vertically", Integer.valueOf(KeyEvent.VK_RIGHT)));
+        actions.add(new HorizontalFlipAction("Flip horizontally", null, "Flip horizontally",
+                Integer.valueOf(KeyEvent.VK_DOWN)));
+        actions.add(
+                new ResizeAction("Resize", null, "Resize Image", Integer.valueOf(KeyEvent.VK_R)));
     }
 
     public JMenu createMenu() {
         JMenu fileMenu = new JMenu("Transform");
+        actions.get(0).putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_H, KeyEvent.CTRL_DOWN_MASK));
+        actions.get(1).putValue(Action.ACCELERATOR_KEY,
+                KeyStroke.getKeyStroke(KeyEvent.VK_PERIOD, KeyEvent.CTRL_DOWN_MASK));
+        actions.get(2).putValue(Action.ACCELERATOR_KEY,
+                KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, KeyEvent.CTRL_DOWN_MASK));
+        actions.get(3).putValue(Action.ACCELERATOR_KEY,
+                KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, KeyEvent.CTRL_DOWN_MASK));
+        actions.get(4).putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_R, KeyEvent.CTRL_DOWN_MASK));
 
-        for (Action action : actions) {
-            fileMenu.add(new JMenuItem(action));
-        }
+        fileMenu.add(new JMenuItem(actions.get(0)));
+        fileMenu.add(new JMenuItem(actions.get(1)));
+        fileMenu.add(new JMenuItem(actions.get(2)));
+        fileMenu.add(new JMenuItem(actions.get(3)));
+        fileMenu.add(new JMenuItem(actions.get(4)));
+
+        /*
+         * for (Action action : actions) {
+         * fileMenu.add(new JMenuItem(action));
+         * }
+         */
 
         return fileMenu;
     }
@@ -87,7 +106,6 @@ public class TransformationActions {
     }
 
     public class ResizeAction extends ImageAction {
-
         ResizeAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
