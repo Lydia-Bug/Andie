@@ -39,9 +39,12 @@ public class FilterActions {
     public FilterActions() {
         actions = new ArrayList<Action>();
         actions.add(new MeanFilterAction("Mean filter", null, "Apply a mean filter", Integer.valueOf(KeyEvent.VK_M)));
-        actions.add(new SharpenFilterAction("Sharpen filter", null, "Apply a sharpening filter", null));
-        actions.add(new MedianFilterAction("Median filter", null, "Apply a median filter", null));
-        actions.add(new GuassianFilterAction("Gaussian filter", null, "Apply a gaussian filter", null));
+        actions.add(new SharpenFilterAction("Sharpen filter", null, "Apply a sharpening filter",
+                Integer.valueOf(KeyEvent.VK_J)));
+        actions.add(
+                new MedianFilterAction("Median filter", null, "Apply a median filter", Integer.valueOf(KeyEvent.VK_K)));
+        actions.add(new GuassianFilterAction("Gaussian filter", null, "Apply a gaussian filter",
+                Integer.valueOf(KeyEvent.VK_L)));
     }
 
     /**
@@ -54,9 +57,23 @@ public class FilterActions {
     public JMenu createMenu() {
         JMenu fileMenu = new JMenu("Filter");
 
-        for (Action action : actions) {
-            fileMenu.add(new JMenuItem(action));
-        }
+        actions.get(0).putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_M, KeyEvent.CTRL_DOWN_MASK));
+        actions.get(1).putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_J, KeyEvent.CTRL_DOWN_MASK));
+        actions.get(2).putValue(Action.ACCELERATOR_KEY,
+                KeyStroke.getKeyStroke(KeyEvent.VK_K, KeyEvent.CTRL_DOWN_MASK));
+        actions.get(3).putValue(Action.ACCELERATOR_KEY,
+                KeyStroke.getKeyStroke(KeyEvent.VK_L, KeyEvent.CTRL_DOWN_MASK));
+
+        fileMenu.add(new JMenuItem(actions.get(0)));
+        fileMenu.add(new JMenuItem(actions.get(1)));
+        fileMenu.add(new JMenuItem(actions.get(2)));
+        fileMenu.add(new JMenuItem(actions.get(3)));
+
+        /*
+         * for (Action action : actions) {
+         * fileMenu.add(new JMenuItem(action));
+         * }
+         */
 
         return fileMenu;
     }

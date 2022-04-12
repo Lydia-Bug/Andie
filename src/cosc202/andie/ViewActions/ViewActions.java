@@ -59,10 +59,22 @@ public class ViewActions {
      */
     public JMenu createMenu() {
         JMenu viewMenu = new JMenu("View");
+        actions.get(0).putValue(Action.ACCELERATOR_KEY,
+                KeyStroke.getKeyStroke(KeyEvent.VK_EQUALS, KeyEvent.CTRL_DOWN_MASK + KeyEvent.SHIFT_DOWN_MASK));
+        actions.get(1).putValue(Action.ACCELERATOR_KEY,
+                KeyStroke.getKeyStroke(KeyEvent.VK_MINUS, KeyEvent.CTRL_DOWN_MASK + KeyEvent.SHIFT_DOWN_MASK));
+        actions.get(2).putValue(Action.ACCELERATOR_KEY,
+                KeyStroke.getKeyStroke(KeyEvent.VK_1, KeyEvent.CTRL_DOWN_MASK));
 
-        for (Action action : actions) {
-            viewMenu.add(new JMenuItem(action));
-        }
+        viewMenu.add(new JMenuItem(actions.get(0)));
+        viewMenu.add(new JMenuItem(actions.get(1)));
+        viewMenu.add(new JMenuItem(actions.get(2)));
+
+        /*
+         * for (Action action : actions) {
+         * viewMenu.add(new JMenuItem(action));
+         * }
+         */
 
         return viewMenu;
     }
@@ -122,10 +134,11 @@ public class ViewActions {
         }
 
         /**
-        * Constructor which doesn't require parameters for use in the toolbar
-        * 
-        */
-        ZoomInAction() {}
+         * Constructor which doesn't require parameters for use in the toolbar
+         * 
+         */
+        ZoomInAction() {
+        }
 
         /**
          * <p>
@@ -174,10 +187,11 @@ public class ViewActions {
         }
 
         /**
-        * Constructor which doesn't require parameters for use in the toolbar
-        * 
-        */
-        ZoomOutAction() {}
+         * Constructor which doesn't require parameters for use in the toolbar
+         * 
+         */
+        ZoomOutAction() {
+        }
 
         /**
          * <p>

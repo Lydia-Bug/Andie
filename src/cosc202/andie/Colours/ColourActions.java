@@ -5,6 +5,7 @@ import java.awt.event.*;
 import javax.swing.*;
 
 import cosc202.andie.ImageAction;
+
 //lydia test
 /**
  * <p>
@@ -12,20 +13,23 @@ import cosc202.andie.ImageAction;
  * </p>
  * 
  * <p>
- * The Colour menu contains actions that affect the colour of each pixel directly 
+ * The Colour menu contains actions that affect the colour of each pixel
+ * directly
  * without reference to the rest of the image.
- * This includes conversion to greyscale in the sample code, but more operations will need to be added.
+ * This includes conversion to greyscale in the sample code, but more operations
+ * will need to be added.
  * </p>
  * 
- * <p> 
- * <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>
+ * <p>
+ * <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA
+ * 4.0</a>
  * </p>
  * 
  * @author Steven Mills
  * @version 1.0
  */
 public class ColourActions {
-    
+
     /** A list of actions for the Colour menu. */
     protected ArrayList<Action> actions;
 
@@ -37,7 +41,8 @@ public class ColourActions {
     public ColourActions() {
         actions = new ArrayList<Action>();
         actions.add(new ConvertToGreyAction("Greyscale", null, "Convert to greyscale", Integer.valueOf(KeyEvent.VK_G)));
-        actions.add(new AdjustBrightnessAction("Brightness", null, "Adjust brightness", Integer.valueOf(KeyEvent.VK_B)));
+        actions.add(
+                new AdjustBrightnessAction("Brightness", null, "Adjust brightness", Integer.valueOf(KeyEvent.VK_B)));
         actions.add(new AdjustContrastAction("Contrast", null, "Adjust contrast", Integer.valueOf(KeyEvent.VK_C)));
     }
 
@@ -50,10 +55,19 @@ public class ColourActions {
      */
     public JMenu createMenu() {
         JMenu fileMenu = new JMenu("Colour");
+        actions.get(0).putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_U, KeyEvent.CTRL_DOWN_MASK));
+        actions.get(1).putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_B, KeyEvent.CTRL_DOWN_MASK));
+        actions.get(2).putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_C, KeyEvent.CTRL_DOWN_MASK));
 
-        for(Action action: actions) {
-            fileMenu.add(new JMenuItem(action));
-        }
+        fileMenu.add(new JMenuItem(actions.get(0)));
+        fileMenu.add(new JMenuItem(actions.get(1)));
+        fileMenu.add(new JMenuItem(actions.get(2)));
+
+        /*
+         * for(Action action: actions) {
+         * fileMenu.add(new JMenuItem(action));
+         * }
+         */
 
         return fileMenu;
     }
@@ -72,10 +86,10 @@ public class ColourActions {
          * Create a new convert-to-grey action.
          * </p>
          * 
-         * @param name The name of the action (ignored if null).
-         * @param icon An icon to use to represent the action (ignored if null).
-         * @param desc A brief description of the action  (ignored if null).
-         * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
+         * @param name     The name of the action (ignored if null).
+         * @param icon     An icon to use to represent the action (ignored if null).
+         * @param desc     A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
          */
         ConvertToGreyAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
@@ -115,15 +129,15 @@ public class ColourActions {
          * Create a new change brightness action.
          * </p>
          * 
-         * @param name The name of the action (ignored if null).
-         * @param icon An icon to use to represent the action (ignored if null).
-         * @param desc A brief description of the action  (ignored if null).
-         * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
+         * @param name     The name of the action (ignored if null).
+         * @param icon     An icon to use to represent the action (ignored if null).
+         * @param desc     A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
          */
         AdjustBrightnessAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
-        
+
         /**
          * <p>
          * Callback for when the adjust brightness action is triggered.
@@ -142,22 +156,22 @@ public class ColourActions {
 
             // Pop-up dialog box to ask for the brightness value.
             JSlider brightnessModel = new JSlider(JSlider.HORIZONTAL, -100, 100, 0);
-            
+
             brightnessModel.setMajorTickSpacing(50);
             brightnessModel.setMinorTickSpacing(5);
             brightnessModel.setPaintTicks(true);
             brightnessModel.setPaintLabels(true);
-            
-            int option = JOptionPane.showOptionDialog(null, brightnessModel, "Enter brightness percentage",  JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
-            
+
+            int option = JOptionPane.showOptionDialog(null, brightnessModel, "Enter brightness percentage",
+                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+
             // Check the return value from the dialog box.
             if (option == JOptionPane.CANCEL_OPTION) {
                 return;
             } else if (option == JOptionPane.OK_OPTION) {
-                brightness = (int)brightnessModel.getValue();
+                brightness = (int) brightnessModel.getValue();
             }
 
-            
             target.getImage().apply(new AdjustBrightness(brightness));
             target.repaint();
             target.getParent().revalidate();
@@ -179,15 +193,15 @@ public class ColourActions {
          * Create a new change brightness action.
          * </p>
          * 
-         * @param name The name of the action (ignored if null).
-         * @param icon An icon to use to represent the action (ignored if null).
-         * @param desc A brief description of the action  (ignored if null).
-         * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
+         * @param name     The name of the action (ignored if null).
+         * @param icon     An icon to use to represent the action (ignored if null).
+         * @param desc     A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
          */
         AdjustContrastAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
-        
+
         /**
          * <p>
          * Callback for when the adjust contrastaction is triggered.
@@ -206,22 +220,22 @@ public class ColourActions {
 
             // Pop-up dialog box to ask for the contrast value.
             JSlider contrastModel = new JSlider(JSlider.HORIZONTAL, -100, 100, 0);
-        
+
             contrastModel.setMajorTickSpacing(50);
             contrastModel.setMinorTickSpacing(5);
             contrastModel.setPaintTicks(true);
             contrastModel.setPaintLabels(true);
-            
-            int option = JOptionPane.showOptionDialog(null, contrastModel, "Enter contrast percentage",  JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+
+            int option = JOptionPane.showOptionDialog(null, contrastModel, "Enter contrast percentage",
+                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 
             // Check the return value from the dialog box.
             if (option == JOptionPane.CANCEL_OPTION) {
                 return;
             } else if (option == JOptionPane.OK_OPTION) {
-                contrast = (int)contrastModel.getValue();
+                contrast = (int) contrastModel.getValue();
             }
 
-            
             target.getImage().apply(new AdjustContrast(contrast));
             target.repaint();
             target.getParent().revalidate();

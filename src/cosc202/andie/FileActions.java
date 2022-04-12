@@ -14,20 +14,21 @@ import javax.swing.*;
  * </p>
  * 
  * <p>
- * The File menu is very common across applications, 
+ * The File menu is very common across applications,
  * and there are several items that the user will expect to find here.
  * Opening and saving files is an obvious one, but also exiting the program.
  * </p>
  * 
- * <p> 
- * <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>
+ * <p>
+ * <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA
+ * 4.0</a>
  * </p>
  * 
  * @author Steven Mills
  * @version 1.0
  */
 public class FileActions {
-    
+
     /** A list of actions for the File menu. */
     protected ArrayList<Action> actions;
 
@@ -54,9 +55,21 @@ public class FileActions {
     public JMenu createMenu() {
         JMenu fileMenu = new JMenu("File");
 
-        for(Action action: actions) {
-            fileMenu.add(new JMenuItem(action));
-        }
+        actions.get(0).putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_O, KeyEvent.CTRL_DOWN_MASK));
+        actions.get(1).putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_S, KeyEvent.CTRL_DOWN_MASK));
+        actions.get(2).putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_A, KeyEvent.CTRL_DOWN_MASK));
+        actions.get(3).putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke("ESCAPE"));
+
+        fileMenu.add(new JMenuItem(actions.get(0)));
+        fileMenu.add(new JMenuItem(actions.get(1)));
+        fileMenu.add(new JMenuItem(actions.get(2)));
+        fileMenu.add(new JMenuItem(actions.get(3)));
+
+        /**
+         * for(Action action: actions) {
+         * fileMenu.add(new JMenuItem(action));
+         * }
+         */
 
         return fileMenu;
     }
@@ -89,10 +102,10 @@ public class FileActions {
          * Create a new file-open action.
          * </p>
          * 
-         * @param name The name of the action (ignored if null).
-         * @param icon An icon to use to represent the action (ignored if null).
-         * @param desc A brief description of the action  (ignored if null).
-         * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
+         * @param name     The name of the action (ignored if null).
+         * @param icon     An icon to use to represent the action (ignored if null).
+         * @param desc     A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
          */
         FileOpenAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
@@ -111,45 +124,49 @@ public class FileActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-            //checks if image is saved before opening image
+            // checks if image is saved before opening image
             boolean openImage = false;
-            if(EditableImage.isSaved()){
+            if (EditableImage.isSaved()) {
                 openImage = true;
-            }else{
+            } else {
                 int dialogButton = JOptionPane.YES_NO_OPTION;
-                int dialogResult = JOptionPane.showConfirmDialog (null, "Are you sure you want to open a new image without saving?","Warning",dialogButton);
-                if(dialogResult == JOptionPane.YES_OPTION){
+                int dialogResult = JOptionPane.showConfirmDialog(null,
+                        "Are you sure you want to open a new image without saving?", "Warning", dialogButton);
+                if (dialogResult == JOptionPane.YES_OPTION) {
                     openImage = true;
                 }
-            } 
+            }
 
-            if(openImage){
+            if (openImage) {
                 JFileChooser fileChooser = new JFileChooser();
                 int result = fileChooser.showOpenDialog(target);
-                
+
                 if (result == JFileChooser.APPROVE_OPTION) {
                     try {
                         String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
-                        //checks if file is an image 
-                        if(!(imageFilepath.substring(imageFilepath.length()-4).equals(".jpg") || imageFilepath.substring(imageFilepath.length()-4).equals(".png") || imageFilepath.substring(imageFilepath.length()-5).equals(".jpeg") || imageFilepath.substring(imageFilepath.length()-4).equals(".gif"))){
+                        // checks if file is an image
+                        if (!(imageFilepath.substring(imageFilepath.length() - 4).equals(".jpg")
+                                || imageFilepath.substring(imageFilepath.length() - 4).equals(".png")
+                                || imageFilepath.substring(imageFilepath.length() - 5).equals(".jpeg")
+                                || imageFilepath.substring(imageFilepath.length() - 4).equals(".gif"))) {
                             JFrame exceptionFrame = new JFrame();
                             JOptionPane.showMessageDialog(exceptionFrame, "Incorrect file type");
-                        }else{
-                            //checks if the file exists
-                            try{
+                        } else {
+                            // checks if the file exists
+                            try {
                                 target.getImage();
                                 target.getImage().open(imageFilepath);
-                            } catch (Exception ex){
+                            } catch (Exception ex) {
                                 JFrame exceptionFrame = new JFrame();
                                 JOptionPane.showMessageDialog(exceptionFrame, "Can't find that file");
                             }
                         }
-                    //if for any other reason the file can't open (if the file is corrupt)
+                        // if for any other reason the file can't open (if the file is corrupt)
                     } catch (Exception ex) {
                         JFrame exceptionFrame = new JFrame();
                         JOptionPane.showMessageDialog(exceptionFrame, "File didn't work");
-                    // System.exit(1);
-                        
+                        // System.exit(1);
+
                     }
                 }
 
@@ -174,20 +191,21 @@ public class FileActions {
          * Create a new file-save action.
          * </p>
          * 
-         * @param name The name of the action (ignored if null).
-         * @param icon An icon to use to represent the action (ignored if null).
-         * @param desc A brief description of the action  (ignored if null).
-         * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
+         * @param name     The name of the action (ignored if null).
+         * @param icon     An icon to use to represent the action (ignored if null).
+         * @param desc     A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
          */
         FileSaveAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
 
         /**
-        * Constructor which doesn't require parameters for use in the toolbar
-        * 
-        */
-        FileSaveAction() {}
+         * Constructor which doesn't require parameters for use in the toolbar
+         * 
+         */
+        FileSaveAction() {
+        }
 
         /**
          * <p>
@@ -203,7 +221,7 @@ public class FileActions {
          */
         public void actionPerformed(ActionEvent e) {
             try {
-                target.getImage().save();           
+                target.getImage().save();
             } catch (Exception ex) {
                 System.exit(1);
             }
@@ -225,16 +243,16 @@ public class FileActions {
          * Create a new file-save-as action.
          * </p>
          * 
-         * @param name The name of the action (ignored if null).
-         * @param icon An icon to use to represent the action (ignored if null).
-         * @param desc A brief description of the action  (ignored if null).
-         * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
+         * @param name     The name of the action (ignored if null).
+         * @param icon     An icon to use to represent the action (ignored if null).
+         * @param desc     A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
          */
         FileSaveAsAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
 
-         /**
+        /**
          * <p>
          * Callback for when the file-save-as action is triggered.
          * </p>
@@ -274,10 +292,10 @@ public class FileActions {
          * Create a new file-exit action.
          * </p>
          * 
-         * @param name The name of the action (ignored if null).
-         * @param icon An icon to use to represent the action (ignored if null).
-         * @param desc A brief description of the action  (ignored if null).
-         * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
+         * @param name     The name of the action (ignored if null).
+         * @param icon     An icon to use to represent the action (ignored if null).
+         * @param desc     A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
          */
         FileExitAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon);
@@ -285,7 +303,7 @@ public class FileActions {
             putValue(MNEMONIC_KEY, mnemonic);
         }
 
-         /**
+        /**
          * <p>
          * Callback for when the file-exit action is triggered.
          * </p>
@@ -298,16 +316,17 @@ public class FileActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-            //will check if image is saved before exiting
-            if(EditableImage.isSaved()){
+            // will check if image is saved before exiting
+            if (EditableImage.isSaved()) {
                 System.exit(0);
-            }else{
+            } else {
                 int dialogButton = JOptionPane.YES_NO_OPTION;
-                int dialogResult = JOptionPane.showConfirmDialog (null, "Are you sure you want to exit without saving?","Warning",dialogButton);
-                if(dialogResult == JOptionPane.YES_OPTION){
+                int dialogResult = JOptionPane.showConfirmDialog(null, "Are you sure you want to exit without saving?",
+                        "Warning", dialogButton);
+                if (dialogResult == JOptionPane.YES_OPTION) {
                     System.exit(0);
                 }
-            }    
+            }
         }
 
     }
