@@ -111,6 +111,7 @@ public class FileActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
+            //checks if image is saved before opening image
             boolean openImage = false;
             if(EditableImage.isSaved()){
                 openImage = true;
@@ -121,6 +122,7 @@ public class FileActions {
                     openImage = true;
                 }
             } 
+
             if(openImage){
                 JFileChooser fileChooser = new JFileChooser();
                 int result = fileChooser.showOpenDialog(target);
@@ -128,7 +130,7 @@ public class FileActions {
                 if (result == JFileChooser.APPROVE_OPTION) {
                     try {
                         String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
-                        //checks if file is an image
+                        //checks if file is an image 
                         if(!(imageFilepath.substring(imageFilepath.length()-4).equals(".jpg") || imageFilepath.substring(imageFilepath.length()-4).equals(".png") || imageFilepath.substring(imageFilepath.length()-5).equals(".jpeg") || imageFilepath.substring(imageFilepath.length()-4).equals(".gif"))){
                             JFrame exceptionFrame = new JFrame();
                             JOptionPane.showMessageDialog(exceptionFrame, "Incorrect file type");
@@ -139,10 +141,10 @@ public class FileActions {
                                 target.getImage().open(imageFilepath);
                             } catch (Exception ex){
                                 JFrame exceptionFrame = new JFrame();
-                                JOptionPane.showMessageDialog(exceptionFrame, "File doesn't exist");
+                                JOptionPane.showMessageDialog(exceptionFrame, "Can't find that file");
                             }
                         }
-                    //will catch if image file is corrupt
+                    //if for any other reason the file can't open (if the file is corrupt)
                     } catch (Exception ex) {
                         JFrame exceptionFrame = new JFrame();
                         JOptionPane.showMessageDialog(exceptionFrame, "File didn't work");
@@ -296,6 +298,7 @@ public class FileActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
+            //will check if image is saved before exiting
             if(EditableImage.isSaved()){
                 System.exit(0);
             }else{
