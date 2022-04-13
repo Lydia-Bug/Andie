@@ -3,17 +3,17 @@
 ## **Filters**
 #### *Implmented by Callum Walker*
 ### Sharpen filter
-- Accessed via: 
-- Tested on...
-- Known issues...
+- Accessed via: Filter Menu (Sharpen Option)
+- This was tested on multiple images of various file types, composition and quality
+- No known issues
 ### Gaussian blur filter
-- Accessed via: 
-- Tested on...
-- Known issues...
+- Accessed via: Filter Menu (Gaussian Blur Option)
+- This was tested on multiple images of various file types, composition and quality
+- No known issues
 ### Median filter
-- Accessed via: 
-- Tested on...
-- Known issues...
+- Accessed via: Filter Menu (Median Filter Option)
+- This was tested on multiple images of various file types, composition and quality
+- No known issues
 <br/><br/>
 
 ## **Colour Adjustments**
