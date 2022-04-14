@@ -3,27 +3,27 @@
 ## **Filters**
 #### *Implmented by Callum Walker*
 ### Sharpen filter
-- Accessed via: 
-- Tested on...
-- Known issues...
+- Accessed via: Filter Menu (Sharpen Option)
+- This was tested on multiple images of various file types, composition and quality
+- No known issues
 ### Gaussian blur filter
-- Accessed via: 
-- Tested on...
-- Known issues...
+- Accessed via: Filter Menu (Gaussian Blur Option)
+- This was tested on multiple images of various file types, composition and quality
+- No known issues
 ### Median filter
-- Accessed via: 
-- Tested on...
-- Known issues...
+- Accessed via: Filter Menu (Median Filter Option)
+- This was tested on multiple images of various file types, composition and quality
+- No known issues
 <br/><br/>
 
 ## **Colour Adjustments**
 #### *Implmented by Lydia Acton*
 ### Brightness adjustment
-- Accessed via: Colour menu (Brightness option)
+- Accessed via: Colour menu (Brightness option) and Key shortcuts (Ctrl + B);
 - Tested on various images including different file types, and images with transparant backgrounds. Also tested that -100% would make it completly black, and 100% would make it completly white.
 - No known issues
 ### Contrast adjustment
-- Accessed via: Colour menu (Contrast option)
+- Accessed via: Colour menu (Contrast option) and Key shortcuts (Ctrl + C);
 - Tested on various images including different file types, and images with transparant backgrounds. 
 - No known issues
 <br/><br/>
@@ -31,13 +31,13 @@
 ## **Image Transform**
 #### *Implmented by Ella Taylor*
 ### Image rotations: 90◦ left; 90◦ right; 180◦
-- Accessed via: 
-- Tested on...
-- Known issues...
+- Accessed via: Transformations menu (Options for rotating 90 degrees left or right). Keyboard shortcut - Ctrl-Comma for clockwise rotation and Ctrl-period for anticlockwise rotation. 
+- No testing framework was used, but this feature was tested on both square and rectangular images to ensure that image mapping was mathematically correct for both shapes. Both transparent PNG and solid JPEG images were tested, and all were rotated several times to assess image quality after many rotations. I initially used Graphics2D to implement this feature, but found that image quality declined significantly after only a few rotations. Additionally, many (> 5) rotations of images with white backgrounds would produce a blue grid overlaying the image. These issues were resolved when I switched to AffineTransform.
+- Known issues: After many rotations, a very narrow black border sometimes forms around the image. I assume this is due to the accumulation of slight precision errors in the values used in AffineTransform.x. This issue is very subtle and unlikely to be noticed by a user not specifically looking for it. Switching from a Graphics2D to an AffineTransform implementation significantly decreased the width of the border. 
 ### Image flip: Horizontal; Vertical
-- Accessed via: 
-- Tested on...
-- Known issues...
+- Accessed via: Transformations menu (Options for flipping horizontally or vertically). Keyboard shortcut - Ctrl-Down for vertical flip, Ctr-Right for horizontal flip. 
+- No testing framework was used. These features were tested in a similar manner to the image rotation features - a range of square and rectangular images (including PNGs with transparent backgrounds and JPEGs with solid backgrounds) were flipped many times to check for image quality deprecations. Image quality did not appear to decrease over time when AffineTransform was used.  
+- No known issues.
 <br/><br/>
 
 ### **Image Resize**
