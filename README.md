@@ -82,6 +82,6 @@
 - Accessed via: Keyboard keys
 - Tested on Different type of images with different background transparencies.
 - No Known issues. 
-- Keyboard shortcuts were chosen based on previous experience using Image Editing softwares and their shortcuts. However, for actions that were not marked with shortcuts in such softwares and therefore not experienced. I decided to add shortcuts to them that were a bit logical to the action for example, flip horizontal would be ctrl + UP_ARROW (OR DOWN_ARROW in which case I just happened to choose the UP_ARROW).
+- Keyboard shortcuts were chosen based on previous experience using Image Editing softwares and their shortcuts. However, for actions that were not marked with shortcuts in such softwares and therefore not experienced. I decided to add shortcuts to them that were a bit logical to the action for example, flip horizontal would be ctrl + RIGHT_ARROW (OR LEFT_ARROW in which case I just happened to choose the RIGHT_ARROW) because a horizontal flip would flip the image from right side to left side and vice versa.
 <br/><br/>
 
