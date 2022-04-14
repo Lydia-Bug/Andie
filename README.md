@@ -71,10 +71,7 @@
 
 ### **Toolbar for common operations**
 #### *Implmented by Callum Walker*
-- Accessed via: 
-- Tested on...
-- Known issues...
-- For the Toolbar and Keyboard Shortcuts, a brief discussion about how you decided what features to make accessible
+- Keyboard shortcuts were chosen based on previous experience using Image Editing softwares or other editing softwares
 <br/><br/>
 
 ### **Keyboard shortcuts**
