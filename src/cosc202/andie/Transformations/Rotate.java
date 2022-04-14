@@ -1,5 +1,5 @@
 package cosc202.andie.Transformations;
-import java.awt.*;
+import java.awt.geom.*;
 import java.awt.image.*;
 
 import cosc202.andie.ImageOperation;
@@ -7,6 +7,11 @@ import cosc202.andie.ImageOperation;
 /**
  * <p>
  * ImageOperation to rotate an image. 
+ * </p>
+ * 
+ * <p>
+ * Segments of this code are adapted from DelftStack, https://www.delftstack.com/howto/java/java-rotate-image/.
+ * Citation: Yadav, R. (2021, September 6). Rotate an image in Java. Delft Stack. Retrieved April 14, 2022, from https://www.delftstack.com/howto/java/java-rotate-image/ 
  * </p>
  * 
  * <p>
@@ -19,43 +24,43 @@ import cosc202.andie.ImageOperation;
 
 public class Rotate implements ImageOperation {
 
-    private int angle;
+    private boolean clockwise;
     /**
      * <p>
-     * Create a new Rotate operation.
+     * Constructor. Creates a new Rotate operation.
      * </p>
-     * @param angle The angle by which to rotate the image.
+     * @param clockwise Boolean datafield determining whether the image is rotated clockwise or anticlockwise.
      */
-    Rotate(int angle) {
-        this.angle = angle;
+    Rotate(boolean clockwise) {
+        this.clockwise = clockwise;
     }
     
     /**
      * <p>
-     * Rotate an image. 
+     * Uses the AffineTransform class to rotate and then translate an image by 90 degrees (clockwise or anticlockwise). 
      * </p>
      * @param input The image to be rotated.
-     * @return rotatedImage The rotated image. 
+     * @return input The rotated image. 
      */
     public BufferedImage apply(BufferedImage input) {
-
-        double rad = Math.toRadians(angle);
-        double sin = Math.abs(Math.sin(rad));
-        double cos = Math.abs(Math.cos(rad));
-
+        final double DEGREES_90 = Math.PI / 2;
         int width = input.getWidth();
         int height = input.getHeight();
+        double offset = (width - height) / 2;
+        AffineTransform tx = new AffineTransform();
 
-        int newWidth = (int) Math.floor(width * cos + height * sin);
-        int newHeight = (int) Math.floor(width * sin + height * cos);
+        if(clockwise) {
+            tx.rotate(DEGREES_90, width / 2, height / 2);
+            tx.translate(offset, offset);
+        }
+        else {
+            tx.rotate(-DEGREES_90, width / 2, height / 2);
+            tx.translate(-offset, -offset);    
+        }
 
-        BufferedImage rotatedImage = new BufferedImage(newWidth, newHeight, input.getType());
-        Graphics2D g = rotatedImage.createGraphics();
+        AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
+        input = op.filter(input, null);
 
-        g.translate((newWidth - width) / 2, (newHeight - height) / 2);
-        g.rotate(rad, width / 2, height / 2);
-        g.drawImage(input, null, 0, 0);
-
-        return rotatedImage;
-    } 
+        return input;
+    }
 }

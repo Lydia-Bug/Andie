@@ -6,7 +6,6 @@ import javax.swing.*;
 
 import cosc202.andie.ImageAction;
 
-//lydia test
 /**
  * <p>
  * Actions provided by the Colour menu.

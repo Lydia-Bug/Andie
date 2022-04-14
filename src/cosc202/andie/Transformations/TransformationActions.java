@@ -1,4 +1,21 @@
-//Documentation goes here!
+/**
+ * <p>
+ * Actions provided by the Transformations menu.
+ * </p>
+ * 
+ * <p>
+ * The Transformations menu contains actions that manipulate the coordinates of the image without changing the other
+ * qualities of each individual pixel (eg. the colour.) Includes actions to resize, rotate and flip images.
+ * </p>
+ * 
+ * <p>
+ * <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA
+ * 4.0</a>
+ * </p>
+ * 
+ * @author Ella Taylor and Hamzah Alansi
+ * @version 1.0
+ */
 
 package cosc202.andie.Transformations;
 
@@ -10,9 +27,13 @@ import cosc202.andie.ImageAction;
 
 public class TransformationActions {
 
-    /** A list of actions for the Resize, Rotate and Flip menu. */
     protected ArrayList<Action> actions;
 
+    /**
+     * <p>
+     * Constructor. Creates an ArrayList of Colour menu actions.
+     * </p>
+     */
     public TransformationActions() {
         actions = new ArrayList<Action>();
         actions.add(new Rotate90ClockwiseAction("Rotate 90° clockwise", null, "Rotate 90° clockwise",
@@ -29,8 +50,7 @@ public class TransformationActions {
 
     /**
      * <p>
-     * Create a menu containing the list of Transformation actions
-     * and assign keyboard shortcuts to Transformation action.
+     * Creates a menu containing the list of Transformation actions. Assigns keyboard shortcuts to each action.
      * </p>
      * 
      * @return The Transformation menu UI element.
@@ -55,38 +75,126 @@ public class TransformationActions {
         return TransformationMenu;
     }
 
+
+    /**
+     * <p>
+     * Action to rotate an image 90 degrees clockwise.
+     * </p>
+     * 
+     * @see Rotate
+     */
     public class Rotate90ClockwiseAction extends ImageAction {
 
+        /**
+         * <p>
+         * Create a new rotate clockwise action.
+         * </p>
+         * 
+         * @param name     The name of the action (ignored if null).
+         * @param icon     An icon to use to represent the action (ignored if null).
+         * @param desc     A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
+         */
         Rotate90ClockwiseAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
 
+        /**
+         * <p>
+         * Callback for when the rotate clockwise action is triggered.
+         * </p>
+         * 
+         * <p>
+         * This method is called whenever the Rotate90ClockwiseAction is triggered.
+         * It rotates the image 90 degrees clockwise.
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
         public void actionPerformed(ActionEvent e) {
-            target.getImage().apply(new Rotate(90));
+            target.getImage().apply(new Rotate(true));
             target.repaint();
             target.getParent().revalidate();
         }
     }
-
+    
+    /**
+     * <p>
+     * Action to rotate an image 90 degrees anticlockwise.
+     * </p>
+     * 
+     * @see Rotate
+     */
     public class Rotate90AnticlockwiseAction extends ImageAction {
 
+        /**
+         * <p>
+         * Create a new rotate anticlockwise action.
+         * </p>
+         * 
+         * @param name     The name of the action (ignored if null).
+         * @param icon     An icon to use to represent the action (ignored if null).
+         * @param desc     A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
+         */
         Rotate90AnticlockwiseAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
 
+        /**
+         * <p>
+         * Callback for when the rotate anticlockwise action is triggered.
+         * </p>
+         * 
+         * <p>
+         * This method is called whenever the Rotate90AntiClockwiseAction is triggered.
+         * It rotates the image 90 degrees anticlockwise.
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
         public void actionPerformed(ActionEvent e) {
-            target.getImage().apply(new Rotate(270));
+            target.getImage().apply(new Rotate(false));
             target.repaint();
             target.getParent().revalidate();
         }
     }
 
+    /**
+     * <p>
+     * Action to rotate an image 90 degrees anticlockwise.
+     * </p>
+     * 
+     * @see Flip
+     */
     public class VerticalFlipAction extends ImageAction {
 
+        /**
+         * <p>
+         * Create a new vertical flip action.
+         * </p>
+         * 
+         * @param name     The name of the action (ignored if null).
+         * @param icon     An icon to use to represent the action (ignored if null).
+         * @param desc     A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
+         */
         VerticalFlipAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
 
+        /**
+         * <p>
+         * Callback for when the vertical flip action is triggered.
+         * </p>
+         * 
+         * <p>
+         * This method is called whenever VerticalFlipAction is triggered.
+         * It flips the image vertically.
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
         public void actionPerformed(ActionEvent e) {
             target.getImage().apply(new Flip(true));
             target.repaint();
@@ -94,12 +202,41 @@ public class TransformationActions {
         }
     }
 
+    /**
+     * <p>
+     * Action to rotate an image 90 degrees anticlockwise.
+     * </p>
+     * 
+     * @see Flip
+     */
     public class HorizontalFlipAction extends ImageAction {
 
+        /**
+         * <p>
+         * Create a new horizontal flip action.
+         * </p>
+         * 
+         * @param name     The name of the action (ignored if null).
+         * @param icon     An icon to use to represent the action (ignored if null).
+         * @param desc     A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
+         */
         HorizontalFlipAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
 
+        /**
+         * <p>
+         * Callback for when the horizontal flip action is triggered.
+         * </p>
+         * 
+         * <p>
+         * This method is called whenever HorizontalFlipAction is triggered.
+         * It flips the image horizontally.
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
         public void actionPerformed(ActionEvent e) {
             target.getImage().apply(new Flip(false));
             target.repaint();
