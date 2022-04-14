@@ -44,14 +44,14 @@
 #### *Implmented by Hamzah Alansi*
 - Accessed via: Transform menu (Resize), and Key shortcuts (Ctrl + R);
 - Tested on: different type of images with different file types and transparent background.
-- No Known issues. 
+- No Known issues.
 <br/><br/>
 
 ### **Image Export**
 #### *Implmented by Noah Greig*
-- Accessed via: 
-- Tested on...
-- Known issues...
+- Accessed via: File menu (Save, Save As), Ctrl-S (Save), Ctrl-A (Save as) 
+- Tested on PNG and JPEG image files.
+- Does not currently work properly. Any image files created will have various features applied to them when opened in ANDIE, but not when opened in the Windows photo viewer (will appear to be a copy of the original image). This also applies to images which are modified directly and then saved (as opposed to creating a new image with Save As).
 <br/><br/>
 
 ### **Exception handling**
