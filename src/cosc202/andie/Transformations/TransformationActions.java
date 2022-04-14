@@ -50,7 +50,8 @@ public class TransformationActions {
 
     /**
      * <p>
-     * Creates a menu containing the list of Transformation actions. Assigns keyboard shortcuts to each action.
+     * Creates a menu containing the list of Transformation actions. Assigns
+     * keyboard shortcuts to each action.
      * </p>
      * 
      * @return The Transformation menu UI element.
@@ -63,9 +64,9 @@ public class TransformationActions {
         actions.get(1).putValue(Action.ACCELERATOR_KEY,
                 KeyStroke.getKeyStroke(KeyEvent.VK_PERIOD, KeyEvent.CTRL_DOWN_MASK));
         actions.get(2).putValue(Action.ACCELERATOR_KEY,
-                KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, KeyEvent.CTRL_DOWN_MASK));
-        actions.get(3).putValue(Action.ACCELERATOR_KEY,
                 KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, KeyEvent.CTRL_DOWN_MASK));
+        actions.get(3).putValue(Action.ACCELERATOR_KEY,
+                KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, KeyEvent.CTRL_DOWN_MASK));
         actions.get(4).putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_R, KeyEvent.CTRL_DOWN_MASK));
 
         for (Action action : actions) {
@@ -74,7 +75,6 @@ public class TransformationActions {
 
         return TransformationMenu;
     }
-
 
     /**
      * <p>
@@ -117,7 +117,7 @@ public class TransformationActions {
             target.getParent().revalidate();
         }
     }
-    
+
     /**
      * <p>
      * Action to rotate an image 90 degrees anticlockwise.
