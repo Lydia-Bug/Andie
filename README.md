@@ -19,11 +19,11 @@
 ## **Colour Adjustments**
 #### *Implmented by Lydia Acton*
 ### Brightness adjustment
-- Accessed via: Colour menu (Brightness option)
+- Accessed via: Colour menu (Brightness option) and Key shortcuts (Ctrl + B);
 - Tested on various images including different file types, and images with transparant backgrounds. Also tested that -100% would make it completly black, and 100% would make it completly white.
 - No known issues
 ### Contrast adjustment
-- Accessed via: Colour menu (Contrast option)
+- Accessed via: Colour menu (Contrast option) and Key shortcuts (Ctrl + C);
 - Tested on various images including different file types, and images with transparant backgrounds. 
 - No known issues
 <br/><br/>
