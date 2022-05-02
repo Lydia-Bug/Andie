@@ -142,6 +142,7 @@ public class FileActions {
                         if (!(imageFilepath.substring(imageFilepath.length() - 4).equals(".jpg")
                                 || imageFilepath.substring(imageFilepath.length() - 4).equals(".png")
                                 || imageFilepath.substring(imageFilepath.length() - 5).equals(".jpeg")
+                                || imageFilepath.substring(imageFilepath.length() - 4).equals(".JPG")
                                 || imageFilepath.substring(imageFilepath.length() - 4).equals(".gif"))) {
                             JFrame exceptionFrame = new JFrame();
                             JOptionPane.showMessageDialog(exceptionFrame, "Incorrect file type");
