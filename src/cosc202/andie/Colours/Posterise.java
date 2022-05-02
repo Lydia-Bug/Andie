@@ -47,73 +47,109 @@ public class Posterise implements ImageOperation, java.io.Serializable {
      * @return The resulting posterised image
      */
     public BufferedImage apply(BufferedImage input) {
-  
-        Random r = new Random();
-        int[] centroid1 = getRGBArray(input.getRGB(r.nextInt(input.getWidth()), r.nextInt(input.getHeight())));
-        int[] centroid2 = getRGBArray(input.getRGB(r.nextInt(input.getWidth()), r.nextInt(input.getHeight())));
-        int[] centroid3 = getRGBArray(input.getRGB(r.nextInt(input.getWidth()), r.nextInt(input.getHeight())));
-        int[] centroid4 = getRGBArray(input.getRGB(r.nextInt(input.getWidth()), r.nextInt(input.getHeight())));
-        int[] centroid5 = getRGBArray(input.getRGB(r.nextInt(input.getWidth()), r.nextInt(input.getHeight())));
-
-
-        ArrayList<int[]> cluster1 = new ArrayList<int[]>();
-        ArrayList<int[]> cluster2 = new ArrayList<int[]>();
-        ArrayList<int[]> cluster3 = new ArrayList<int[]>();
-        ArrayList<int[]> cluster4 = new ArrayList<int[]>();
-        ArrayList<int[]> cluster5 = new ArrayList<int[]>();
-
-        cluster1.add(centroid1);
-        cluster2.add(centroid2);
-        cluster3.add(centroid3);
-        cluster4.add(centroid4);
-        cluster5.add(centroid5);
-
-        //System.out.println(Arrays.toString(centroid1) + " " + Arrays.toString(centroid2) + " " + Arrays.toString(centroid3) + " " + Arrays.toString(centroid4) + " " + Arrays.toString(centroid5));
+        //Creates and array of clusters
+        ArrayList<int[]>[] clusters = new ArrayList[layers];
+        for(int i = 0; i < clusters.length; i++){
+            clusters[i] = new ArrayList<int[]>();
+        }
+        /* The clusters are initialized by puting the fist layers'th amount into the first 
+        * cluster, then the next layers'th amount into the next cluster and so on.
+        * Theres no sorting at this stage, this is just to initalize the arrays
+        * and the first data point in each cluster will be the first centroid
+        */ 
+        int cluster = 0;
+        int n = 0;
         for (int y = 0; y < input.getHeight(); ++y) {
             for (int x = 0; x < input.getWidth(); ++x) {
-                int cluster = 1;
-                double distance = distanceBetween(cluster1.get(0), getRGBArray(input.getRGB(x,y)));
-                if(distanceBetween(cluster2.get(0), getRGBArray(input.getRGB(x,y))) < distance){
-                    cluster = 2;
-                    distance = distanceBetween(cluster2.get(0), getRGBArray(input.getRGB(x,y)));
+                clusters[cluster].add(getRGBArray(input.getRGB(x,y)));
+                n++;
+                if((input.getHeight()*input.getWidth())/layers < n){
+                    cluster++;
+                    n = 0;
                 }
-                if(distanceBetween(cluster3.get(0), getRGBArray(input.getRGB(x,y))) < distance){
-                    cluster = 3;
-                    distance = distanceBetween(cluster3.get(0), getRGBArray(input.getRGB(x,y)));
-                }
-                if(distanceBetween(cluster4.get(0), getRGBArray(input.getRGB(x,y))) < distance){
-                    cluster = 4;
-                    distance = distanceBetween(cluster4.get(0), getRGBArray(input.getRGB(x,y)));
-                }
-                if(distanceBetween(cluster5.get(0), getRGBArray(input.getRGB(x,y))) < distance){
-                    cluster = 5;
-                    distance = distanceBetween(cluster5.get(0), getRGBArray(input.getRGB(x,y)));
-                }
-
-                if(cluster == 1){
-                    cluster1.add(getRGBArray(input.getRGB(x,y)));
-                }
-                if(cluster == 2){
-                    cluster2.add(getRGBArray(input.getRGB(x,y)));
-                }
-                if(cluster == 3){
-                    cluster3.add(getRGBArray(input.getRGB(x,y)));
-                }
-                if(cluster == 4){
-                    cluster4.add(getRGBArray(input.getRGB(x,y)));
-                }
-                if(cluster == 5){
-                    cluster5.add(getRGBArray(input.getRGB(x,y)));
-                }
-
-                
                 //argb = (a << 24) | (newR << 16) | (newG << 8) | newB;
                 //input.setRGB(x, y, argb);
             }
         }
+        
+        for(int runs = 0; runs < 10; runs++){
+            
+            //Find the mean of each cluster and place it at front of cluster array
+            for(ArrayList<int[]> cs : clusters){
+                int[] meanRGBA = {0,0,0,0};
+                for(int[] c : cs){
+                    meanRGBA[0] = meanRGBA[0] + c[0];
+                    meanRGBA[1] = meanRGBA[1] + c[1];
+                    meanRGBA[2] = meanRGBA[2] + c[2];
+                    meanRGBA[3] = meanRGBA[3] + c[3];
+                }
+                meanRGBA[0] = meanRGBA[0]/cs.size();
+                meanRGBA[1] = meanRGBA[1]/cs.size();
+                meanRGBA[2] = meanRGBA[2]/cs.size();
+                meanRGBA[3] = meanRGBA[3]/cs.size();
+                /* The above code finds the mean, but we want to find which existing data point
+                * is the mean, so we need to find which data point in the cluster is closest
+                * to the mean
+                */
+                int centroidIndex = 0;
+                double smallestDistance = distanceBetween(cs.get(0), meanRGBA);
+                for(int i = 0; i < cs.size(); i++){
+                    if(distanceBetween(cs.get(i), meanRGBA) < smallestDistance){
+                        smallestDistance = distanceBetween(cs.get(i), meanRGBA);
+                        centroidIndex = i;
+                    }
+                }
+                //Move mean data point to front of cluster
+                int[] centroid = cs.get(centroidIndex);
+                cs.remove(centroidIndex);
+                cs.add(0, centroid);
+            }
 
-        
-        
+            /* Goes through the clusters and points the points in clusters with their closest 
+            * centroid. This code will re-go over data points that were placed from one cluster
+            * to another, yet to have been goon over, so not as efficeint as it could be
+            * but should be fine
+            */
+            for(int c = 0; c < clusters.length; c++){  
+                for(int i = 0; i < clusters[c].size(); i++){
+                    //find the clostest centroid
+                    int clostestCentroidIndex = 0;
+                    double smallestDistance = distanceBetween(clusters[c].get(i), clusters[0].get(0));
+                    for(int j = 0; j < clusters.length; j++){
+                        if(distanceBetween(clusters[c].get(i), clusters[j].get(0)) < smallestDistance){
+                            smallestDistance = distanceBetween(clusters[c].get(i), clusters[j].get(0));
+                            clostestCentroidIndex = j;
+                        }
+                    }
+                    //place data point in cluster with closted centroid
+                    if(clostestCentroidIndex == c){
+                        //do nothing already in correct cluster
+                    }else{
+                        clusters[clostestCentroidIndex].add(clusters[c].get(i));
+                        clusters[c].remove(i);
+                    }
+
+                }
+            }
+            
+    }
+    for (int y = 0; y < input.getHeight(); ++y) {
+        for (int x = 0; x < input.getWidth(); ++x) {
+            //find the clostest centroid
+            int clostestCentroidIndex = 0;
+            double smallestDistance = distanceBetween(getRGBArray(input.getRGB(x,y)), clusters[0].get(0));
+            for(int i = 0; i < clusters.length; i++){
+                    if(distanceBetween(getRGBArray(input.getRGB(x,y)), clusters[i].get(0)) < smallestDistance){
+                        smallestDistance = distanceBetween(getRGBArray(input.getRGB(x,y)), clusters[i].get(0));
+                        clostestCentroidIndex = i;
+                    }
+                }
+            int [] centroid = clusters[clostestCentroidIndex].get(0);
+            int argb = (centroid[0] << 24) | (centroid[1] << 16) | (centroid[2] << 8) | centroid[3];
+            input.setRGB(x, y, argb);
+        }
+    }
+    
         return input;
     }
 

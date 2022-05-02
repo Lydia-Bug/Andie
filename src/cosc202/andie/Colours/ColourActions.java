@@ -280,7 +280,7 @@ public class ColourActions {
             // Pop-up dialog box to ask for the contrast value.
             JSlider posteriseModel = new JSlider(JSlider.HORIZONTAL, 0, 30, 0);
 
-            posteriseModel.setMajorTickSpacing(50);
+            posteriseModel.setMajorTickSpacing(10);
             posteriseModel.setMinorTickSpacing(5);
             posteriseModel.setPaintTicks(true);
             posteriseModel.setPaintLabels(true);
