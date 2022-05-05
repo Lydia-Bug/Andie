@@ -281,7 +281,7 @@ public class ColourActions {
             JSlider posteriseModel = new JSlider(JSlider.HORIZONTAL, 0, 30, 0);
 
             posteriseModel.setMajorTickSpacing(10);
-            posteriseModel.setMinorTickSpacing(5);
+            posteriseModel.setMinorTickSpacing(1);
             posteriseModel.setPaintTicks(true);
             posteriseModel.setPaintLabels(true);
 
