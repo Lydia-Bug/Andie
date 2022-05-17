@@ -2,6 +2,8 @@ package cosc202.andie;
 
 import java.awt.*;
 import javax.swing.*;
+import java.awt.event.*;
+import java.awt.geom.*;
 
 /**
  * <p>
@@ -39,6 +41,10 @@ public class ImagePanel extends JPanel {
      */
     private double scale;
 
+    Shape selectedArea = null;
+    private Point startDrag;
+    private Point endDrag;
+
     /**
      * <p>
      * Create a new ImagePanel.
@@ -51,6 +57,34 @@ public class ImagePanel extends JPanel {
     public ImagePanel() {
         image = new EditableImage();
         scale = 1.0;
+
+        this.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent e) {
+                startDrag = new Point(e.getX(), e.getY());
+                endDrag = startDrag;
+                repaint();
+            }
+            public void mouseReleased(MouseEvent e) {
+                if(endDrag!=null && startDrag!=null) {
+                    try {
+                        selectedArea = makeRectangle(startDrag.x, startDrag.y, e.getX(),
+                                e.getY());  
+                        startDrag = null;
+                        endDrag = null;
+                        repaint();
+                    } catch (Exception e1) {
+                        e1.printStackTrace();
+                    }   
+                }
+            }
+        });
+
+        this.addMouseMotionListener(new MouseMotionAdapter() {
+            public void mouseDragged(MouseEvent e) {
+                endDrag = new Point(e.getX(), e.getY());
+                repaint();
+            }   
+        });
     }
 
     /**
@@ -135,7 +169,37 @@ public class ImagePanel extends JPanel {
             Graphics2D g2  = (Graphics2D) g.create();
             g2.scale(scale, scale);
             g2.drawImage(image.getCurrentImage(), null, 0, 0);
+            g2.setStroke(new BasicStroke(2));
+
+            if (selectedArea != null) {
+                //if(isValidSelectedArea()) {
+                    g2.setPaint(Color.RED);
+                    g2.draw(selectedArea);
+                //} 
+            }
+            
+            if (startDrag != null && endDrag != null) {
+                g2.setPaint(Color.LIGHT_GRAY);
+                Shape r = makeRectangle(startDrag.x, startDrag.y, endDrag.x,
+                        endDrag.y);
+                g2.draw(r);
+            }
+
             g2.dispose();
         }
+
     }
+
+    private Rectangle2D.Float makeRectangle(int x1, int y1, int x2, int y2) {
+        return new Rectangle2D.Float(Math.min(x1, x2), Math.min(y1, y2),
+                Math.abs(x1 - x2), Math.abs(y1 - y2));
+    }
+
+    /**
+     * incomplete - needs fixing and to check that area selected is within image boundaries 
+     * private boolean isValidSelectedArea() {
+        return ((Math.abs(endDrag.x - startDrag.x) < image.getCurrentImage().getWidth()) && 
+        (Math.abs(endDrag.y - startDrag.y) < image.getCurrentImage().getHeight()));
+    } */
+
 }
