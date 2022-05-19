@@ -46,6 +46,7 @@ public class TransformationActions {
                 Integer.valueOf(KeyEvent.VK_DOWN)));
         actions.add(
                 new ResizeAction("Resize", null, "Resize Image", Integer.valueOf(KeyEvent.VK_R)));
+        actions.add(new ImageCropAction("Image Crop", null, "Crop Image to selection", null));
     }
 
     /**
@@ -314,6 +315,63 @@ public class TransformationActions {
             }
 
             target.getImage().apply(new ResizeImage(ScaleFactor));
+            target.repaint();
+            target.getParent().revalidate();
+        }
+    }
+
+    /**
+     * <p>
+     * Action to Resize an image.
+     * </p>
+     * 
+     * <p>
+     * Note that this action affects the way the image is displayed and its
+     * actual contents (Losing pixels/clarity).
+     * </p>
+     */
+
+    public class ImageCropAction extends ImageAction {
+
+        /**
+         * <p>
+         * Create a new Crop action.
+         * </p>
+         * 
+         * @param name     The name of the action (ignored if null).
+         * @param icon     An icon to use to represent the action (ignored if null).
+         * @param desc     A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
+         */
+
+        ImageCropAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        /**
+         * Default constructor which does not require parameters.
+         * 
+         */
+
+        ImageCropAction() {
+        }
+
+        /**
+         * <p>
+         * Callback for when the Crop action is triggered.
+         * </p>
+         * 
+         * <p>
+         * This method is called whenever the ImageCropAction is triggered.
+         * It activates mouse selection to be used to crop the image.
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
+
+        public void actionPerformed(ActionEvent e) {
+
+            target.getImage().apply(new ImageCrop());
             target.repaint();
             target.getParent().revalidate();
         }
