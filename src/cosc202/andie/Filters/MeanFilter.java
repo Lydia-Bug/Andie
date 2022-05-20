@@ -2,6 +2,7 @@ package cosc202.andie.Filters;
 
 import java.awt.image.*;
 import java.util.*;
+import java.awt.Graphics2D;
 
 import cosc202.andie.ImageOperation;
 
@@ -82,12 +83,40 @@ public class MeanFilter implements ImageOperation, java.io.Serializable {
         Arrays.fill(array, 1.0f/size);
 
         Kernel kernel = new Kernel(2*radius+1, 2*radius+1, array);
-        ConvolveOp convOp = new ConvolveOp(kernel);
+        System.out.println(kernel.getXOrigin());
+        ConvolveOp convOp = new ConvolveOp(kernel, ConvolveOp.EDGE_NO_OP, null);
         BufferedImage output = new BufferedImage(input.getColorModel(), input.copyData(null), input.isAlphaPremultiplied(), null);
         convOp.filter(input, output);
 
-        return output;
+        BufferedImage paddedinput = paddedImage(input, radius);
+        BufferedImage blurredPaddedImage = operatedImage(paddedinput, convOp);
+        return blurredPaddedImage.getSubimage(radius, radius, input.getWidth(), input.getHeight());
+    
     }
 
+    
+
+    public static BufferedImage paddedImage(BufferedImage input, int padding) {
+        if (padding == 0) {
+            return input;
+        }
+
+        BufferedImage newImage = newArgbBufferedImage(input.getWidth() + padding * 2,
+                input.getHeight() + padding * 2);
+        Graphics2D g = (Graphics2D) newImage.getGraphics();
+        g.drawImage(input, padding, padding, null);
+        return newImage;
+    }
+
+    public static BufferedImage operatedImage(BufferedImage input, BufferedImageOp op) {
+        BufferedImage newImage = newArgbBufferedImage(input.getWidth(), input.getHeight());
+        Graphics2D g = (Graphics2D) newImage.getGraphics();
+        g.drawImage(input, op, 0, 0);
+        return newImage;
+    }
+
+    public static BufferedImage newArgbBufferedImage(int width, int height) {
+        return new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+    }
 
 }
