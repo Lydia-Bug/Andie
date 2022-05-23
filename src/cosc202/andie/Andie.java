@@ -39,7 +39,6 @@ public class Andie {
     private static FilterActions filterActions = new FilterActions();
     private static ColourActions colourActions = new ColourActions();
     private static TransformationActions transformActions = new TransformationActions();
-    private static ImagePanel imagePanel = new ImagePanel();
 
     /**
      * <p>
@@ -81,7 +80,7 @@ public class Andie {
         frame.add(toolbar, BorderLayout.NORTH);
 
         // The main content area is an ImagePanel
-
+        ImagePanel imagePanel = new ImagePanel();
         ImageAction.setTarget(imagePanel);
         JScrollPane scrollPane = new JScrollPane(imagePanel);
         frame.add(scrollPane, BorderLayout.CENTER);
@@ -112,11 +111,6 @@ public class Andie {
         frame.setJMenuBar(menuBar);
         frame.pack();
         frame.setVisible(true);
-    }
-
-    public ImagePanel getImagePanel() {
-        return imagePanel;
-
     }
 
     /**

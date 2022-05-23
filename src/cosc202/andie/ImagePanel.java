@@ -45,9 +45,15 @@ public class ImagePanel extends JPanel {
      */
     private double scale;
 
-    Shape selectedArea = null;
+    Rectangle2D selectedArea = null;
     protected Point startDrag;
     protected Point endDrag;
+
+    public void deselectMouse() {
+        selectedArea = null;
+        startDrag = null;
+        endDrag = null;
+    }
 
     /**
      * <p>
@@ -97,6 +103,11 @@ public class ImagePanel extends JPanel {
 
     public Point getStartDrag() {
         return this.startDrag;
+    }
+
+    public Rectangle2D GetMouseRectangle() {
+        return this.selectedArea;
+
     }
 
     public Point getEndDrag() {

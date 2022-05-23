@@ -21,6 +21,8 @@ package cosc202.andie.Transformations;
 
 import java.util.*;
 import java.awt.event.*;
+import java.awt.geom.Rectangle2D;
+
 import javax.swing.*;
 
 import cosc202.andie.ImageAction;
@@ -370,8 +372,13 @@ public class TransformationActions {
          */
 
         public void actionPerformed(ActionEvent e) {
-
-            target.getImage().apply(new ImageCrop());
+            Rectangle2D m = target.GetMouseRectangle();
+            target.getImage().apply(new ImageCrop(
+                    (int) m.getX(),
+                    (int) m.getY(),
+                    (int) m.getWidth(),
+                    (int) m.getHeight()));
+            target.deselectMouse();
             target.repaint();
             target.getParent().revalidate();
         }
