@@ -4,6 +4,7 @@ import java.io.*;
 import java.awt.*;
 import javax.swing.*;
 
+
 import cosc202.andie.Colours.ColourActions;
 import cosc202.andie.Filters.FilterActions;
 import cosc202.andie.Transformations.TransformationActions;
@@ -36,7 +37,7 @@ public class Andie {
     private static FileActions fileActions = new FileActions();
     private static EditActions editActions = new EditActions();
     private static ViewActions viewActions = new ViewActions();
-    private static ViewActions macrosActions = new MacrosActions();
+    //private static ViewActions macrosActions = new MacrosActions();
     private static FilterActions filterActions = new FilterActions();
     private static ColourActions colourActions = new ColourActions();
     private static TransformationActions transformActions = new TransformationActions();
@@ -101,7 +102,7 @@ public class Andie {
         menuBar.add(viewActions.createMenu());
 
         // Macros actions are for 'macros -record and play' includes start stop, save and load
-        menuBar.add(macrosActions.createMenu());
+        //menuBar.add(macrosActions.createMenu());
 
         // Filters apply a per-pixel operation to the image, generally based on a local
         // window
@@ -115,6 +116,8 @@ public class Andie {
         frame.setJMenuBar(menuBar);
         frame.pack();
         frame.setVisible(true);
+
+        
     }
 
     /**
@@ -152,6 +155,7 @@ public class Andie {
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 try {
+                    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
                     createAndShowGUI();
                 } catch (Exception ex) {
                     System.exit(1);
