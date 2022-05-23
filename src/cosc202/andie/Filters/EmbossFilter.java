@@ -17,42 +17,66 @@ import cosc202.andie.ImageOperation;
 
 public class EmbossFilter implements ImageOperation, java.io.Serializable{
     
-    private int sharpness;
+    private int angle;
 
     /**
      * Constructor for the class
      * 
-     * @param sharpness The degree of sharpening
+     * @param angle The angle the emboss filter will be applied
      * 
      */
-    EmbossFilter(int sharpness) {
-        this.sharpness = sharpness;
+    EmbossFilter(int angle) {
+        this.angle = angle;
     }
 
     /**
      * Default contructor.
      * 
-     * Sets the sharpness to 1 which will apply some sharpening
+     * Sets the angle to 0
      * 
      */
     EmbossFilter() {
-        sharpness = 1;
+        angle = 0;
     }
 
     /**
-     * Apply the sharpness filter to the image
+     * Apply the emboss filter to the image
      * 
-     * This is done using a ConvolveOp class.
-     * I have elected not to allow the user to adjust the size of
-     * the kernal, instead the strength of the sharpness. These
-     * values will likely change as it currently looks kinda bad
+     * I've created by own code to apply the kernal, so that I can deal with negitive values
      * 
      */
     public BufferedImage apply(BufferedImage input) {
+        float[] filterArray = new float[9];
 
-        float[] filterArray = {sharpness, 0, 0,
-                               0, 0, 0,
-                               0, 0, -sharpness}; //This array defines the operation being down on each kernal. Total must be 1
+        if(angle < 22){//0
+            filterArray[5] = 1;
+            filterArray[3] = -1;
+        }else if(angle >= 22 && angle < 67){//45
+            filterArray[2] = 1;
+            filterArray[6] = -1;
+        }else if(angle >= 67 && angle < 112){//90
+            filterArray[1] = 1;
+            filterArray[7] = -1;
+        }else if(angle >= 112 && angle < 157){//135
+            filterArray[0] = 1;
+            filterArray[8] = -1;
+        }else if(angle >= 157 && angle < 202){//180
+            filterArray[3] = 1;
+            filterArray[5] = -1;
+        }else if(angle >= 202 && angle < 247){//225
+            filterArray[6] = 1;
+            filterArray[2] = -1;
+        }else if(angle >= 247 && angle < 292){//270
+            filterArray[7] = 1;
+            filterArray[1] = -1;
+        }else if(angle >= 292 && angle < 337){//315
+            filterArray[8] = 1;
+            filterArray[0] = -1;
+        }else{//360
+            filterArray[5] = 1;
+            filterArray[3] = -1;
+        }
+         
 
         //calculates values for border
         int[][] border = new int[input.getWidth()][input.getHeight()];

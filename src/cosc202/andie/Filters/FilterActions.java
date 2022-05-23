@@ -292,37 +292,36 @@ public class FilterActions {
          * 
          * <p>
          * This method is called whenever the EmbossFilterAction is triggered.
-         * It prompts the user for a filter radius, then applys an appropriately sized
-         * {@link MeanFilter}.
+         * It prompts the user for an emboss angle
          * </p>
          * 
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
 
-            // Determine the radius - ask the user.
-            int radius = 1;
+            // Determine the angle - ask the user.
+            int angle = 0;
 
-            // Pop-up dialog box to ask for the radius value.
-            JSlider radiusModel = new JSlider(JSlider.HORIZONTAL, 0, 10, 0);
+            // Pop-up dialog box to ask for the angle value.
+            JSlider angleModel = new JSlider(JSlider.HORIZONTAL, 0, 360, 0);
 
-            radiusModel.setMajorTickSpacing(5);
-            radiusModel.setMinorTickSpacing(1);
-            radiusModel.setPaintTicks(true);
-            radiusModel.setPaintLabels(true);
+            angleModel.setMajorTickSpacing(90);
+            angleModel.setMinorTickSpacing(45);
+            angleModel.setPaintTicks(true);
+            angleModel.setPaintLabels(true);
 
-            int option = JOptionPane.showOptionDialog(null, radiusModel, "Enter filter radius",
+            int option = JOptionPane.showOptionDialog(null, angleModel, "Enter emboss angle",
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 
             // Check the return value from the dialog box.
             if (option == JOptionPane.CANCEL_OPTION) {
                 return;
             } else if (option == JOptionPane.OK_OPTION) {
-                radius = (int) radiusModel.getValue();
+                angle = (int) angleModel.getValue();
             }
 
             // Create and apply the filter
-            target.getImage().apply(new EmbossFilter(radius));
+            target.getImage().apply(new EmbossFilter(angle));
             target.repaint();
             target.getParent().revalidate();
         }
