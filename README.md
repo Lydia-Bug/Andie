@@ -1,84 +1,58 @@
 # Features
 
-## **Filters**
-#### *Implmented by Callum Walker*
-### Sharpen filter
-- Accessed via: Filter Menu (Sharpen Option)
-- This was tested on multiple images of various file types, composition and quality
-- No known issues
-### Gaussian blur filter
-- Accessed via: Filter Menu (Gaussian Blur Option)
-- This was tested on multiple images of various file types, composition and quality
-- No known issues
-### Median filter
-- Accessed via: Filter Menu (Median Filter Option)
-- This was tested on multiple images of various file types, composition and quality
-- No known issues
+### **Extended filters**
+#### *Implmented by Lydia Acton, and Calum Walker*
+When Calum created the kernal filters in the first part of the project he implemented 'extended filter' functionality on the filters that needed it. He didn't participate in the second part of the project so Lydia simplying copyed over the code he had already writen, to the mean filter, which still had the issue, as it wasn't one of the filters he created. 
+- Accessed via: There's 'extended filter' code used for the mean, and gaussian filter, the other kernal filters don't have the issue of a black border, because the radius of the kernals used to small to see any difference
+- I've tested a couple different types of images of different size, and types. And I've tested different radiuses, the extended filter seems to work fine
+- The filter does cause a kinda of white blury border around the edge, its not nearly as noticable and the hard black border, especially at smaller radius. And for a function like this there is no perfect soultion, because you don't know the values of the pixcels outside of the images bounds, so this implimentation works fine. 
 <br/><br/>
 
-## **Colour Adjustments**
+### **Emboss and edge detection filters (filters w/ negitive results)**
 #### *Implmented by Lydia Acton*
-### Brightness adjustment
-- Accessed via: Colour menu (Brightness option) and Key shortcuts (Ctrl + B);
-- Tested on various images including different file types, and images with transparant backgrounds. Also tested that -100% would make it completly black, and 100% would make it completly white.
-- No known issues
-### Contrast adjustment
-- Accessed via: Colour menu (Contrast option) and Key shortcuts (Ctrl + C);
-- Tested on various images including different file types, and images with transparant backgrounds. 
-- No known issues
+- Accessed via: Filter menu (Emboss Filter) and (Sobel Filter) and Key shortcuts (Ctrl + E) and (Ctrl + H)
+- I've tested it on various images. I've implement the eight emboss filters as each being in 'directions' so I made sure they were all in the correct direction by making sure I got the same output from a sperate image editor
+- For my implimentation of emboss I would have liked to have a slider where you can only place it on 0, 45, 90, 135, ect, I think that would make more sense to the user, and be better for functionality purposes.
 <br/><br/>
 
-## **Image Transform**
-#### *Implmented by Ella Taylor*
-### Image rotations: 90◦ left; 90◦ right; 180◦
-- Accessed via: Transformations menu (Options for rotating 90 degrees left or right). Keyboard shortcut - Ctrl-Comma for clockwise rotation and Ctrl-period for anticlockwise rotation. 
-- No testing framework was used, but this feature was tested on both square and rectangular images to ensure that image mapping was mathematically correct for both shapes. Both transparent PNG and solid JPEG images were tested, and all were rotated several times to assess image quality after many rotations. I initially used Graphics2D to implement this feature, but found that image quality declined significantly after only a few rotations. Additionally, many (> 5) rotations of images with white backgrounds would produce a blue grid overlaying the image. These issues were resolved when I switched to AffineTransform.
-- Known issues: After many rotations, a very narrow black border sometimes forms around the image. I assume this is due to the accumulation of slight precision errors in the values used in AffineTransform.x. This issue is very subtle and unlikely to be noticed by a user not specifically looking for it. Switching from a Graphics2D to an AffineTransform implementation significantly decreased the width of the border. 
-### Image flip: Horizontal; Vertical
-- Accessed via: Transformations menu (Options for flipping horizontally or vertically). Keyboard shortcut - Ctrl-Down for vertical flip, Ctr-Right for horizontal flip. 
-- No testing framework was used. These features were tested in a similar manner to the image rotation features - a range of square and rectangular images (including PNGs with transparent backgrounds and JPEGs with solid backgrounds) were flipped many times to check for image quality deprecations. Image quality did not appear to decrease over time when AffineTransform was used.  
-- No known issues.
-<br/><br/>
-
-### **Image Resize**
-#### *Implmented by Hamzah Alansi*
-- Accessed via: Transform menu (Resize), and Key shortcuts (Ctrl + R);
-- Tested on: different type of images with different file types and transparent background.
-- No Known issues.
-<br/><br/>
-
-### **Image Export**
-#### *Implmented by Noah Greig*
-- Accessed via: File menu (Save, Save As), Ctrl-S (Save), Ctrl-A (Save as) 
-- Tested on PNG and JPEG image files.
-- Does not currently work properly. Any image files created will have various features applied to them when opened in ANDIE, but not when opened in the Windows photo viewer (will appear to be a copy of the original image). This also applies to images which are modified directly and then saved (as opposed to creating a new image with Save As).
-<br/><br/>
-
-### **Exception handling**
+### **Posterise effect**
 #### *Implmented by Lydia Acton*
-- Opening an image: When you try and open an image it will give you an apropiate error message if you open a file that isn't an image, or try and open a file that doesn't exist, and if neither if those are the issue (such as a corrupt file) then it will still give an error message saying it was unable to open the image.
-- Tested by seeing what would happen if I tried to open files that weren't images, files that were images (.jpg, .png, .gif), files that weren't there, and corrupt files(a txt file name image.png). They all worked as expected.
-- The code can't tell spesifically if a file is corrupt, just if its unable to open it, so I can't give a spesific error message in that instant, but as far as I can tell thats not possible
-- Input for filters, adjustements, and transforms: Some of the filters, etc can't or it doesn't make sense for it to take a value above of below a certain range, for example negitive values wouldn't make sense for the filters. So instead of giving an error message, I have implemented silders instead of input boxes for the user is unable to go above or below a certain range. I think it also makes the input more intutive, rather then blindly inputing numbers. 
-- Tested the new sliders to make sure they did what was expected to the images, I didn't feel I had to be too comprehensive about this as it was an asthetic change mostly.
+- Accessed via: Filter menu (Posterise) and Key shortcuts (Ctrl + P)
+- Various images, transperant images. I tested it on large images, initially it took way to long for large images. So I edited my code so it doesn't autally sort all the pixels in the images and it now goes much faster and works for images of any sizes
+- Sometimes the output where gradients used to be, can be quite blocky. I've seen some iplimentations on other images editors that allow you to 'smooth' the output, I think if I implemented that this filter would be improved. 
 <br/><br/>
 
-### **Other error avoidance/prevention**
-#### *Implmented by Lydia Acton*
-- Exiting without saving: If you try to exit or open a new image, without having saved the current one, it'll ask you if you want to continue since your work isn't saved. If your work is saved this dialog box won't come up.
-- Tested by making changes then exiting or opening a new image, and by either making no changes, or saving before exiting or opening a new image, both worked as expected.
+### **Mouse selection of rectangular regions**
+#### *Implmented by *
+- Accessed via: 
+- Tested on...
+- Known issues...
 <br/><br/>
 
-### **Toolbar for common operations**
-#### *Implmented by Callum Walker*
-- Keyboard shortcuts were chosen based on previous experience using Image Editing softwares or other editing softwares
+### **Crop to selction**
+#### *Implmented by *
+- Accessed via: 
+- Tested on...
+- Known issues...
 <br/><br/>
 
-### **Keyboard shortcuts**
-#### *Implmented by Hamzah Alansi, Lydia Acton*
-- Accessed via: Keyboard keys
-- Tested on Different type of images with different background transparencies.
-- No Known issues. 
-- Keyboard shortcuts were chosen based on previous experience using Image Editing softwares and their shortcuts. However, for actions that were not marked with shortcuts in such softwares and therefore not experienced. I decided to add shortcuts to them that were a bit logical to the action for example, flip horizontal would be ctrl + RIGHT_ARROW (OR LEFT_ARROW in which case I just happened to choose the RIGHT_ARROW) because a horizontal flip would flip the image from right side to left side and vice versa.
+### **Drawing functions**
+#### *Implmented by *
+- Accessed via: 
+- Tested on...
+- Known issues...
 <br/><br/>
 
+### **Macros**
+#### *Implmented by *
+- Accessed via: 
+- Tested on...
+- Known issues...
+<br/><br/>
+
+### **Show us somthing: **
+#### *Implmented by *
+- Accessed via: 
+- Tested on...
+- Known issues...
+<br/><br/>

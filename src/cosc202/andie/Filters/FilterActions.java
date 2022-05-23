@@ -45,6 +45,10 @@ public class FilterActions {
                 new MedianFilterAction("Median filter", null, "Apply a median filter", Integer.valueOf(KeyEvent.VK_K)));
         actions.add(new GuassianFilterAction("Gaussian filter", null, "Apply a gaussian filter",
                 Integer.valueOf(KeyEvent.VK_L)));
+        actions.add(new EmbossFilterAction("Emboss filter", null, "Apply a emboss filter",
+                Integer.valueOf(KeyEvent.VK_E)));
+        actions.add(new SobelAction("Sobel filter", null, "Apply a sobel filter",
+                Integer.valueOf(KeyEvent.VK_H)));
     }
 
     /**
@@ -64,6 +68,10 @@ public class FilterActions {
                 KeyStroke.getKeyStroke(KeyEvent.VK_K, KeyEvent.CTRL_DOWN_MASK));
         actions.get(3).putValue(Action.ACCELERATOR_KEY,
                 KeyStroke.getKeyStroke(KeyEvent.VK_L, KeyEvent.CTRL_DOWN_MASK));
+        actions.get(4).putValue(Action.ACCELERATOR_KEY,
+                KeyStroke.getKeyStroke(KeyEvent.VK_E, KeyEvent.CTRL_DOWN_MASK));
+        actions.get(5).putValue(Action.ACCELERATOR_KEY,
+                KeyStroke.getKeyStroke(KeyEvent.VK_H, KeyEvent.CTRL_DOWN_MASK));
 
         for (Action action : actions) {
             filterMenu.add(new JMenuItem(action));
@@ -257,4 +265,137 @@ public class FilterActions {
         }
 
     }
+
+    /**
+     * <p>
+     * Action to emboss image with emboss filter
+     * </p>
+     * 
+     * @see EmbossFilter
+     */
+    public class EmbossFilterAction extends ImageAction {
+
+        /**
+         * <p>
+         * Create a new emboss-filter action.
+         * </p>
+         * 
+         * @param name     The name of the action (ignored if null).
+         * @param icon     An icon to use to represent the action (ignored if null).
+         * @param desc     A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
+         */
+        EmbossFilterAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        /**
+         * <p>
+         * Callback for when the emboss action is triggered.
+         * </p>
+         * 
+         * <p>
+         * This method is called whenever the EmbossFilterAction is triggered.
+         * It prompts the user for an emboss angle
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
+        public void actionPerformed(ActionEvent e) {
+
+            // Determine the angle - ask the user.
+            int angle = 0;
+
+            // Pop-up dialog box to ask for the angle value.
+            JSlider angleModel = new JSlider(JSlider.HORIZONTAL, 0, 360, 0);
+
+            angleModel.setMajorTickSpacing(90);
+            angleModel.setMinorTickSpacing(45);
+            angleModel.setPaintTicks(true);
+            angleModel.setPaintLabels(true);
+
+            /*
+            Hashtable labelTable = new Hashtable();
+            labelTable.put(0, new JLabel("right"));
+            labelTable.put(90, new JLabel("upward"));
+            labelTable.put(180, new JLabel("left"));
+            labelTable.put(270, new JLabel("downward"));
+            angleModel.setLabelTable( labelTable );
+            angleModel.setPaintLabels(true);
+*/
+            int option = JOptionPane.showOptionDialog(null, angleModel, "Enter emboss angle",
+                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+
+            // Check the return value from the dialog box.
+            if (option == JOptionPane.CANCEL_OPTION) {
+                return;
+            } else if (option == JOptionPane.OK_OPTION) {
+                angle = (int) angleModel.getValue();
+            }
+
+            // Create and apply the filter
+            target.getImage().apply(new EmbossFilter(angle));
+            target.repaint();
+            target.getParent().revalidate();
+        }
+
+    }
+
+    /**
+     * <p>
+     * Action to apply sobel filer
+     * </p>
+     * 
+     * @see SobelFilter
+     */
+    public class SobelAction extends ImageAction {
+
+        /**
+         * <p>
+         * Create a new sobel filter action.
+         * </p>
+         * 
+         * @param name     The name of the action (ignored if null).
+         * @param icon     An icon to use to represent the action (ignored if null).
+         * @param desc     A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
+         */
+        SobelAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        /**
+         * <p>
+         * Callback for when the sobelaction is triggered.
+         * </p>
+         * 
+         * <p>
+         * This method is called whenever the sobel is triggered.
+         * It prompts the user for either horizontal or vertical sobel filter
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
+        public void actionPerformed(ActionEvent e) {
+
+            // Pop-up dialog box to ask for the angle value.
+            Object[] options = { "Horizontal", "Vertical" };
+            int direction = JOptionPane.showOptionDialog(null, "Pick direction", "Warning", JOptionPane.DEFAULT_OPTION, 
+                        JOptionPane.WARNING_MESSAGE, null, options, options[0]);
+                        
+            boolean horizontal = false;
+            if(direction == 0){
+                horizontal = true;
+            }
+            if(direction == 1){
+                horizontal = false;
+            }
+            // Create and apply the filter
+            target.getImage().apply(new SobelFilter(horizontal));
+            target.repaint();
+            target.getParent().revalidate();
+        }
+
+    }
+
 }
