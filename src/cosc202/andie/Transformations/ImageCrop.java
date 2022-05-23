@@ -7,13 +7,17 @@ import java.awt.image.BufferedImage;
 import cosc202.andie.ImageOperation;
 import cosc202.andie.ImagePanel;
 
-public class ImageCrop extends ImagePanel implements ImageOperation {
+public class ImageCrop implements ImageOperation {
     ImagePanel img = new ImagePanel();
     Shape selectedArea = null;
     BufferedImage croppedImage;
+    int x, y, width, height;
 
     public ImageCrop() {
-
+        x = img.getBounds().x;
+        y = img.getBounds().y;
+        width = img.getBounds().width;
+        height = img.getBounds().height;
     }
 
     @Override
@@ -21,8 +25,11 @@ public class ImageCrop extends ImagePanel implements ImageOperation {
         // CroppedImage of type BufferedImage that uses a built in method (getSubimage)
         // to produce a new set of the image
         // of specified dimensions ._.
-        croppedImage = input.getSubimage(400, 400, 100,
-                100);
+
+        System.out.println("START: " + img.getStartDrag());
+
+        croppedImage = input.getSubimage(x, y, width,
+                height);
         // croppedImage = input.getSubimage(img.getBounds().x, img.getBounds().y,
         // img.getBounds().width,
         // img.getBounds().height);

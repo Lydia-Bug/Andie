@@ -30,17 +30,17 @@ import javax.imageio.*;
  * @author Steven Mills
  * @version 1.0
  */
-public class Andie{
+public class Andie {
 
-    //There mught be reasons as to why I shouldn't do this but I really don't know
+    // There mught be reasons as to why I shouldn't do this but I really don't know
     private static FileActions fileActions = new FileActions();
     private static EditActions editActions = new EditActions();
     private static ViewActions viewActions = new ViewActions();
     private static FilterActions filterActions = new FilterActions();
     private static ColourActions colourActions = new ColourActions();
     private static TransformationActions transformActions = new TransformationActions();
+    private static ImagePanel imagePanel = new ImagePanel();
 
-    
     /**
      * <p>
      * Launches the main GUI for the ANDIE program.
@@ -54,6 +54,7 @@ public class Andie{
      * These operations are implemented {@link ImageOperation}s and triggerd via
      * {@code ImageAction}s grouped by their general purpose into menus.
      * </p>
+     * 
      * @see ImagePanel
      * @see ImageAction
      * @see ImageOperation
@@ -80,7 +81,7 @@ public class Andie{
         frame.add(toolbar, BorderLayout.NORTH);
 
         // The main content area is an ImagePanel
-        ImagePanel imagePanel = new ImagePanel();
+
         ImageAction.setTarget(imagePanel);
         JScrollPane scrollPane = new JScrollPane(imagePanel);
         frame.add(scrollPane, BorderLayout.CENTER);
@@ -103,7 +104,7 @@ public class Andie{
         // window
         menuBar.add(filterActions.createMenu());
 
-        // Actions that affect the representation of colour in the image        
+        // Actions that affect the representation of colour in the image
         menuBar.add(colourActions.createMenu());
 
         menuBar.add(transformActions.createMenu());
@@ -113,19 +114,24 @@ public class Andie{
         frame.setVisible(true);
     }
 
+    public ImagePanel getImagePanel() {
+        return imagePanel;
+
+    }
+
     /**
      * Create the JButtons for the toolbar
      * 
      * @param toolbar The toolbar for quick access to common commands
      * @throws Exception
      */
-    private static void createJButtons(JToolBar toolbar) throws Exception{       
+    private static void createJButtons(JToolBar toolbar) throws Exception {
         toolbar.add(editActions.createUndoButton());
         toolbar.add(editActions.createRedoButton());
 
         toolbar.add(viewActions.createZoomOutButton());
         toolbar.add(viewActions.createZoomInButton());
-        
+
         toolbar.add(fileActions.createSaveButton());
     }
 
