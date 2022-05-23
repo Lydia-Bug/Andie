@@ -5,7 +5,6 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 import cosc202.andie.ImageOperation;
-import cosc202.andie.ImagePanel;
 
 public class ImageCrop implements ImageOperation {
     // ImagePanel img = new ImagePanel();
