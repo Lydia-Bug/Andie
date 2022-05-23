@@ -36,6 +36,7 @@ public class Andie{
     private static FileActions fileActions = new FileActions();
     private static EditActions editActions = new EditActions();
     private static ViewActions viewActions = new ViewActions();
+    private static ViewActions macrosActions = new MacrosActions();
     private static FilterActions filterActions = new FilterActions();
     private static ColourActions colourActions = new ColourActions();
     private static TransformationActions transformActions = new TransformationActions();
@@ -98,6 +99,9 @@ public class Andie{
         // View actions control how the image is displayed, but do not alter its actual
         // content
         menuBar.add(viewActions.createMenu());
+
+        // Macros actions are for 'macros -record and play' includes start stop, save and load
+        menuBar.add(macrosActions.createMenu());
 
         // Filters apply a per-pixel operation to the image, generally based on a local
         // window
