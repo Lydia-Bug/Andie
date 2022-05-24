@@ -5,9 +5,9 @@ public class BrushThickness {
     private int thickness;
 
     public BrushThickness() {
-        JSlider thicknessSlider = new JSlider(JSlider.HORIZONTAL, 1, 20, 2);
+        JSlider thicknessSlider = new JSlider(JSlider.HORIZONTAL, 0, 20, 2);
 
-        thicknessSlider.setMajorTickSpacing(6);
+        thicknessSlider.setMajorTickSpacing(5);
         thicknessSlider.setMinorTickSpacing(1);
         thicknessSlider.setPaintTicks(true);
         thicknessSlider.setPaintLabels(true);
