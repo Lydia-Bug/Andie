@@ -33,6 +33,7 @@ import cosc202.andie.ImageOperation;
 public class DrawText implements ImageOperation, java.io.Serializable {
     int x, y, width, height;
     String txt = "help lol";
+    Font font;
 
     /**
      * <p>
@@ -41,11 +42,12 @@ public class DrawText implements ImageOperation, java.io.Serializable {
      * 
      * @param x,y,width,height
      */
-    public DrawText(int x, int y, int width, int height) {
+    public DrawText(int x, int y, int width, int height, Font font) {
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
+        this.font = font;
         // this.txt = txt;
     }
 
