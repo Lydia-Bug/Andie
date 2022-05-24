@@ -23,7 +23,7 @@ import cosc202.andie.ImageOperation;
  */
 
 public class ImageCrop implements ImageOperation, java.io.Serializable   {
-    BufferedImage croppedImage;
+    //BufferedImage croppedImage;
     int x, y, width, height;
 
     /**
@@ -52,7 +52,8 @@ public class ImageCrop implements ImageOperation, java.io.Serializable   {
      */
     @Override
     public BufferedImage apply(BufferedImage input) {
-
+        BufferedImage croppedImage;
+        
         if (x + width > input.getWidth()) {
             width = input.getWidth() - x;
         }
