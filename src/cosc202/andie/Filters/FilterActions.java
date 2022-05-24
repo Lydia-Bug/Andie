@@ -38,16 +38,16 @@ public class FilterActions {
      */
     public FilterActions() {
         actions = new ArrayList<Action>();
-        actions.add(new MeanFilterAction("Mean filter", null, "Apply a mean filter", Integer.valueOf(KeyEvent.VK_M)));
-        actions.add(new SharpenFilterAction("Sharpen filter", null, "Apply a sharpening filter",
+        actions.add(new MeanFilterAction("Mean", null, "Apply a mean filter", Integer.valueOf(KeyEvent.VK_M)));
+        actions.add(new SharpenFilterAction("Sharpen", null, "Apply a sharpening filter",
                 Integer.valueOf(KeyEvent.VK_J)));
         actions.add(
-                new MedianFilterAction("Median filter", null, "Apply a median filter", Integer.valueOf(KeyEvent.VK_K)));
-        actions.add(new GuassianFilterAction("Gaussian filter", null, "Apply a gaussian filter",
+                new MedianFilterAction("Median", null, "Apply a median filter", Integer.valueOf(KeyEvent.VK_K)));
+        actions.add(new GuassianFilterAction("Gaussian", null, "Apply a gaussian filter",
                 Integer.valueOf(KeyEvent.VK_L)));
-        actions.add(new EmbossFilterAction("Emboss filter", null, "Apply a emboss filter",
+        actions.add(new EmbossFilterAction("Embossed", null, "Apply a emboss filter",
                 Integer.valueOf(KeyEvent.VK_E)));
-        actions.add(new SobelAction("Sobel filter", null, "Apply a sobel filter",
+        actions.add(new SobelAction("Sobel", null, "Apply a sobel filter",
                 Integer.valueOf(KeyEvent.VK_H)));
     }
 
@@ -60,7 +60,7 @@ public class FilterActions {
      * @return The filter menu UI element.
      */
     public JMenu createMenu() {
-        JMenu filterMenu = new JMenu("Filter");
+        JMenu filterMenu = new JMenu("Filters...");
 
         actions.get(0).putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_M, KeyEvent.CTRL_DOWN_MASK));
         actions.get(1).putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_J, KeyEvent.CTRL_DOWN_MASK));

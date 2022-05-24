@@ -43,6 +43,9 @@ public class ImagePanel extends JPanel {
      * as a percentage.
      * </p>
      */
+
+    private boolean drawingMode;
+    private Color penColor;
     private double scale;
 
     Rectangle2D selectedArea = null;
@@ -112,6 +115,14 @@ public class ImagePanel extends JPanel {
 
     public Point getEndDrag() {
         return this.endDrag;
+    }
+
+    public void enableDrawingMode() {
+        drawingMode = true;
+    }
+
+    public void setPenColor(Color c) {
+        penColor = c;
     }
 
     /**
