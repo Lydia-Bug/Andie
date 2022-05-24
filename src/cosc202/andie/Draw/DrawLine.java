@@ -22,7 +22,7 @@ import cosc202.andie.ImageOperation;
  * @author Ella Taylor
  * @version 1.0
  */
-public class DrawLine implements ImageOperation {
+public class DrawLine implements ImageOperation, java.io.Serializable   {
 
     /**
      * <p>

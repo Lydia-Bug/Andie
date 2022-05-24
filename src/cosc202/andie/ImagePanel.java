@@ -44,8 +44,7 @@ public class ImagePanel extends JPanel {
      * </p>
      */
 
-    private boolean drawingMode;
-    private Color penColor;
+
     private double scale;
 
     Rectangle2D selectedArea = null;
@@ -74,7 +73,12 @@ public class ImagePanel extends JPanel {
         this.addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent e) {
                 System.out.println("DRAG LISTENER CALLED");
-                ImagePanel.this.startDrag = new Point(e.getX(), e.getY());
+                double selectorScale = 1/(scale);
+                int x = (int)(e.getX()*selectorScale);
+                int y = (int)(e.getY()*selectorScale);
+                System.out.println(e.getX() +", "+ e.getY());
+                System.out.println(x +" , "+ y);
+                ImagePanel.this.startDrag = new Point(x, y);
                 ImagePanel.this.endDrag = startDrag;
                 System.out.println("EVENT: " + ImagePanel.this.startDrag);
                 repaint();
@@ -83,8 +87,10 @@ public class ImagePanel extends JPanel {
             public void mouseReleased(MouseEvent e) {
                 if (endDrag != null && startDrag != null) {
                     try {
-                        selectedArea = makeRectangle(startDrag.x, startDrag.y, e.getX(),
-                                e.getY());
+                        double selectorScale = 1/(scale);
+                        int x = (int)(e.getX()*selectorScale);
+                        int y = (int)(e.getY()*selectorScale);
+                        selectedArea = makeRectangle(startDrag.x, startDrag.y, x, y);
                         startDrag = null;
                         endDrag = null;
 
@@ -98,7 +104,10 @@ public class ImagePanel extends JPanel {
 
         this.addMouseMotionListener(new MouseMotionAdapter() {
             public void mouseDragged(MouseEvent e) {
-                endDrag = new Point(e.getX(), e.getY());
+                double selectorScale = 1/(scale);
+                int x = (int)(e.getX()*selectorScale);
+                int y = (int)(e.getY()*selectorScale);
+                endDrag = new Point(x, y);
                 repaint();
             }
         });
@@ -117,13 +126,6 @@ public class ImagePanel extends JPanel {
         return this.endDrag;
     }
 
-    public void enableDrawingMode() {
-        drawingMode = true;
-    }
-
-    public void setPenColor(Color c) {
-        penColor = c;
-    }
 
     /**
      * <p>

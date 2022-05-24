@@ -28,7 +28,7 @@ import cosc202.andie.ImageOperation;
  * @version 1.0
  */
 
-public class DrawText implements ImageOperation {
+public class DrawText implements ImageOperation, java.io.Serializable {
     int x, y, width, height;
 
     /**
