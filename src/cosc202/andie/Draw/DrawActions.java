@@ -3,6 +3,7 @@ package cosc202.andie.Draw;
 import java.util.*;
 import java.awt.Color;
 import java.awt.event.*;
+import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 
 import javax.swing.*;
@@ -12,7 +13,7 @@ import cosc202.andie.ImageAction;
 public class DrawActions {
 
     protected ArrayList<Action> actions;
-    
+
     /**
      * <p>
      * Constructor. Creates an ArrayList of Colour menu actions.
@@ -189,11 +190,18 @@ public class DrawActions {
         }
     }
 
+    /**
+     * <p>
+     * Action to draw text on the Image.
+     * </p>
+     * 
+     * @see Draw
+     */
     public class DrawTextAction extends ImageAction {
 
         /**
          * <p>
-         * Create a new rotate clockwise action.
+         * Create a Draw Text action.
          * </p>
          * 
          * @param name     The name of the action (ignored if null).
@@ -207,23 +215,27 @@ public class DrawActions {
 
         /**
          * <p>
-         * Callback for when the rotate clockwise action is triggered.
+         * Callback for when the Draw Text action is triggered.
          * </p>
          * 
          * <p>
-         * This method is called whenever the Rotate90ClockwiseAction is triggered.
-         * It rotates the image 90 degrees clockwise.
+         * This method is called whenever the DrawTextAction is triggered.
+         * It draws user Text Over regions of mouse selection on top of the Image.
          * </p>
          * 
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
             Rectangle2D m = target.GetMouseRectangle();
-            target.getImage().apply(new DrawText(
-                    (int) m.getX(),
-                    (int) m.getY(),
-                    (int) m.getWidth(),
-                    (int) m.getHeight()));
+            // JTextField jtxt = new JTextField("Enter Text: ", 0);
+            // Extras to be edited
+            // target.add(jtxt);
+            // jtxt.setEditable(true);
+            // String s = jtxt.getText();
+
+            target.getImage().apply(new DrawText((int) m.getX(), (int) m.getY(),
+                    (int) m.getWidth(), (int) m.getHeight()));
+            target.validate();
             target.deselectMouse();
             target.repaint();
             target.getParent().revalidate();

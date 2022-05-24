@@ -2,10 +2,12 @@ package cosc202.andie.Draw;
 
 import java.awt.Color;
 import java.awt.Font;
-
+import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 
 import java.awt.image.BufferedImage;
+
+import javax.swing.JTextField;
 
 import cosc202.andie.ImageOperation;
 
@@ -30,6 +32,7 @@ import cosc202.andie.ImageOperation;
 
 public class DrawText implements ImageOperation, java.io.Serializable {
     int x, y, width, height;
+    String txt = "help lol";
 
     /**
      * <p>
@@ -43,6 +46,7 @@ public class DrawText implements ImageOperation, java.io.Serializable {
         this.y = y;
         this.width = width;
         this.height = height;
+        // this.txt = txt;
     }
 
     /**
@@ -58,11 +62,17 @@ public class DrawText implements ImageOperation, java.io.Serializable {
     @Override
     public BufferedImage apply(BufferedImage input) {
 
-        String b = "Hello World!";
         Graphics2D g = input.createGraphics();
-        g.setFont(new Font("Arial", Font.BOLD, 23));
+        g.setFont(new Font("Arial", Font.BOLD, 22));
         g.setColor(Color.BLACK);
-        g.drawString(b, x, y);
+        FontMetrics fm = g.getFontMetrics();
+
+        int stringWidth = fm.stringWidth(txt);
+        int startX = x + ((width - stringWidth) / 2);
+        int startY = y + ((height + fm.getHeight()) / 2);
+
+        g.drawString(txt, startX, startY);
+        g.setColor(Color.BLACK);
         g.dispose();
         return input;
     }
