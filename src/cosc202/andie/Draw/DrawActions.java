@@ -236,11 +236,15 @@ public class DrawActions {
          */
         public void actionPerformed(ActionEvent e) {
             Rectangle2D m = target.GetMouseRectangle();
-            // JTextField jtxt = new JTextField("Enter Text: ", 0);
+            JTextField jtxt = new JTextField("Enter Text: ", 0);
             // Extras to be edited
             // target.add(jtxt);
             // jtxt.setEditable(true);
-            // String s = jtxt.getText();
+
+            JFontChooser jf = new JFontChooser();
+            jf.showDialog(jtxt);
+            // String textArea = jtxt.getText();
+            target.add(jtxt);
 
             target.getImage().apply(new DrawText((int) m.getX(), (int) m.getY(),
                     (int) m.getWidth(), (int) m.getHeight()));
