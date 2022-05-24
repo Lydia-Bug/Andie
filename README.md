@@ -29,7 +29,7 @@ When Calum created the kernal filters in the first part of the project he implem
 - Known issues...
 <br/><br/>
 
-### **Crop to selction**
+### **Crop to selection**
 #### *Implemented by Hamzah Alansi *
 - Accessed via: Transformation tab, Keyboard Shortcut (Shift + X)
 - Tested on: 2 images with different background transparencies.

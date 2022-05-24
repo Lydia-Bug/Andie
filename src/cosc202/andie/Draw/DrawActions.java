@@ -19,6 +19,8 @@ public class DrawActions {
      */
     public DrawActions() {
         actions = new ArrayList<Action>();
+        actions.add(new DrawTextAction("Create Text", null, "Create Text",
+                null));
     }
 
     /**
@@ -31,13 +33,13 @@ public class DrawActions {
      */
 
     public JMenu createMenu() {
-        JMenu TransformationMenu = new JMenu("Draw...");
+        JMenu DrawMenu = new JMenu("Draw...");
 
         for (Action action : actions) {
-            TransformationMenu.add(new JMenuItem(action));
+            DrawMenu.add(new JMenuItem(action));
         }
 
-        return TransformationMenu;
+        return DrawMenu;
     }
 
     /**
@@ -68,7 +70,7 @@ public class DrawActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-            //target.getImage().apply(new Rotate(true));
+            // target.getImage().apply(new Rotate(true));
             target.repaint();
             target.getParent().revalidate();
         }
@@ -95,7 +97,7 @@ public class DrawActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-            //target.getImage().apply(new Rotate(true));
+            // target.getImage().apply(new Rotate(true));
             target.repaint();
             target.getParent().revalidate();
         }
@@ -122,7 +124,7 @@ public class DrawActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-            //target.getImage().apply(new Rotate(true));
+            // target.getImage().apply(new Rotate(true));
             target.repaint();
             target.getParent().revalidate();
         }
@@ -149,7 +151,7 @@ public class DrawActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-            //target.getImage().apply(new Rotate(true));
+            // target.getImage().apply(new Rotate(true));
             target.repaint();
             target.getParent().revalidate();
         }
@@ -176,11 +178,51 @@ public class DrawActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-            //target.getImage().apply(new Rotate(true));
+            // target.getImage().apply(new Rotate(true));
+            target.repaint();
+            target.getParent().revalidate();
+        }
+    }
+
+    public class DrawTextAction extends ImageAction {
+
+        /**
+         * <p>
+         * Create a new rotate clockwise action.
+         * </p>
+         * 
+         * @param name     The name of the action (ignored if null).
+         * @param icon     An icon to use to represent the action (ignored if null).
+         * @param desc     A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
+         */
+        DrawTextAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        /**
+         * <p>
+         * Callback for when the rotate clockwise action is triggered.
+         * </p>
+         * 
+         * <p>
+         * This method is called whenever the Rotate90ClockwiseAction is triggered.
+         * It rotates the image 90 degrees clockwise.
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
+        public void actionPerformed(ActionEvent e) {
+            Rectangle2D m = target.GetMouseRectangle();
+            target.getImage().apply(new DrawText(
+                    (int) m.getX(),
+                    (int) m.getY(),
+                    (int) m.getWidth(),
+                    (int) m.getHeight()));
+            target.deselectMouse();
             target.repaint();
             target.getParent().revalidate();
         }
     }
 
 }
-

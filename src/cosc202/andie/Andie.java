@@ -4,8 +4,8 @@ import java.io.*;
 import java.awt.*;
 import javax.swing.*;
 
-
 import cosc202.andie.Colours.ColourActions;
+import cosc202.andie.Draw.DrawActions;
 import cosc202.andie.Filters.FilterActions;
 import cosc202.andie.Transformations.TransformationActions;
 import cosc202.andie.ViewActions.ViewActions;
@@ -37,10 +37,12 @@ public class Andie {
     private static FileActions fileActions = new FileActions();
     private static EditActions editActions = new EditActions();
     private static ViewActions viewActions = new ViewActions();
+    // private static ViewActions macrosActions = new MacrosActions();
     private static MacrosActions macrosActions = new MacrosActions();
     private static FilterActions filterActions = new FilterActions();
     private static ColourActions colourActions = new ColourActions();
     private static TransformationActions transformActions = new TransformationActions();
+    private static DrawActions drawActions = new DrawActions();
 
     /**
      * <p>
@@ -101,7 +103,11 @@ public class Andie {
         // content
         menuBar.add(viewActions.createMenu());
 
-        // Macros actions are for 'macros -record and play' includes start stop, save and load
+        // Macros actions are for 'macros -record and play' includes start stop, save
+        // and load
+        // menuBar.add(macrosActions.createMenu());
+        // Macros actions are for 'macros -record and play' includes start stop, save
+        // and load
         menuBar.add(macrosActions.createMenu());
 
         // Filters apply a per-pixel operation to the image, generally based on a local
@@ -112,12 +118,11 @@ public class Andie {
         menuBar.add(colourActions.createMenu());
 
         menuBar.add(transformActions.createMenu());
-
+        menuBar.add(drawActions.createMenu());
         frame.setJMenuBar(menuBar);
         frame.pack();
         frame.setVisible(true);
 
-        
     }
 
     /**
