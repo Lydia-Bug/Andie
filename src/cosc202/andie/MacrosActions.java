@@ -38,9 +38,9 @@ public class MacrosActions {
      */
     public MacrosActions() {
         actions = new ArrayList<Action>();
-        actions.add(new StartAction("Start", null, "Start macros recording", Integer.valueOf(KeyEvent.VK_Z)));
-        actions.add(new StopAction("Stop and Save", null, "Stop and save macros recording", Integer.valueOf(KeyEvent.VK_Q)));
-        actions.add(new LoadAction("Load macros", null, "Load macros recording", Integer.valueOf(KeyEvent.VK_L)));
+        actions.add(new StartAction("Start", null, "Start macros recording", Integer.valueOf(KeyEvent.VK_Q)));
+        actions.add(new StopAction("Stop and Save", null, "Stop and save macros recording", Integer.valueOf(KeyEvent.VK_W)));
+        actions.add(new LoadAction("Load macros", null, "Load macros recording", Integer.valueOf(KeyEvent.VK_A)));
     }
 
     /**
@@ -54,9 +54,9 @@ public class MacrosActions {
     public JMenu createMenu() {
         JMenu fileMenu = new JMenu("Macros");
 
-        actions.get(0).putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_Z, KeyEvent.CTRL_DOWN_MASK));
-        actions.get(1).putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_Q, KeyEvent.CTRL_DOWN_MASK));
-        actions.get(2).putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_L, KeyEvent.CTRL_DOWN_MASK));
+        actions.get(0).putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_Q, KeyEvent.CTRL_DOWN_MASK));
+        actions.get(1).putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_W, KeyEvent.CTRL_DOWN_MASK));
+        actions.get(2).putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_A, KeyEvent.CTRL_DOWN_MASK));
 
         for (Action action : actions) {
             fileMenu.add(new JMenuItem(action));
@@ -100,6 +100,7 @@ public class MacrosActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
+            recording = true;
             target.getImage().start();
         }
 
@@ -141,14 +142,20 @@ public class MacrosActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-            JFrame f = new JFrame();  
-            f=new JFrame();   
-            String filename = JOptionPane.showInputDialog(f,"Enter filename"); 
+            if(recording){
+                JFrame f = new JFrame();  
+                f=new JFrame();   
+                String filename = JOptionPane.showInputDialog(f,"Enter filename"); 
             
-            try {
-                target.getImage().stop(filename);
-            } catch (Exception ex) {
-                //System.exit(1);
+                try {
+                    target.getImage().stop(filename);
+                    recording = false;
+                } catch (Exception ex) {
+                    //System.exit(1);
+                }
+            }else{
+                JFrame exceptionFrame = new JFrame();
+                JOptionPane.showMessageDialog(exceptionFrame, "You haven't started recording");
             }
         }
 
