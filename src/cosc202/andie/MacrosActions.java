@@ -10,13 +10,11 @@ import javax.swing.*;
 
 /**
  * <p>
- * Actions provided by the File menu.
+ * Actions provided by the Macro menu.
  * </p>
  * 
  * <p>
- * The File menu is very common across applications,
- * and there are several items that the user will expect to find here.
- * Opening and saving files is an obvious one, but also exiting the program.
+ * This is for creating ops files that contain operations
  * </p>
  * 
  * <p>
@@ -29,38 +27,36 @@ import javax.swing.*;
  */
 public class MacrosActions {
 
-    /** A list of actions for the File menu. */
+    /** A list of actions for the Macros menu. */
     protected ArrayList<Action> actions;
 
     boolean recording = false;
     /**
      * <p>
-     * Create a set of File menu actions.
+     * Create a set of Macro menu actions.
      * </p>
      */
     public MacrosActions() {
         actions = new ArrayList<Action>();
         actions.add(new StartAction("Start", null, "Start macros recording", Integer.valueOf(KeyEvent.VK_Z)));
-        actions.add(new StopAction("Stop", null, "Stop macros recording", Integer.valueOf(KeyEvent.VK_X)));
-        actions.add(new SaveAction("Save macros", null, "Save macros recording", Integer.valueOf(KeyEvent.VK_A)));
+        actions.add(new StopAction("Stop and Save", null, "Stop and save macros recording", Integer.valueOf(KeyEvent.VK_X)));
         actions.add(new LoadAction("Load macros", null, "Load macros recording", Integer.valueOf(KeyEvent.VK_L)));
     }
 
     /**
      * <p>
-     * Create a menu containing the list of File actions
-     * and assign keyboard shortcuts to each file action.
+     * Create a menu containing the list of Macro actions
+     * and assign keyboard shortcuts to each Macro action.
      * </p>
      * 
      * @return The File menu UI element.
      */
     public JMenu createMenu() {
-        JMenu fileMenu = new JMenu("File");
+        JMenu fileMenu = new JMenu("Macros");
 
-        actions.get(0).putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_O, KeyEvent.CTRL_DOWN_MASK));
-        actions.get(1).putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_S, KeyEvent.CTRL_DOWN_MASK));
-        actions.get(2).putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_A, KeyEvent.CTRL_DOWN_MASK));
-        actions.get(3).putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke("ESCAPE"));
+        actions.get(0).putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_Z, KeyEvent.CTRL_DOWN_MASK));
+        actions.get(1).putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_X, KeyEvent.CTRL_DOWN_MASK));
+        actions.get(2).putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_L, KeyEvent.CTRL_DOWN_MASK));
 
         for (Action action : actions) {
             fileMenu.add(new JMenuItem(action));
@@ -71,7 +67,7 @@ public class MacrosActions {
 
     /**
      * <p>
-     * Action to open an image from file.
+     * Action to start recording
      * </p>
      * 
      * @see EditableImage#open(String)
@@ -80,7 +76,7 @@ public class MacrosActions {
 
         /**
          * <p>
-         * Create a new file-open action.
+         * Create a new start action.
          * </p>
          * 
          * @param name     The name of the action (ignored if null).
@@ -94,25 +90,25 @@ public class MacrosActions {
 
         /**
          * <p>
-         * Callback for when the file-open action is triggered.
+         * Callback for when the start action is triggered.
          * </p>
          * 
          * <p>
-         * This method is called whenever the FileOpenAction is triggered.
-         * It prompts the user to select a file and opens it as an image.
+         * This method is called whenever the startAction is triggered.
          * </p>
          * 
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-            recording = true;
+            target.getImage().start();
         }
 
     }
 
     /**
      * <p>
-     * Action to save an image to its current file location.
+     * Action to stop recording and save the resulting ops file
+     * Prompts the user to enter a filename
      * </p>
      * 
      * @see EditableImage#save()
@@ -121,7 +117,7 @@ public class MacrosActions {
 
         /**
          * <p>
-         * Create a new file-save action.
+         * Create a new stop action.
          * </p>
          * 
          * @param name     The name of the action (ignored if null).
@@ -134,29 +130,25 @@ public class MacrosActions {
         }
 
         /**
-         * Constructor which doesn't require parameters for use in the toolbar
-         * 
-         */
-        StopAction() {
-        }
-
-        /**
          * <p>
-         * Callback for when the file-save action is triggered.
+         * Callback for when the stop action is triggered.
          * </p>
          * 
          * <p>
-         * This method is called whenever the FileSaveAction is triggered.
-         * It saves the image to its original filepath.
+         * This method is called whenever the stopAction is triggered.
          * </p>
          * 
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
+            JFrame f = new JFrame();  
+            f=new JFrame();   
+            String filename = JOptionPane.showInputDialog(f,"Enter filename"); 
+            
             try {
-                target.getImage().save();
+                target.getImage().stop(filename);
             } catch (Exception ex) {
-                System.exit(1);
+                //System.exit(1);
             }
         }
 
@@ -164,65 +156,14 @@ public class MacrosActions {
 
     /**
      * <p>
-     * Action to save an image to a new file location.
-     * </p>
-     * 
-     * @see EditableImage#saveAs(String)
-     */
-    public class SaveAction extends ImageAction {
-
-        /**
-         * <p>
-         * Create a new file-save-as action.
-         * </p>
-         * 
-         * @param name     The name of the action (ignored if null).
-         * @param icon     An icon to use to represent the action (ignored if null).
-         * @param desc     A brief description of the action (ignored if null).
-         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
-         */
-        SaveAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
-            super(name, icon, desc, mnemonic);
-        }
-
-        /**
-         * <p>
-         * Callback for when the file-save-as action is triggered.
-         * </p>
-         * 
-         * <p>
-         * This method is called whenever the FileSaveAsAction is triggered.
-         * It prompts the user to select a file and saves the image to it.
-         * </p>
-         * 
-         * @param e The event triggering this callback.
-         */
-        public void actionPerformed(ActionEvent e) {
-            JFileChooser fileChooser = new JFileChooser();
-            int result = fileChooser.showSaveDialog(target);
-
-            if (result == JFileChooser.APPROVE_OPTION) {
-                try {
-                    String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
-                    target.getImage().saveAs(imageFilepath);
-                } catch (Exception ex) {
-                    System.exit(1);
-                }
-            }
-        }
-
-    }
-
-    /**
-     * <p>
-     * Action to quit the ANDIE application.
+     * Creat new load action
      * </p>
      */
-    public class LoadAction extends AbstractAction {
+    public class LoadAction extends ImageAction {
 
         /**
          * <p>
-         * Create a new file-exit action.
+         * Create a new load action.
          * </p>
          * 
          * @param name     The name of the action (ignored if null).
@@ -231,36 +172,55 @@ public class MacrosActions {
          * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
          */
         LoadAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
-            super(name, icon);
-            putValue(SHORT_DESCRIPTION, desc);
-            putValue(MNEMONIC_KEY, mnemonic);
+            super(name, icon, desc, mnemonic);
         }
 
         /**
          * <p>
-         * Callback for when the file-exit action is triggered.
+         * Callback for when the load action is triggered.
          * </p>
          * 
          * <p>
-         * This method is called whenever the FileExitAction is triggered.
-         * It quits the program.
+         * This method is called whenever the LoadAction is triggered.
+         * It loads in the called ops file and adds the operations to the current ops stack
          * </p>
          * 
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-            // will check if image is saved before exiting
-            if (EditableImage.isSaved()) {
-                System.exit(0);
-            } else {
-                int dialogButton = JOptionPane.YES_NO_OPTION;
-                int dialogResult = JOptionPane.showConfirmDialog(null, "Are you sure you want to exit without saving?",
-                        "Warning", dialogButton);
-                if (dialogResult == JOptionPane.YES_OPTION) {
-                    System.exit(0);
+            JFileChooser fileChooser = new JFileChooser();
+            int result = fileChooser.showOpenDialog(target);
+
+            if (result == JFileChooser.APPROVE_OPTION) {
+                try {
+                    String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
+                    // checks if file is an ops file
+                    if (!(imageFilepath.substring(imageFilepath.length() - 4).equals(".ops"))) {
+                        JFrame exceptionFrame = new JFrame();
+                        JOptionPane.showMessageDialog(exceptionFrame, "Incorrect file type");
+                    } else {
+                        // checks if the file exists
+                        try {
+                            System.out.println("test");
+                            target.getImage();
+                            target.getImage().load(imageFilepath);
+                            System.out.println("test2");
+                        } catch (Exception ex) {
+                            JFrame exceptionFrame = new JFrame();
+                            JOptionPane.showMessageDialog(exceptionFrame, "Can't find that file");
+                        }
+                    }
+                    // if for any other reason the file can't open (if the file is corrupt)
+                    } catch (Exception ex) {
+                        JFrame exceptionFrame = new JFrame();
+                        JOptionPane.showMessageDialog(exceptionFrame, "File didn't work");
+                        // System.exit(1);
+                    }
                 }
+                target.repaint();
+                target.getParent().revalidate();
             }
-        }
+        
 
     }
 

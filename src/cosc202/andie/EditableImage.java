@@ -48,6 +48,9 @@ public class EditableImage {
 
     public static boolean isSaved;
 
+    private boolean recording = false;
+    private Stack<ImageOperation> macrosOps;
+
     /**
      * <p>
      * Create a new EditableImage.
@@ -190,7 +193,10 @@ public class EditableImage {
         // Write operations file
         FileOutputStream fileOut = new FileOutputStream(this.opsFilename);
         ObjectOutputStream objOut = new ObjectOutputStream(fileOut);
+        System.out.println("test1");
+        System.out.println(ops.toString());
         objOut.writeObject(this.ops);
+        System.out.println("test2");
         objOut.close();
         fileOut.close();
 
@@ -218,6 +224,67 @@ public class EditableImage {
         this.opsFilename = imageFilename + ".ops";
         save();
     }
+    /**
+     * <p>
+     * Starts recording macros operations
+     * </p>
+     * 
+     */
+    public void start(){
+        recording = true;
+        macrosOps = new Stack<ImageOperation>();
+    }
+
+    /**
+     * <p>
+     * Uses file name and creates new ops file from the recorded operations
+     * Stops recording and clears macrosOps 
+     * </p>
+     * 
+     * @param Filename The file location to save the ops file to
+     */
+    public void stop(String filename) throws Exception { 
+        String macroOpsFilename = imageFilename.substring(0, imageFilename.lastIndexOf("/")+1) + filename + ".ops";
+        System.out.println(macroOpsFilename);
+        FileOutputStream fileOut = new FileOutputStream(macroOpsFilename);
+        ObjectOutputStream objOut = new ObjectOutputStream(fileOut);
+        System.out.println(macrosOps.toString());
+        objOut.writeObject(macrosOps);
+        objOut.close();
+        fileOut.close();
+        recording = false;
+        macrosOps.clear();
+    }
+    /**
+     * <p>
+     * Loads in operations from chosen op file and adds operations to current operations
+     * </p>
+     * 
+     * @param imageFilename The file location of ops file
+     * @throws Exception If something goes wrong.
+     */
+    public void load(String filePath) throws Exception {
+        try {
+            FileInputStream fileIn = new FileInputStream(filePath);
+            ObjectInputStream objIn = new ObjectInputStream(fileIn);
+            // Silence the Java compiler warning about type casting.
+            // Understanding the cause of the warning is way beyond
+            // the scope of COSC202, but if you're interested, it has
+            // to do with "type erasure" in Java: the compiler cannot
+            // produce code that fails at this point in all cases in
+            // which there is actually a type mismatch for one of the
+            // elements within the Stack, i.e., a non-ImageOperation.
+            @SuppressWarnings("unchecked")
+            Stack<ImageOperation> opsFromFile = (Stack<ImageOperation>) objIn.readObject();
+            ops.addAll(opsFromFile);
+            redoOps.clear();
+            objIn.close();
+            fileIn.close();
+        } catch (Exception ex) {
+            // Could be no file or something else. Carry on for now.
+        }
+        this.refresh();
+    }
 
     /**
      * <p>
@@ -229,7 +296,9 @@ public class EditableImage {
     public void apply(ImageOperation op) {
         current = op.apply(current);
         ops.add(op);
-
+        if(recording){
+            macrosOps.add(op);
+        }
         isSaved = false;
     }
 
@@ -241,7 +310,9 @@ public class EditableImage {
     public void undo() {
         redoOps.push(ops.pop());
         refresh();
-
+        if(recording){
+            macrosOps.pop();
+        }
         isSaved = false;
     }
 
@@ -252,7 +323,6 @@ public class EditableImage {
      */
     public void redo()  {
         apply(redoOps.pop());
-
         isSaved = false;
     }
 
@@ -289,5 +359,6 @@ public class EditableImage {
     public static boolean isSaved(){
         return isSaved;
     }
+
 
 }
