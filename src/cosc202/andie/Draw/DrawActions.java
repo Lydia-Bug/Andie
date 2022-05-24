@@ -2,6 +2,7 @@ package cosc202.andie.Draw;
 
 import java.util.*;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.*;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
@@ -238,9 +239,10 @@ public class DrawActions {
             jf.showDialog(jtxt);
             // String textArea = jtxt.getText();
             target.add(jtxt);
-
+            // jf.getSelectedFont();
+            Font fontSize = jf.getSelectedFont();
             target.getImage().apply(new DrawText((int) m.getX(), (int) m.getY(),
-                    (int) m.getWidth(), (int) m.getHeight()));
+                    (int) m.getWidth(), (int) m.getHeight(), fontSize));
             target.validate();
             target.deselectMouse();
             target.repaint();

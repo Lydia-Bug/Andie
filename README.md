@@ -2,7 +2,7 @@
 
 ### **Extended filters**
 #### *Implemented by Lydia Acton, and Callum Walker*
-When Calum created the kernal filters in the first part of the project he implemented 'extended filter' functionality on the filters that needed it. He didn't participate in the second part of the project so Lydia simplying copyed over the code he had already writen, to the mean filter, which still had the issue, as it wasn't one of the filters he created. 
+When Callum created the kernal filters in the first part of the project he implemented 'extended filter' functionality on the filters that needed it. He didn't participate in the second part of the project so Lydia simplying copyed over the code he had already writen, to the mean filter, which still had the issue, as it wasn't one of the filters he created. 
 - Accessed via: There's 'extended filter' code used for the mean, and gaussian filter, the other kernal filters don't have the issue of a black border, because the radius of the kernals used to small to see any difference
 - I've tested a couple different types of images of different size, and types. And I've tested different radiuses, the extended filter seems to work fine
 - The filter does cause a kinda of white blury border around the edge, its not nearly as noticable and the hard black border, especially at smaller radius. And for a function like this there is no perfect soultion, because you don't know the values of the pixcels outside of the images bounds, so this implimentation works fine. 
@@ -31,7 +31,7 @@ When Calum created the kernal filters in the first part of the project he implem
 
 ### **Crop to selection**
 #### *Implemented by Hamzah Alansi *
-- Accessed via: Transformation tab, Keyboard Shortcut (Shift + X)
+- Accessed via: Transformation tab, Keyboard Shortcut (Shift + X), Crop to selection works by selecting a mouse region first before using the action. The best way to do this would be to mouse select then use the shortcut.
 - Tested on: 2 images with different background transparencies.
 - Known issues: When trying to crop an Image using mouse selection and going outside of the container bounds it breaks.
 <br/><br/>
