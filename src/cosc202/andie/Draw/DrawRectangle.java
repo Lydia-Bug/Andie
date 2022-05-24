@@ -2,7 +2,12 @@ package cosc202.andie.Draw;
 
 import java.awt.image.*;
 import java.awt.*;
+import javax.swing.*;
+import java.awt.event.*;
+import java.awt.geom.*;
 import cosc202.andie.ImageOperation;
+import cosc202.andie.ImagePanel;
+
 
 
 /**
@@ -22,7 +27,7 @@ import cosc202.andie.ImageOperation;
  * @author Ella Taylor
  * @version 1.0
  */
-public class DrawRectangle implements ImageOperation, java.io.Serializable   {
+public class DrawRectangle extends JPanel implements ImageOperation, java.io.Serializable   {
 
     /**
      * <p>
@@ -30,10 +35,14 @@ public class DrawRectangle implements ImageOperation, java.io.Serializable   {
      * </p>
      * @param clockwise Boolean datafield determining whether the image is flipped vertically or horizontally.
      */
-    Color c;
 
-    public DrawRectangle(Color c) {
+    Color c;
+    ImagePanel target;
+    
+
+    public DrawRectangle(Color c, ImagePanel target) {
         this.c = c;
+        this.target = target;
     }
     
 
@@ -47,6 +56,31 @@ public class DrawRectangle implements ImageOperation, java.io.Serializable   {
      */
     public BufferedImage apply(BufferedImage input) {
         return input;
+    }
+
+    @Override
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+            Graphics2D g2 = (Graphics2D) g.create();
+            Point startDrag = target.getStartDrag();
+            Point endDrag = target.getEndDrag();
+            
+            if (target.GetMouseRectangle() != null) {
+                // if(isValidSelectedArea()) {
+                g2.setPaint(c);
+                g2.draw(target.GetMouseRectangle());
+                // }
+            }
+
+            if (startDrag != null && endDrag != null) {
+                g2.setPaint(Color.LIGHT_GRAY);
+                Shape r = target.makeRectangle(startDrag.x, startDrag.y, endDrag.x,
+                        endDrag.y);
+                g2.draw(r);
+            }
+            g2.dispose();
+        
+
     }
     
 }
