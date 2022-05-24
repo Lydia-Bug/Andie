@@ -10,6 +10,7 @@ import java.awt.geom.Rectangle2D;
 import javax.swing.*;
 
 import cosc202.andie.ImageAction;
+import cosc202.andie.*;
 
 public class DrawActions {
 
@@ -25,6 +26,14 @@ public class DrawActions {
         actions.add(new DrawTextAction("Create Text", null, "Create Text",
                 null));
         actions.add(new DrawRectangleAction("Draw Rectangle", null, "Draw Rectangle (no fill)",
+                null));
+        actions.add(new DrawFilledRectangleAction("Draw Filled Rectangle", null, "Draw Rectangle (with fill)",
+                null));
+        actions.add(new DrawOvalAction("Draw Oval", null, "Draw Oval (no fill)",
+                null));
+        actions.add(new DrawFilledOvalAction("Draw Filled Oval", null, "Draw Oval (with fill)",
+                null));
+        actions.add(new DrawLineAction("Draw Line", null, "Draw solid line",
                 null));
     }
 
@@ -75,17 +84,19 @@ public class DrawActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-
-            ColorPicker colorPicker = new ColorPicker("Select pen colour");
-            target.deselectMouse();
-            target.getImage().apply(new DrawRectangle(colorPicker.getPenColor(), target));
-            target.deselectMouse();
-            target.repaint();
-            target.getParent().revalidate();
+            
+            if(checkErrors(target)) {
+                ColorPicker colorPicker = new ColorPicker("Select pen colour"); 
+                BrushThickness bt = new BrushThickness();
+                target.getImage().apply(new DrawRectangle(colorPicker.getPenColor(), bt.getThickness(), target));
+                target.deselectMouse();
+                target.repaint();
+                target.getParent().revalidate();
+            }
         }
     }
 
-    public class DrawFilledRectangle extends ImageAction {
+    public class DrawFilledRectangleAction extends ImageAction {
 
         /**
          * <p>
@@ -97,7 +108,7 @@ public class DrawActions {
          * @param desc     A brief description of the action (ignored if null).
          * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
          */
-        DrawFilledRectangle(String name, ImageIcon icon, String desc, Integer mnemonic) {
+        DrawFilledRectangleAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
 
@@ -106,13 +117,21 @@ public class DrawActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-            // target.getImage().apply(new Rotate(true));
-            target.repaint();
-            target.getParent().revalidate();
+            
+            if (checkErrors(target)) {
+                ColorPicker outline = new ColorPicker("Select outline colour"); 
+                ColorPicker fill = new ColorPicker("Select fill colour");
+                BrushThickness bt = new BrushThickness();
+
+                target.getImage().apply(new DrawFilledRectangle(outline.getPenColor(), fill.getPenColor(), bt.getThickness(), target));
+                target.deselectMouse();
+                target.repaint();
+                target.getParent().revalidate();
+            }
         }
     }
 
-    public class DrawLine extends ImageAction {
+    public class DrawLineAction extends ImageAction {
 
         /**
          * <p>
@@ -124,7 +143,7 @@ public class DrawActions {
          * @param desc     A brief description of the action (ignored if null).
          * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
          */
-        DrawLine(String name, ImageIcon icon, String desc, Integer mnemonic) {
+        DrawLineAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
 
@@ -133,13 +152,20 @@ public class DrawActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-            // target.getImage().apply(new Rotate(true));
-            target.repaint();
-            target.getParent().revalidate();
+            if(checkErrors(target)) {
+
+                ColorPicker colorPicker = new ColorPicker("Select pen colour");
+                BrushThickness bt = new BrushThickness();
+
+                target.getImage().apply(new DrawLine(colorPicker.getPenColor(), bt.getThickness(), target));
+                target.deselectMouse();
+                target.repaint();
+                target.getParent().revalidate();
+            }
         }
     }
 
-    public class DrawOval extends ImageAction {
+    public class DrawOvalAction extends ImageAction {
 
         /**
          * <p>
@@ -151,7 +177,7 @@ public class DrawActions {
          * @param desc     A brief description of the action (ignored if null).
          * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
          */
-        DrawOval(String name, ImageIcon icon, String desc, Integer mnemonic) {
+        DrawOvalAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
 
@@ -160,13 +186,20 @@ public class DrawActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-            // target.getImage().apply(new Rotate(true));
-            target.repaint();
-            target.getParent().revalidate();
+            if(checkErrors(target)) {
+
+                ColorPicker colorPicker = new ColorPicker("Select pen colour"); 
+                BrushThickness bt = new BrushThickness();
+
+                target.getImage().apply(new DrawOval(colorPicker.getPenColor(), bt.getThickness(), target));
+                target.deselectMouse();
+                target.repaint();
+                target.getParent().revalidate();
+            }
         }
     }
 
-    public class DrawFilledOval extends ImageAction {
+    public class DrawFilledOvalAction extends ImageAction {
 
         /**
          * <p>
@@ -178,7 +211,7 @@ public class DrawActions {
          * @param desc     A brief description of the action (ignored if null).
          * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
          */
-        DrawFilledOval(String name, ImageIcon icon, String desc, Integer mnemonic) {
+        DrawFilledOvalAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
 
@@ -187,9 +220,16 @@ public class DrawActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-            // target.getImage().apply(new Rotate(true));
-            target.repaint();
-            target.getParent().revalidate();
+            if (checkErrors(target)) {
+                ColorPicker outline = new ColorPicker("Select outline colour"); 
+                ColorPicker fill = new ColorPicker("Select fill colour");
+                BrushThickness bt = new BrushThickness();
+
+                target.getImage().apply(new DrawFilledOval(outline.getPenColor(), fill.getPenColor(), bt.getThickness(), target));
+                target.deselectMouse();
+                target.repaint();
+                target.getParent().revalidate();
+            }
         }
     }
 
@@ -248,6 +288,18 @@ public class DrawActions {
             target.repaint();
             target.getParent().revalidate();
         }
+    }
+
+    private boolean checkErrors(ImagePanel target) {
+        if (!target.getImage().hasImage()) {
+            new NoLoadedImageError();
+            return false;
+        }
+        if (target.GetMouseRectangle() == null) {
+            new NoSelectionError();
+            return false;
+        }    
+        return true;
     }
 
 }
