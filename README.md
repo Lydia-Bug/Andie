@@ -31,7 +31,7 @@ Although Callum didn't work on the second part of the project, he already did th
 
 ### **Crop to selection**
 #### *Implemented by Hamzah Alansi *
-- Accessed via: Transformation tab, Keyboard Shortcut (Shift + X)
+- Accessed via: Transformation tab, Keyboard Shortcut (Shift + X), Crop to selection works by selecting a mouse region first before using the action. The best way to do this would be to mouse select then use the shortcut.
 - Tested on: 2 images with different background transparencies.
 - Known issues: When trying to crop an Image using mouse selection and going outside of the container bounds it breaks.
 <br/><br/>

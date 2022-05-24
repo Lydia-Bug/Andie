@@ -215,7 +215,7 @@ public class ImagePanel extends JPanel {
             g2.drawImage(image.getCurrentImage(), null, 0, 0);
             g2.setStroke(new BasicStroke(2));
 
-            if (selectedArea != null) {
+            if (selectedArea != null && selectedArea.getHeight()*selectedArea.getWidth() > 1) {
                 // if(isValidSelectedArea()) {
                 g2.setPaint(Color.RED);
                 g2.draw(selectedArea);
