@@ -244,7 +244,15 @@ public class EditableImage {
      * @param Filename The file location to save the ops file to
      */
     public void stop(String filename) throws Exception { 
-        String macroOpsFilename = imageFilename.substring(0, imageFilename.lastIndexOf("/")+1) + filename + ".ops";
+        System.out.println(imageFilename);
+        String macroOpsFilename = "";
+        //Because mac and windows use either \ or /
+        if(imageFilename.contains("/")){
+            macroOpsFilename = imageFilename.substring(0, imageFilename.lastIndexOf("/")+1) + filename + ".ops";
+        }
+        if(imageFilename.contains("\\")){
+            macroOpsFilename = imageFilename.substring(0, imageFilename.lastIndexOf("\\")+1) + filename + ".ops";
+        }
         System.out.println(macroOpsFilename);
         FileOutputStream fileOut = new FileOutputStream(macroOpsFilename);
         ObjectOutputStream objOut = new ObjectOutputStream(fileOut);

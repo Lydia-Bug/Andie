@@ -1,8 +1,15 @@
+//Add mouse selection
+
 package cosc202.andie.Draw;
 
 import java.awt.image.*;
 import java.awt.*;
+import javax.swing.*;
+import java.awt.event.*;
+import java.awt.geom.*;
 import cosc202.andie.ImageOperation;
+import cosc202.andie.ImagePanel;
+
 
 
 /**
@@ -30,10 +37,14 @@ public class DrawRectangle implements ImageOperation, java.io.Serializable   {
      * </p>
      * @param clockwise Boolean datafield determining whether the image is flipped vertically or horizontally.
      */
-    Color c;
 
-    public DrawRectangle(Color c) {
+    Color c;
+    ImagePanel target;
+    
+
+    public DrawRectangle(Color c, ImagePanel target) {
         this.c = c;
+        this.target = target;
     }
     
 
@@ -46,6 +57,16 @@ public class DrawRectangle implements ImageOperation, java.io.Serializable   {
      * @return input The flipped image. 
      */
     public BufferedImage apply(BufferedImage input) {
+        Graphics2D g2 = input.createGraphics();
+        
+        if (target.GetMouseRectangle() != null) {
+            // if(isValidSelectedArea()) {
+            g2.setPaint(c);
+            g2.draw(target.GetMouseRectangle());
+            // }
+        }
+
+        g2.dispose();
         return input;
     }
     

@@ -76,7 +76,9 @@ public class DrawActions {
         public void actionPerformed(ActionEvent e) {
 
             ColorPicker colorPicker = new ColorPicker("Select pen colour");
-            target.getImage().apply(new DrawRectangle(colorPicker.getPenColor()));
+            target.deselectMouse();
+            target.getImage().apply(new DrawRectangle(colorPicker.getPenColor(), target));
+            target.deselectMouse();
             target.repaint();
             target.getParent().revalidate();
         }
