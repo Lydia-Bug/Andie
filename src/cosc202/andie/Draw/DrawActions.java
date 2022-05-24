@@ -1,6 +1,7 @@
 package cosc202.andie.Draw;
 
 import java.util.*;
+import java.awt.Color;
 import java.awt.event.*;
 import java.awt.geom.Rectangle2D;
 
@@ -11,7 +12,7 @@ import cosc202.andie.ImageAction;
 public class DrawActions {
 
     protected ArrayList<Action> actions;
-
+    
     /**
      * <p>
      * Constructor. Creates an ArrayList of Colour menu actions.
@@ -20,6 +21,8 @@ public class DrawActions {
     public DrawActions() {
         actions = new ArrayList<Action>();
         actions.add(new DrawTextAction("Create Text", null, "Create Text",
+                null));
+        actions.add(new DrawRectangleAction("Draw Rectangle", null, "Draw Rectangle (no fill)",
                 null));
     }
 
@@ -49,7 +52,7 @@ public class DrawActions {
      * 
      * @see Rotate
      */
-    public class DrawRectangle extends ImageAction {
+    public class DrawRectangleAction extends ImageAction {
 
         /**
          * <p>
@@ -61,7 +64,7 @@ public class DrawActions {
          * @param desc     A brief description of the action (ignored if null).
          * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
          */
-        DrawRectangle(String name, ImageIcon icon, String desc, Integer mnemonic) {
+        DrawRectangleAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
 
@@ -70,7 +73,9 @@ public class DrawActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-            // target.getImage().apply(new Rotate(true));
+
+            ColorPicker colorPicker = new ColorPicker("Select pen colour");
+            target.getImage().apply(new DrawRectangle(colorPicker.getPenColor()));
             target.repaint();
             target.getParent().revalidate();
         }

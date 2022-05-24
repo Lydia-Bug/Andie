@@ -35,6 +35,7 @@ public class DrawRectangle implements ImageOperation {
     public DrawRectangle(Color c) {
         this.c = c;
     }
+    
 
     /**
      * <p>
