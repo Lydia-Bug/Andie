@@ -42,13 +42,13 @@ public class ImageCrop implements ImageOperation {
 
     /**
      * <p>
-     * Uses the getScaledInstance method to control how scaled pixel values are
-     * chosen and
-     * to get a better picture if scaling up or down.
+     * Uses the getSubImage method to create a new Image of certain dimensions
+     * decided by mouse selection
+     *
      * </p>
      * 
-     * @param input The image to be resized.
-     * @return resized input.
+     * @param input The image to be Cropped.
+     * @return crop input.
      */
     @Override
     public BufferedImage apply(BufferedImage input) {
