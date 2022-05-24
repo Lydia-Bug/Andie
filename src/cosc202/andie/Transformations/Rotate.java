@@ -22,7 +22,7 @@ import cosc202.andie.ImageOperation;
  * @version 1.0
  */
 
-public class Rotate implements ImageOperation {
+public class Rotate implements ImageOperation, java.io.Serializable  {
 
     private boolean clockwise;
     /**

@@ -21,7 +21,7 @@ import cosc202.andie.ImageOperation;
  * @author Ella Taylor
  * @version 1.0
  */
-public class Flip implements ImageOperation {
+public class Flip implements ImageOperation, java.io.Serializable  {
     private boolean isVertical = true;
 
     /**
