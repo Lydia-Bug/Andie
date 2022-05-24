@@ -48,7 +48,8 @@ public class TransformationActions {
                 Integer.valueOf(KeyEvent.VK_DOWN)));
         actions.add(
                 new ResizeAction("Resize", null, "Resize Image", Integer.valueOf(KeyEvent.VK_R)));
-        actions.add(new ImageCropAction("Image Crop", null, "Crop Image to selection", null));
+        actions.add(new ImageCropAction("Crop Selection", null, "Crop Image to mouse selection",
+                Integer.valueOf(KeyEvent.VK_X)));
     }
 
     /**
@@ -71,6 +72,8 @@ public class TransformationActions {
         actions.get(3).putValue(Action.ACCELERATOR_KEY,
                 KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, KeyEvent.CTRL_DOWN_MASK));
         actions.get(4).putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_R, KeyEvent.CTRL_DOWN_MASK));
+        actions.get(5).putValue(Action.ACCELERATOR_KEY,
+                KeyStroke.getKeyStroke(KeyEvent.VK_X, KeyEvent.SHIFT_DOWN_MASK));
 
         for (Action action : actions) {
             TransformationMenu.add(new JMenuItem(action));
