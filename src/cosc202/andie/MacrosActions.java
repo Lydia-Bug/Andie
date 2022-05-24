@@ -39,7 +39,7 @@ public class MacrosActions {
     public MacrosActions() {
         actions = new ArrayList<Action>();
         actions.add(new StartAction("Start", null, "Start macros recording", Integer.valueOf(KeyEvent.VK_Z)));
-        actions.add(new StopAction("Stop and Save", null, "Stop and save macros recording", Integer.valueOf(KeyEvent.VK_X)));
+        actions.add(new StopAction("Stop and Save", null, "Stop and save macros recording", Integer.valueOf(KeyEvent.VK_Q)));
         actions.add(new LoadAction("Load macros", null, "Load macros recording", Integer.valueOf(KeyEvent.VK_L)));
     }
 
@@ -55,7 +55,7 @@ public class MacrosActions {
         JMenu fileMenu = new JMenu("Macros");
 
         actions.get(0).putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_Z, KeyEvent.CTRL_DOWN_MASK));
-        actions.get(1).putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_X, KeyEvent.CTRL_DOWN_MASK));
+        actions.get(1).putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_Q, KeyEvent.CTRL_DOWN_MASK));
         actions.get(2).putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_L, KeyEvent.CTRL_DOWN_MASK));
 
         for (Action action : actions) {
