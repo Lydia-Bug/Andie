@@ -35,6 +35,7 @@ public class DrawRectangle implements ImageOperation, java.io.Serializable   {
     public DrawRectangle(Color c) {
         this.c = c;
     }
+    
 
     /**
      * <p>
