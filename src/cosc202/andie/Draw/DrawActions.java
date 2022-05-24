@@ -9,6 +9,7 @@ import java.awt.geom.Rectangle2D;
 import javax.swing.*;
 
 import cosc202.andie.ImageAction;
+import cosc202.andie.*;
 
 public class DrawActions {
 
@@ -74,9 +75,15 @@ public class DrawActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-
-            ColorPicker colorPicker = new ColorPicker("Select pen colour");
-            target.deselectMouse();
+            if (!target.getImage().hasImage()) {
+                new NoLoadedImageError();
+                return;
+            }
+            if (target.GetMouseRectangle() == null) {
+                new NoSelectionError();
+                return;
+            }
+            ColorPicker colorPicker = new ColorPicker("Select pen colour"); 
             target.getImage().apply(new DrawRectangle(colorPicker.getPenColor(), target));
             target.deselectMouse();
             target.repaint();
