@@ -1,3 +1,5 @@
+//Add mouse selection
+
 package cosc202.andie.Draw;
 
 import java.awt.image.*;
@@ -27,7 +29,7 @@ import cosc202.andie.ImagePanel;
  * @author Ella Taylor
  * @version 1.0
  */
-public class DrawRectangle extends JPanel implements ImageOperation, java.io.Serializable   {
+public class DrawRectangle implements ImageOperation, java.io.Serializable   {
 
     /**
      * <p>
@@ -55,32 +57,17 @@ public class DrawRectangle extends JPanel implements ImageOperation, java.io.Ser
      * @return input The flipped image. 
      */
     public BufferedImage apply(BufferedImage input) {
-        return input;
-    }
-
-    @Override
-    public void paintComponent(Graphics g) {
-        super.paintComponent(g);
-            Graphics2D g2 = (Graphics2D) g.create();
-            Point startDrag = target.getStartDrag();
-            Point endDrag = target.getEndDrag();
-            
-            if (target.GetMouseRectangle() != null) {
-                // if(isValidSelectedArea()) {
-                g2.setPaint(c);
-                g2.draw(target.GetMouseRectangle());
-                // }
-            }
-
-            if (startDrag != null && endDrag != null) {
-                g2.setPaint(Color.LIGHT_GRAY);
-                Shape r = target.makeRectangle(startDrag.x, startDrag.y, endDrag.x,
-                        endDrag.y);
-                g2.draw(r);
-            }
-            g2.dispose();
+        Graphics2D g2 = input.createGraphics();
         
+        if (target.GetMouseRectangle() != null) {
+            // if(isValidSelectedArea()) {
+            g2.setPaint(c);
+            g2.draw(target.GetMouseRectangle());
+            // }
+        }
 
+        g2.dispose();
+        return input;
     }
     
 }
