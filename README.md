@@ -25,7 +25,7 @@ When Calum created the kernal filters in the first part of the project he implem
 ### **Mouse selection of rectangular regions**
 #### *Implemented by *
 - Accessed via: 
-- Tested on...
+- Tested on zoomed in and out images, previously didn't work but now factors in the scale when drawing a rectangal
 - Known issues...
 <br/><br/>
 
