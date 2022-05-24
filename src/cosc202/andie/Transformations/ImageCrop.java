@@ -52,8 +52,14 @@ public class ImageCrop implements ImageOperation, java.io.Serializable   {
      */
     @Override
     public BufferedImage apply(BufferedImage input) {
-        BufferedImage croppedImage;
         
+        //This allows an out of bounds crop in a macros file to not break the code
+        if(x > input.getWidth() || y > input.getHeight()){
+            return input;
+        }
+
+        BufferedImage croppedImage;
+
         if (x + width > input.getWidth()) {
             width = input.getWidth() - x;
         }
