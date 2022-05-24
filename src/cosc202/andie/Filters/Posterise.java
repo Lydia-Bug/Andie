@@ -1,4 +1,4 @@
-package cosc202.andie.Colours;
+package cosc202.andie.Filters;
 
 import java.awt.image.*;
 
