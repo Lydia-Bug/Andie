@@ -14,7 +14,7 @@ import javax.swing.SwingUtilities;
 
 import cosc202.andie.ImageOperation;
 
-public class DrawText implements ImageOperation {
+public class DrawText implements ImageOperation, java.io.Serializable   {
     int x, y, width, height;
 
     public DrawText(int x, int y, int width, int height) {

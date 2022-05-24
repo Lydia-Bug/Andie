@@ -22,7 +22,7 @@ import cosc202.andie.ImageOperation;
  * @version 1.0
  */
 
-public class ImageCrop implements ImageOperation {
+public class ImageCrop implements ImageOperation, java.io.Serializable   {
     BufferedImage croppedImage;
     int x, y, width, height;
 

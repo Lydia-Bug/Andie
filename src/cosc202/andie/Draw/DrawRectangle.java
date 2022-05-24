@@ -22,7 +22,7 @@ import cosc202.andie.ImageOperation;
  * @author Ella Taylor
  * @version 1.0
  */
-public class DrawRectangle implements ImageOperation {
+public class DrawRectangle implements ImageOperation, java.io.Serializable   {
 
     /**
      * <p>
