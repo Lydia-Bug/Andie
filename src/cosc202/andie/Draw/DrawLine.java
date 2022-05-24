@@ -2,7 +2,9 @@ package cosc202.andie.Draw;
 
 import java.awt.image.*;
 import java.awt.*;
+import java.awt.geom.*;
 import cosc202.andie.ImageOperation;
+import cosc202.andie.ImagePanel;
 
 
 /**
@@ -31,9 +33,13 @@ public class DrawLine implements ImageOperation, java.io.Serializable   {
      * @param clockwise Boolean datafield determining whether the image is flipped vertically or horizontally.
      */
     Color c;
+    int thickness;
+    ImagePanel target;
 
-    public DrawLine(Color c) {
+    public DrawLine(Color c, int thickness, ImagePanel target) {
         this.c = c;
+        this.thickness = thickness;
+        this.target = target;
     }
 
     /**
@@ -45,6 +51,14 @@ public class DrawLine implements ImageOperation, java.io.Serializable   {
      * @return input The flipped image. 
      */
     public BufferedImage apply(BufferedImage input) {
+        Rectangle2D m = target.GetMouseRectangle();
+        Graphics2D g2 = input.createGraphics();
+        g2.setStroke(new BasicStroke(thickness));
+        // if(isValidSelectedArea()) {
+        g2.setPaint(c);
+        g2.drawLine((int) m.getX(), (int) m.getY(), (int) m.getWidth(), (int) m.getHeight());
+        // }
+        g2.dispose();
         return input;
     }
     

@@ -4,9 +4,6 @@ package cosc202.andie.Draw;
 
 import java.awt.image.*;
 import java.awt.*;
-import javax.swing.*;
-import java.awt.event.*;
-import java.awt.geom.*;
 import cosc202.andie.ImageOperation;
 import cosc202.andie.ImagePanel;
 
@@ -40,10 +37,12 @@ public class DrawRectangle implements ImageOperation, java.io.Serializable   {
 
     Color c;
     ImagePanel target;
+    int thickness;
     
 
-    public DrawRectangle(Color c, ImagePanel target) {
+    public DrawRectangle(Color c, int thickness, ImagePanel target) {
         this.c = c;
+        this.thickness = thickness;
         this.target = target;
     }
     
@@ -58,14 +57,11 @@ public class DrawRectangle implements ImageOperation, java.io.Serializable   {
      */
     public BufferedImage apply(BufferedImage input) {
         Graphics2D g2 = input.createGraphics();
-        
-        if (target.GetMouseRectangle() != null) {
+        g2.setStroke(new BasicStroke(thickness));
             // if(isValidSelectedArea()) {
-            g2.setPaint(c);
-            g2.draw(target.GetMouseRectangle());
+        g2.setPaint(c);
+        g2.draw(target.GetMouseRectangle());
             // }
-        }
-
         g2.dispose();
         return input;
     }
