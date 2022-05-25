@@ -23,7 +23,7 @@ public class BrushThickness {
 
     public BrushThickness() {
         if(!CancelDrawOperation.drawCancelled) {
-            JSlider thicknessSlider = new JSlider(JSlider.HORIZONTAL, 0, 20, 2);
+            JSlider thicknessSlider = new JSlider(JSlider.HORIZONTAL, 1, 21, 2);
 
             thicknessSlider.setMajorTickSpacing(5);
             thicknessSlider.setMinorTickSpacing(1);

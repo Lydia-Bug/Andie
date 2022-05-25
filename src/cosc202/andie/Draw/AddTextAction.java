@@ -1,3 +1,21 @@
+/**
+ * <p>
+ * Actions provided by the Add Text menu.
+ * </p>
+ * 
+ * <p>
+ * Adds text in a textbox to the image. The position of the text is determined by the location of the selected region. Text colo
+ * </p>
+ * 
+ * <p>
+ * <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA
+ * 4.0</a>
+ * </p>
+ * 
+ * @author Ella Taylor and Hamzah Alansi
+ * @version 1.0
+ */
+
 package cosc202.andie.Draw;
 
 import java.util.*;

@@ -25,7 +25,7 @@ public class SobelFilter implements ImageOperation, java.io.Serializable{
      * @param x,y,width,height,horizontal The direction the sobel filter will be applied
      * 
      */
-    SobelFilter(boolean horiozontal, int x, int y, int width, int height, boolean selection) {
+    SobelFilter(boolean horizontal, int x, int y, int width, int height, boolean selection) {
         this.horizontal = horizontal;
         this.x = x;
         this.y = y;
