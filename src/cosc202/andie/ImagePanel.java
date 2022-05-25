@@ -76,8 +76,6 @@ public class ImagePanel extends JPanel {
                 double selectorScale = 1/(scale);
                 int x = (int)(e.getX()*selectorScale);
                 int y = (int)(e.getY()*selectorScale);
-                System.out.println(e.getX() +", "+ e.getY());
-                System.out.println(x +" , "+ y);
                 ImagePanel.this.startDrag = new Point(x, y);
                 ImagePanel.this.endDrag = startDrag;
                 System.out.println("EVENT: " + ImagePanel.this.startDrag);

@@ -193,10 +193,7 @@ public class EditableImage {
         // Write operations file
         FileOutputStream fileOut = new FileOutputStream(this.opsFilename);
         ObjectOutputStream objOut = new ObjectOutputStream(fileOut);
-        System.out.println("test1");
-        System.out.println(ops.toString());
         objOut.writeObject(this.ops);
-        System.out.println("test2");
         objOut.close();
         fileOut.close();
 
@@ -244,7 +241,6 @@ public class EditableImage {
      * @param Filename The file location to save the ops file to
      */
     public void stop(String filename) throws Exception { 
-        System.out.println(imageFilename);
         String macroOpsFilename = "";
         //Because mac and windows use either \ or /
         if(imageFilename.contains("/")){
@@ -253,10 +249,8 @@ public class EditableImage {
         if(imageFilename.contains("\\")){
             macroOpsFilename = imageFilename.substring(0, imageFilename.lastIndexOf("\\")+1) + filename + ".ops";
         }
-        System.out.println(macroOpsFilename);
         FileOutputStream fileOut = new FileOutputStream(macroOpsFilename);
         ObjectOutputStream objOut = new ObjectOutputStream(fileOut);
-        System.out.println(macrosOps.toString());
         objOut.writeObject(macrosOps);
         objOut.close();
         fileOut.close();

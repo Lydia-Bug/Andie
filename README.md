@@ -25,7 +25,7 @@ Although Callum didn't work on the second part of the project, he already did th
 ### **Mouse selection of rectangular regions**
 #### *Implemented by *
 - Accessed via: 
-- Tested on images that are zoomed in or out, previously it didn't work at would draw the rectangular behind or infront of the mouse. Now the rectangular selection considers the scale of the image, and it works fine.
+- Tested on images that are zoomed in or out, previously it didn't work at would draw the rectangular behind or infront of the mouse. Now the rectangular selection considers the scale of the image, and it works fine. Also won't select rectanlge of zero area if you just click, which caused issues
 - Known issues...
 <br/><br/>
 
@@ -54,14 +54,14 @@ Although Callum didn't work on the second part of the project, he already did th
 
 ### **Filters can be applied to rectangular selection**
 #### *Implemented by *
-- Accessed via: 
-- Tested on...
-- Known issues...
+- Accessed via: By selecting an area then applying a filter or colour filter
+- I've tested this on all the filter and colour filters, I've test that it works if you select a region outside an image.
+- No known issues
 <br/><br/>
 
-### **Write text**
-#### *Implemented by *
-- Accessed via: 
-- Tested on...
-- Known issues...
+### **Show us something: Draw Text **
+#### *Implemented by Hamzah Alansi *
+- Accessed via: "Draw text" action in the "Draw in Selected Area" tab
+- Tested on: 2 Different Images with different Background transparencies
+- Known issues: When user clicks cancel after clicking the Draw Text Action it still draws the text.
 <br/><br/>

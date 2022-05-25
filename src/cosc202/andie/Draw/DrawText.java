@@ -7,8 +7,6 @@ import java.awt.Graphics2D;
 
 import java.awt.image.BufferedImage;
 
-import javax.swing.JTextField;
-
 import cosc202.andie.ImageOperation;
 
 /**
@@ -19,7 +17,8 @@ import cosc202.andie.ImageOperation;
  * <p>
  * This class takes the bounds of the mouse selection from ImagePanel
  * to draw text on top of the image within those dimensions of the selection
- * bounds.
+ * bounds. Also provides the user with options to choose text styles and
+ * colours.
  * 
  * <p>
  * <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA
@@ -33,7 +32,6 @@ import cosc202.andie.ImageOperation;
 public class DrawText implements ImageOperation, java.io.Serializable {
     int x, y, width, height;
     String txt = "";
-    Font font;
     public String family;
     public int size;
     private int style;
@@ -43,14 +41,13 @@ public class DrawText implements ImageOperation, java.io.Serializable {
      * Constructor. Creates a new DrawText operation.
      * </p>
      * 
-     * @param x,y,width,height
+     * @param x,y,width,height,family,txt,size,style
      */
     public DrawText(int x, int y, int width, int height, String family, String txt, int size, int style) {
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
-        this.font = font;
         this.txt = txt;
         this.family = family;
         this.size = size;
@@ -61,6 +58,7 @@ public class DrawText implements ImageOperation, java.io.Serializable {
      * <p>
      * Uses the Built-in draw operations within the Graphics2D class to create
      * a Text on the Image with certain dimensions decided by mouse selection.
+     * As well as gives the user the option to pick a text colour.
      *
      * </p>
      * 
@@ -71,7 +69,9 @@ public class DrawText implements ImageOperation, java.io.Serializable {
     public BufferedImage apply(BufferedImage input) {
         Graphics2D g = input.createGraphics();
         ColorPicker c = new ColorPicker("Pick text Color: ");
-
+        if (size == 0) {
+            return input;
+        }
         g.setFont(new Font(family, style, size));
         g.setColor(c.getPenColor());
 

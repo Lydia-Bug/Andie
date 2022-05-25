@@ -158,6 +158,21 @@ public class FilterActions {
         @Override
         public void actionPerformed(ActionEvent e) {
             //target.getImage().apply(new MedianFilter());
+            int x = 0;
+            int y = 0;
+            int width = 0;
+            int height = 0;
+            boolean selection = true;
+            try{
+                Rectangle2D m = target.GetMouseRectangle();
+                x = (int) m.getX();
+                y = (int) m.getY();
+                width = (int) m.getWidth();
+                height = (int) m.getHeight();
+            }catch(Exception ex){
+                selection = false;
+            }
+            target.getImage().apply(new MedianFilter(x, y, width, height, selection));
             target.repaint();
             target.getParent().revalidate();
         }

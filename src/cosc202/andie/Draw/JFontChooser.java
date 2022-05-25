@@ -559,6 +559,7 @@ public class JFontChooser extends JComponent {
         public void actionPerformed(ActionEvent e) {
             dialogResultValue = CANCEL_OPTION;
             dialog.setVisible(false);
+            dialog.dispose();
         }
     }
 
