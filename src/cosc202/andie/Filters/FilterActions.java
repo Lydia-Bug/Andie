@@ -3,6 +3,7 @@ package cosc202.andie.Filters;
 import java.util.*;
 import java.awt.event.*;
 import javax.swing.*;
+import java.awt.geom.Rectangle2D;
 
 import cosc202.andie.ImageAction;
 
@@ -45,6 +46,7 @@ public class FilterActions {
                 new MedianFilterAction("Median", null, "Apply a median filter", Integer.valueOf(KeyEvent.VK_K)));
         actions.add(new GuassianFilterAction("Gaussian", null, "Apply a gaussian filter",
                 Integer.valueOf(KeyEvent.VK_L)));
+        actions.add(new PosteriseAction("Posterise", null, "Posterise image", Integer.valueOf(KeyEvent.VK_P)));
         actions.add(new EmbossFilterAction("Embossed", null, "Apply a emboss filter",
                 Integer.valueOf(KeyEvent.VK_E)));
         actions.add(new SobelAction("Sobel", null, "Apply a sobel filter",
@@ -68,9 +70,10 @@ public class FilterActions {
                 KeyStroke.getKeyStroke(KeyEvent.VK_K, KeyEvent.CTRL_DOWN_MASK));
         actions.get(3).putValue(Action.ACCELERATOR_KEY,
                 KeyStroke.getKeyStroke(KeyEvent.VK_L, KeyEvent.CTRL_DOWN_MASK));
-        actions.get(4).putValue(Action.ACCELERATOR_KEY,
-                KeyStroke.getKeyStroke(KeyEvent.VK_E, KeyEvent.CTRL_DOWN_MASK));
+        actions.get(4).putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_P, KeyEvent.CTRL_DOWN_MASK));
         actions.get(5).putValue(Action.ACCELERATOR_KEY,
+                KeyStroke.getKeyStroke(KeyEvent.VK_E, KeyEvent.CTRL_DOWN_MASK));
+        actions.get(6).putValue(Action.ACCELERATOR_KEY,
                 KeyStroke.getKeyStroke(KeyEvent.VK_H, KeyEvent.CTRL_DOWN_MASK));
 
         for (Action action : actions) {
@@ -110,7 +113,21 @@ public class FilterActions {
                 radius = (int) radNumModel.getValue();
             }
 
-            target.getImage().apply(new GaussianFilter(radius));
+            int x = 0;
+            int y = 0;
+            int width = 0;
+            int height = 0;
+            boolean selection = true;
+            try{
+                Rectangle2D m = target.GetMouseRectangle();
+                x = (int) m.getX();
+                y = (int) m.getY();
+                width = (int) m.getWidth();
+                height = (int) m.getHeight();
+            }catch(Exception ex){
+                selection = false;
+            }
+            target.getImage().apply(new GaussianFilter(radius, x, y, width, height, selection));
             target.repaint();
             target.getParent().revalidate();
         }
@@ -193,7 +210,21 @@ public class FilterActions {
                 sharpness = (int) sharpNumModel.getValue();
             }
 
-            target.getImage().apply(new SharpenFilter(sharpness));
+            int x = 0;
+            int y = 0;
+            int width = 0;
+            int height = 0;
+            boolean selection = true;
+            try{
+                Rectangle2D m = target.GetMouseRectangle();
+                x = (int) m.getX();
+                y = (int) m.getY();
+                width = (int) m.getWidth();
+                height = (int) m.getHeight();
+            }catch(Exception ex){
+                selection = false;
+            }
+            target.getImage().apply(new SharpenFilter(sharpness, x, y, width, height, selection));
             target.repaint();
             target.getParent().revalidate();
         }
@@ -259,7 +290,99 @@ public class FilterActions {
             }
 
             // Create and apply the filter
-            target.getImage().apply(new MeanFilter(radius));
+            int x = 0;
+            int y = 0;
+            int width = 0;
+            int height = 0;
+            boolean selection = true;
+            try{
+                Rectangle2D m = target.GetMouseRectangle();
+                x = (int) m.getX();
+                y = (int) m.getY();
+                width = (int) m.getWidth();
+                height = (int) m.getHeight();
+            }catch(Exception ex){
+                selection = false;
+            }
+            target.getImage().apply(new MeanFilter(radius, x, y, width, height, selection));
+            target.repaint();
+            target.getParent().revalidate();
+        }
+
+    }
+
+    /**
+     * <p>
+     * Action posterise an image
+     * </p>
+     * 
+     * @see Posterise
+     */
+    public class PosteriseAction extends ImageAction {
+
+        /**
+         * <p>
+         * Create a new posterise action.
+         * </p>
+         * 
+         * @param name     The name of the action (ignored if null).
+         * @param icon     An icon to use to represent the action (ignored if null).
+         * @param desc     A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
+         */
+        PosteriseAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        /**
+         * <p>
+         * Callback for when the posterise is triggered.
+         * </p>
+         * 
+         * <p>
+         * This method is called whenever the PosteriseAction is triggered.
+         * It adjusts the posterises an image
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
+        public void actionPerformed(ActionEvent e) {
+            // Determine the contrast- ask the user.
+            int layers = 0;
+
+            // Pop-up dialog box to ask for the contrast value.
+            JSlider posteriseModel = new JSlider(JSlider.HORIZONTAL, 0, 30, 0);
+
+            posteriseModel.setMajorTickSpacing(10);
+            posteriseModel.setMinorTickSpacing(1);
+            posteriseModel.setPaintTicks(true);
+            posteriseModel.setPaintLabels(true);
+
+            int option = JOptionPane.showOptionDialog(null, posteriseModel, "Enter amount of colours",
+                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+
+            // Check the return value from the dialog box.
+            if (option == JOptionPane.CANCEL_OPTION) {
+                return;
+            } else if (option == JOptionPane.OK_OPTION) {
+                layers = (int) posteriseModel.getValue();
+            }
+
+            int x = 0;
+            int y = 0;
+            int width = 0;
+            int height = 0;
+            boolean selection = true;
+            try{
+                Rectangle2D m = target.GetMouseRectangle();
+                x = (int) m.getX();
+                y = (int) m.getY();
+                width = (int) m.getWidth();
+                height = (int) m.getHeight();
+            }catch(Exception ex){
+                selection = false;
+            }
+            target.getImage().apply(new Posterise(layers, x, y, width, height, selection));
             target.repaint();
             target.getParent().revalidate();
         }
@@ -314,15 +437,6 @@ public class FilterActions {
             angleModel.setPaintTicks(true);
             angleModel.setPaintLabels(true);
 
-            /*
-            Hashtable labelTable = new Hashtable();
-            labelTable.put(0, new JLabel("right"));
-            labelTable.put(90, new JLabel("upward"));
-            labelTable.put(180, new JLabel("left"));
-            labelTable.put(270, new JLabel("downward"));
-            angleModel.setLabelTable( labelTable );
-            angleModel.setPaintLabels(true);
-*/
             int option = JOptionPane.showOptionDialog(null, angleModel, "Enter emboss angle",
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 
@@ -334,7 +448,21 @@ public class FilterActions {
             }
 
             // Create and apply the filter
-            target.getImage().apply(new EmbossFilter(angle));
+            int x = 0;
+            int y = 0;
+            int width = 0;
+            int height = 0;
+            boolean selection = true;
+            try{
+                Rectangle2D m = target.GetMouseRectangle();
+                x = (int) m.getX();
+                y = (int) m.getY();
+                width = (int) m.getWidth();
+                height = (int) m.getHeight();
+            }catch(Exception ex){
+                selection = false;
+            }
+            target.getImage().apply(new EmbossFilter(angle,x, y, width, height, selection));
             target.repaint();
             target.getParent().revalidate();
         }
@@ -391,7 +519,21 @@ public class FilterActions {
                 horizontal = false;
             }
             // Create and apply the filter
-            target.getImage().apply(new SobelFilter(horizontal));
+            int x = 0;
+            int y = 0;
+            int width = 0;
+            int height = 0;
+            boolean selection = true;
+            try{
+                Rectangle2D m = target.GetMouseRectangle();
+                x = (int) m.getX();
+                y = (int) m.getY();
+                width = (int) m.getWidth();
+                height = (int) m.getHeight();
+            }catch(Exception ex){
+                selection = false;
+            }
+            target.getImage().apply(new SobelFilter(horizontal, x, y, width, height, selection));
             target.repaint();
             target.getParent().revalidate();
         }

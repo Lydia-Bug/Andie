@@ -18,15 +18,22 @@ import cosc202.andie.ImageOperation;
 public class EmbossFilter implements ImageOperation, java.io.Serializable{
     
     private int angle;
+    private int x, y, width, height;
+    private boolean selection;
 
     /**
      * Constructor for the class
      * 
-     * @param angle The angle the emboss filter will be applied
+     * @param x,y,width,height,angle The angle the emboss filter will be applied
      * 
      */
-    EmbossFilter(int angle) {
+    EmbossFilter(int angle, int x, int y, int width, int height, boolean selection) {
         this.angle = angle;
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+        this.selection = selection;
     }
 
     /**
@@ -46,6 +53,29 @@ public class EmbossFilter implements ImageOperation, java.io.Serializable{
      * 
      */
     public BufferedImage apply(BufferedImage input) {
+        if(selection){
+            if(this.x > input.getWidth() || this.y > input.getHeight()){
+                return input;
+            }
+            if (this.x + this.width > input.getWidth()) {
+                width = input.getWidth() - x;
+            }
+            if (this.y + this.height > input.getHeight()) {
+                height = input.getHeight() - y;
+            }
+            if (this.x < 0) {
+                this.x = 0;
+            }
+            if (this.y < 0) {
+                this.y = 0;
+            }
+        }else{
+            this.x = 0;
+            this.y = 0;
+            this.width = input.getWidth();
+            this.height = input.getHeight();
+        }
+
         float[] filterArray = new float[9];
 
         if(angle < 22){//0
@@ -78,10 +108,10 @@ public class EmbossFilter implements ImageOperation, java.io.Serializable{
         }
          
 
-        //calculates values for border
-        int[][] border = new int[input.getWidth()][input.getHeight()];
-        for (int y = 0; y < input.getHeight(); ++y) {
-            for (int x = 0; x < input.getWidth(); ++x) {
+        //calculates values for image
+        int[][] image = new int[input.getWidth()][input.getHeight()];
+        for (int y = this.y; y < this.height+this.y; ++y) {
+            for (int x = this.x; x < this.width+this.x; ++x) {
                 double newA = 0;
                 double newR = 0;
                 double newG = 0;
@@ -133,7 +163,7 @@ public class EmbossFilter implements ImageOperation, java.io.Serializable{
                 }else if(newB > 255){
                     newB = 255;
                 }
-                border[x][y] = ((int)newA << 24) | ((int)newR << 16) | ((int)newG << 8) | (int)newB;
+                image[x][y] = ((int)newA << 24) | ((int)newR << 16) | ((int)newG << 8) | (int)newB;
                 
             }
         }
@@ -141,8 +171,8 @@ public class EmbossFilter implements ImageOperation, java.io.Serializable{
         //applys new values to images
         for (int y = 0; y < input.getHeight(); ++y) {
             for (int x = 0; x < input.getWidth(); ++x) {
-                if(border[x][y] != 0){
-                    input.setRGB(x, y, border[x][y]);
+                if(image[x][y] != 0){
+                    input.setRGB(x, y, image[x][y]);
                 }
             }
         }

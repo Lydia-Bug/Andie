@@ -2,30 +2,30 @@
 
 ### **Extended filters**
 #### *Implemented by Lydia Acton, and Callum Walker*
-When Callum created the kernal filters in the first part of the project he implemented 'extended filter' functionality on the filters that needed it. He didn't participate in the second part of the project so Lydia simplying copyed over the code he had already writen, to the mean filter, which still had the issue, as it wasn't one of the filters he created. 
-- Accessed via: There's 'extended filter' code used for the mean, and gaussian filter, the other kernal filters don't have the issue of a black border, because the radius of the kernals used to small to see any difference
-- I've tested a couple different types of images of different size, and types. And I've tested different radiuses, the extended filter seems to work fine
-- The filter does cause a kinda of white blury border around the edge, its not nearly as noticable and the hard black border, especially at smaller radius. And for a function like this there is no perfect soultion, because you don't know the values of the pixcels outside of the images bounds, so this implimentation works fine. 
+Although Callum didn't work on the second part of the project, he already did the extended filters when he created the filters in the first part of the project. Callum write the code for the extended filters and Lydia copy and pasted them to the mean filter where it hadn't been implimented. 
+- Accessed via: There's 'extended filter' code used for the mean, and gaussian filter, the other kernal filters don't have the issue of a black border, because the radius of the kernals used is too small to see any difference
+- I've tested it on various images, including transperent.
+- The filter does cause a kinda of blury border around the edge, its not nearly as noticable and the hard black border. This can't really be fixed, different implmentations will lead to differnt non-perfect results, so this is appceptable.
 <br/><br/>
 
 ### **Emboss and edge detection filters (filters w/ negative results)**
 #### *Implemented by Lydia Acton*
 - Accessed via: Filter menu (Emboss Filter) and (Sobel Filter) and Key shortcuts (Ctrl + E) and (Ctrl + H)
-- I've tested it on various images. I've implement the eight emboss filters as each being in 'directions' so I made sure they were all in the correct direction by making sure I got the same output from a sperate image editor
-- For my implimentation of emboss I would have liked to have a slider where you can only place it on 0, 45, 90, 135, ect, I think that would make more sense to the user, and be better for functionality purposes.
+- I've tested it on various images, including transperent. I've implement the eight emboss filters as each being applied at different angle. I made sure the angle was for the correct filter, but comparing my results to a seperate image editor which also allows you apply an emboss filter at an angle. 
+- My emboss filter can only be applied at angles that are a multiple of 45 degrees. While on windows the slider works as intended an only allows those values, that isn't the case for mac. While my code still works and will pick the closest apropiate value, its a usability issue if the user is able to input a value which autually can't be used.
 <br/><br/>
 
 ### **Posterise effect**
 #### *Implemented by Lydia Acton*
 - Accessed via: Filter menu (Posterise) and Key shortcuts (Ctrl + P)
-- Various images, transperant images. I tested it on large images, initially it took way to long for large images. So I edited my code so it doesn't autally sort all the pixels in the images and it now goes much faster and works for images of any sizes
-- Sometimes the output where gradients used to be, can be quite blocky. I've seen some iplimentations on other images editors that allow you to 'smooth' the output, I think if I implemented that this filter would be improved. 
+- I've tested it on various images, including transperent. I tested it on large images, initially because the k-means clustering had to sort all the pixels in the image many times, it took took long. So I changed my code so that for larger images it won't read in every single pixel, but will skip some, making the code run much faster.
+- No known issues
 <br/><br/>
 
 ### **Mouse selection of rectangular regions**
 #### *Implemented by *
 - Accessed via: 
-- Tested on zoomed in and out images, previously didn't work but now factors in the scale when drawing a rectangal
+- Tested on images that are zoomed in or out, previously it didn't work at would draw the rectangular behind or infront of the mouse. Now the rectangular selection considers the scale of the image, and it works fine.
 - Known issues...
 <br/><br/>
 
@@ -44,10 +44,10 @@ When Callum created the kernal filters in the first part of the project he imple
 <br/><br/>
 
 ### **Macros**
-#### *Implemented by *
-- Accessed via: 
-- Tested on...
-- Known issues...
+#### *Implemented by Lydia Acton*
+- Accessed via: Macros tab, Keyboard Shortcuts Start: (Ctrl + Q), Stop:(Ctrl + W), Load: (Ctrl + A)
+- I've tested all the different functions to make sure they save. Initially transformations didn't save because they didn't impliment java.io.Serializable, and crop cound't save because it had a bufferent issue in is constructor. I tested saving an out of bounds crop, initially would cause an error, but now the code checks if the coordionates are out of bounds. I tested the maving on mac and windows, I coded it on a mac then realised I had to alter it to work on windows because they use different slashes. I've tested trying to load incorrect files, or stoping when you haven't started, and it brings up apropiate error messages. 
+- No known issues
 <br/><br/>
 
 ### **Show us something: **

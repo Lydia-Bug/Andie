@@ -1,4 +1,4 @@
-package cosc202.andie.Colours;
+package cosc202.andie.Filters;
 
 import java.awt.image.*;
 
@@ -25,13 +25,20 @@ import java.util.*;
 public class Posterise implements ImageOperation, java.io.Serializable {
 
     private int layers;
+    private int x, y, width, height;
+    private boolean selection;
     /**
      * <p>
      * Create a new Posterise operation.
      * </p>
      */
-    Posterise(int layers) {
+    Posterise(int layers, int x, int y, int width, int height, boolean selection) {
         this.layers = layers;
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+        this.selection = selection;
     }
 
     /**
@@ -47,6 +54,29 @@ public class Posterise implements ImageOperation, java.io.Serializable {
      * @return The resulting posterised image
      */
     public BufferedImage apply(BufferedImage input) {
+        if(selection){
+            if(this.x > input.getWidth() || this.y > input.getHeight()){
+                return input;
+            }
+            if (this.x + this.width > input.getWidth()) {
+                width = input.getWidth() - x;
+            }
+            if (this.y + this.height > input.getHeight()) {
+                height = input.getHeight() - y;
+            }
+            if (this.x < 0) {
+                this.x = 0;
+            }
+            if (this.y < 0) {
+                this.y = 0;
+            }
+        }else{
+            this.x = 0;
+            this.y = 0;
+            this.width = input.getWidth();
+            this.height = input.getHeight();
+        }
+
         //Creates an array of clusters
         ArrayList<int[]>[] clusters = createClusters(input, layers);
         //Creates arraylist of previous means so I can check when the means converge
@@ -71,8 +101,8 @@ public class Posterise implements ImageOperation, java.io.Serializable {
             
         }
         //Goes over every pixel and changes it to whatever mean colour its closests to
-        for (int y = 0; y < input.getHeight(); ++y) {
-            for (int x = 0; x < input.getWidth(); ++x) {
+        for (int y = this.y; y < this.height+this.y; ++y) {
+            for (int x = this.x; x < this.width+this.x; ++x) {
                 //find the clostest centroid
                 int clostestCentroidIndex = 0;
                 double smallestDistance = distanceBetween(getRGBArray(input.getRGB(x,y)), clusters[0].get(0));
