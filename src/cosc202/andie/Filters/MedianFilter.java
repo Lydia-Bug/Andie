@@ -41,6 +41,28 @@ public class MedianFilter implements ImageOperation, java.io.Serializable{
      * 
      */
     public BufferedImage apply(BufferedImage input){
+        if(selection){
+            if(this.x > input.getWidth() || this.y > input.getHeight()){
+                return input;
+            }
+            if (this.x + this.width > input.getWidth()) {
+                width = input.getWidth() - x;
+            }
+            if (this.y + this.height > input.getHeight()) {
+                height = input.getHeight() - y;
+            }
+            if (this.x < 0) {
+                this.x = 0;
+            }
+            if (this.y < 0) {
+                this.y = 0;
+            }
+        }else{
+            this.x = 1;
+            this.y = 1;
+            this.width = input.getWidth()-2;
+            this.height = input.getHeight()-2;
+        }
 
         BufferedImage output = new BufferedImage(input.getColorModel(), input.copyData(null), input.isAlphaPremultiplied(), null); //Make sure the output has the same properties
 
@@ -50,8 +72,8 @@ public class MedianFilter implements ImageOperation, java.io.Serializable{
         int[] green = new int[9];
         int[] blue = new int[9];
 
-        for(int i = 1; i < input.getWidth()-1; i++) {
-            for(int j = 1; j < input.getHeight()-1; j++) {
+        for(int i = this.x; i < this.x+this.width; i++) {
+            for(int j = this.y; j < this.y+this.height; j++) {
                 //I simply could not think of a better way to do this. Someone try fix???
                 pixelColour[0] = new Color(input.getRGB(i - 1,j - 1));
                 pixelColour[1] = new Color(input.getRGB(i - 1,j));
