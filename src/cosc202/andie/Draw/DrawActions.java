@@ -238,17 +238,11 @@ public class DrawActions {
                 ColorPicker fill = new ColorPicker("Select fill colour");
                 BrushThickness bt = new BrushThickness();
 
-<<<<<<< HEAD
                 if(outline.getPenColor() != null && fill.getPenColor() != null) {
                     target.getImage().apply(new DrawFilledOval(outline.getPenColor(), fill.getPenColor(), bt.getThickness(), target));
                     target.deselectMouse();
                 } 
                 operationCancelled = false;
-=======
-                target.getImage().apply(
-                        new DrawFilledOval(outline.getPenColor(), fill.getPenColor(), bt.getThickness(), target));
-                target.deselectMouse();
->>>>>>> 56f8d537e6e587eae595efa961e25e03a5679382
                 target.repaint();
                 target.getParent().revalidate();
             }

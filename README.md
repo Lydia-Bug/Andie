@@ -50,7 +50,16 @@ Although Callum didn't work on the second part of the project, he already did th
 - No known issues
 <br/><br/>
 
-### **Show us something: **
+## **Show us something**
+
+### **Filters can be applied to rectangular selection**
+#### *Implemented by *
+- Accessed via: 
+- Tested on...
+- Known issues...
+<br/><br/>
+
+### **Write text**
 #### *Implemented by *
 - Accessed via: 
 - Tested on...
