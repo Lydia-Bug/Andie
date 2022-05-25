@@ -7,8 +7,6 @@ import java.awt.Graphics2D;
 
 import java.awt.image.BufferedImage;
 
-import javax.swing.JTextField;
-
 import cosc202.andie.ImageOperation;
 
 /**
@@ -36,7 +34,7 @@ public class DrawText implements ImageOperation, java.io.Serializable {
     String txt = "";
     public String family;
     public int size;
-
+    private int style;
     Color colour;
 
     /**
@@ -46,12 +44,16 @@ public class DrawText implements ImageOperation, java.io.Serializable {
      * 
      * @param x,y,width,height,family,txt,size,style
      */
-    public DrawText(int x, int y, int width, int height) {
+    public DrawText(int x, int y, int width, int height, String family, String txt, int size, int style, Color colour) {
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
-
+        this.txt = txt;
+        this.family = family;
+        this.size = size;
+        this.style = style;
+        this.colour = colour;
     }
 
     /**
@@ -68,21 +70,7 @@ public class DrawText implements ImageOperation, java.io.Serializable {
     @Override
     public BufferedImage apply(BufferedImage input) {
         Graphics2D g = input.createGraphics();
-        JTextField jtxt = new JTextField("Enter Text: ", 0);
-        JFontChooser jf = new JFontChooser();
 
-        jf.showDialog(jtxt);
-        System.out.println(jf.dialogResultValue);
-        if (jf.dialogResultValue == jf.CANCEL_OPTION) {
-            return input;
-        }
-        String s = jf.sampleText.getText();
-        String family = jf.getSelectedFontFamily();
-        int size = jf.getSelectedFontSize();
-        int style = jf.getSelectedFontStyle();
-
-        ColorPicker c = new ColorPicker("Pick text Color: ");
-        Color colour = c.getPenColor();
         g.setFont(new Font(family, style, size));
         g.setColor(colour);
 
@@ -91,7 +79,7 @@ public class DrawText implements ImageOperation, java.io.Serializable {
         int startX = x + ((width - stringWidth) / 2);
         int startY = y + ((height + fm.getHeight()) / 2);
 
-        g.drawString(s, startX, startY);
+        g.drawString(txt, startX, startY);
         g.setColor(Color.BLACK);
         g.dispose();
         return input;

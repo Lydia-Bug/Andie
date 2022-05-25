@@ -1,21 +1,3 @@
-/**
- * <p>
- * Actions provided by the Add Text menu.
- * </p>
- * 
- * <p>
- * Adds text in a textbox to the image. The position of the text is determined by the location of the selected region. Text colo
- * </p>
- * 
- * <p>
- * <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA
- * 4.0</a>
- * </p>
- * 
- * @author Ella Taylor and Hamzah Alansi
- * @version 1.0
- */
-
 package cosc202.andie.Draw;
 
 import java.util.*;
@@ -97,9 +79,23 @@ public class AddTextAction {
          */
         public void actionPerformed(ActionEvent e) {
             Rectangle2D m = target.GetMouseRectangle();
+            JTextField jtxt = new JTextField("Enter Text: ", 0);
+            JFontChooser jf = new JFontChooser();
 
+            jf.showDialog(jtxt);
+            System.out.println(jf.dialogResultValue);
+            if (jf.dialogResultValue == jf.CANCEL_OPTION) {
+                return;
+            }
+
+            String s = jf.sampleText.getText();
+            String fontFamily = jf.getSelectedFontFamily();
+            int fontSize = jf.getSelectedFontSize();
+            int fontStyle = jf.getSelectedFontStyle();
+            ColorPicker c = new ColorPicker("Pick text Color: ");
+            Color colour = c.getPenColor();
             target.getImage().apply(new DrawText((int) m.getX(), (int) m.getY(),
-                    (int) m.getWidth(), (int) m.getHeight()));
+                    (int) m.getWidth(), (int) m.getHeight(), fontFamily, s, fontSize, fontStyle, colour));
             target.validate();
             target.deselectMouse();
             target.repaint();
