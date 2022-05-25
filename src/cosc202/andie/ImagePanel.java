@@ -46,7 +46,6 @@ public class ImagePanel extends JPanel {
      * </p>
      */
 
-
     private double scale;
 
 
@@ -85,22 +84,22 @@ public class ImagePanel extends JPanel {
          */
         this.addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent e) {
-                System.out.println("DRAG LISTENER CALLED");
-                double selectorScale = 1/(scale);
-                int x = (int)(e.getX()*selectorScale);
-                int y = (int)(e.getY()*selectorScale);
+
+                double selectorScale = 1 / (scale);
+                int x = (int) (e.getX() * selectorScale);
+                int y = (int) (e.getY() * selectorScale);
                 ImagePanel.this.startDrag = new Point(x, y);
                 ImagePanel.this.endDrag = startDrag;
-                System.out.println("EVENT: " + ImagePanel.this.startDrag);
+
                 repaint();
             }
 
             public void mouseReleased(MouseEvent e) {
                 if (endDrag != null && startDrag != null) {
                     try {
-                        double selectorScale = 1/(scale);
-                        int x = (int)(e.getX()*selectorScale);
-                        int y = (int)(e.getY()*selectorScale);
+                        double selectorScale = 1 / (scale);
+                        int x = (int) (e.getX() * selectorScale);
+                        int y = (int) (e.getY() * selectorScale);
                         selectedArea = makeRectangle(startDrag.x, startDrag.y, x, y);
                         startDrag = null;
                         endDrag = null;
@@ -115,9 +114,9 @@ public class ImagePanel extends JPanel {
 
         this.addMouseMotionListener(new MouseMotionAdapter() {
             public void mouseDragged(MouseEvent e) {
-                double selectorScale = 1/(scale);
-                int x = (int)(e.getX()*selectorScale);
-                int y = (int)(e.getY()*selectorScale);
+                double selectorScale = 1 / (scale);
+                int x = (int) (e.getX() * selectorScale);
+                int y = (int) (e.getY() * selectorScale);
                 endDrag = new Point(x, y);
                 repaint();
             }
@@ -140,7 +139,6 @@ public class ImagePanel extends JPanel {
     public Point getEndDrag() {
         return this.endDrag;
     }
-
 
     /**
      * <p>
@@ -258,7 +256,7 @@ public class ImagePanel extends JPanel {
      */
 
     public Rectangle2D.Float makeRectangle(int x1, int y1, int x2, int y2) {
-        if(x1 - x2 == 0 && y1 - y2 == 0){
+        if (x1 - x2 == 0 && y1 - y2 == 0) {
             return null;
         }
         return new Rectangle2D.Float(Math.min(x1, x2), Math.min(y1, y2),
