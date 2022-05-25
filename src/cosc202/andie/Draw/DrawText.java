@@ -69,7 +69,9 @@ public class DrawText implements ImageOperation, java.io.Serializable {
     public BufferedImage apply(BufferedImage input) {
         Graphics2D g = input.createGraphics();
         ColorPicker c = new ColorPicker("Pick text Color: ");
-
+        if (size == 0) {
+            return input;
+        }
         g.setFont(new Font(family, style, size));
         g.setColor(c.getPenColor());
 
