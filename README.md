@@ -56,3 +56,10 @@ Although Callum didn't work on the second part of the project, he already did th
 - Tested on...
 - Known issues...
 <br/><br/>
+
+### **Show us something: Draw Text **
+#### *Implemented by Hamzah Alansi *
+- Accessed via: "Draw text" action in the "Draw in Selected Area" tab
+- Tested on: 2 Different Images with different Background transparencies
+- Known issues: When user clicks cancel after clicking the Draw Text Action it still draws the text.
+<br/><br/>
