@@ -709,7 +709,7 @@ public class JFontChooser extends JComponent {
         if (sampleText == null) {
             Border lowered = BorderFactory.createLoweredBevelBorder();
 
-            sampleText = new JTextField((""));
+            sampleText = new JTextField(("Replace Text"));
 
             sampleText.setBorder(lowered);
             sampleText.setPreferredSize(new Dimension(300, 100));
