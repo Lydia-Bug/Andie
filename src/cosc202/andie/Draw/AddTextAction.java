@@ -79,23 +79,9 @@ public class AddTextAction {
          */
         public void actionPerformed(ActionEvent e) {
             Rectangle2D m = target.GetMouseRectangle();
-            JTextField jtxt = new JTextField("Enter Text: ", 0);
-            JFontChooser jf = new JFontChooser();
 
-            jf.showDialog(jtxt);
-            System.out.println(jf.dialogResultValue);
-            if (jf.dialogResultValue == jf.CANCEL_OPTION) {
-                return;
-            }
-
-            String s = jf.sampleText.getText();
-            String fontFamily = jf.getSelectedFontFamily();
-            int fontSize = jf.getSelectedFontSize();
-            int fontStyle = jf.getSelectedFontStyle();
-            ColorPicker c = new ColorPicker("Pick text Color: ");
-            Color colour = c.getPenColor();
             target.getImage().apply(new DrawText((int) m.getX(), (int) m.getY(),
-                    (int) m.getWidth(), (int) m.getHeight(), fontFamily, s, fontSize, fontStyle, colour));
+                    (int) m.getWidth(), (int) m.getHeight()));
             target.validate();
             target.deselectMouse();
             target.repaint();
