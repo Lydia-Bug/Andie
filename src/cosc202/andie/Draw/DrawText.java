@@ -32,8 +32,11 @@ import cosc202.andie.ImageOperation;
 
 public class DrawText implements ImageOperation, java.io.Serializable {
     int x, y, width, height;
-    String txt = "help lol";
+    String txt = "";
     Font font;
+    public String family;
+    public int size;
+    private int style;
 
     /**
      * <p>
@@ -42,13 +45,16 @@ public class DrawText implements ImageOperation, java.io.Serializable {
      * 
      * @param x,y,width,height
      */
-    public DrawText(int x, int y, int width, int height, Font font) {
+    public DrawText(int x, int y, int width, int height, String family, String txt, int size, int style) {
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
         this.font = font;
-        // this.txt = txt;
+        this.txt = txt;
+        this.family = family;
+        this.size = size;
+        this.style = style;
     }
 
     /**
@@ -63,12 +69,13 @@ public class DrawText implements ImageOperation, java.io.Serializable {
      */
     @Override
     public BufferedImage apply(BufferedImage input) {
-
         Graphics2D g = input.createGraphics();
-        g.setFont(new Font("Arial", Font.BOLD, 22));
-        g.setColor(Color.BLACK);
-        FontMetrics fm = g.getFontMetrics();
+        ColorPicker c = new ColorPicker("Pick text Color: ");
 
+        g.setFont(new Font(family, style, size));
+        g.setColor(c.getPenColor());
+
+        FontMetrics fm = g.getFontMetrics();
         int stringWidth = fm.stringWidth(txt);
         int startX = x + ((width - stringWidth) / 2);
         int startY = y + ((height + fm.getHeight()) / 2);

@@ -18,12 +18,20 @@ import java.awt.Color;
 
 public class MedianFilter implements ImageOperation, java.io.Serializable{
 
+    private int x, y, width, height;
+    private boolean selection;
     /**
      * Only constructor needed.
      * Doesn't make sense to make adjustments to how 'median' the filter is 
-     * 
+     * @param x,y,width,height
      */
-    MedianFilter() {}
+    MedianFilter(int x, int y, int width, int height, boolean selection) {
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+        this.selection = selection;
+    }
 
     /**
      * Applies the filter to the image and returns the processed image

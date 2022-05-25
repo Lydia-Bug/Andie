@@ -109,7 +109,7 @@ public class JFontChooser extends JComponent {
     private JPanel fontStylePanel = null;
     private JPanel fontSizePanel = null;
     private JPanel samplePanel = null;
-    private JTextField sampleText = null;
+    public JTextField sampleText = null;
 
     /**
      * Constructs a <code>JFontChooser</code> object.
@@ -692,7 +692,7 @@ public class JFontChooser extends JComponent {
     protected JPanel getSamplePanel() {
         if (samplePanel == null) {
             Border titledBorder = BorderFactory.createTitledBorder(
-                    BorderFactory.createEtchedBorder(), ("Sample"));
+                    BorderFactory.createEtchedBorder(), ("Enter text: "));
             Border empty = BorderFactory.createEmptyBorder(5, 10, 10, 10);
             Border border = BorderFactory.createCompoundBorder(titledBorder, empty);
 
@@ -709,7 +709,8 @@ public class JFontChooser extends JComponent {
         if (sampleText == null) {
             Border lowered = BorderFactory.createLoweredBevelBorder();
 
-            sampleText = new JTextField(("AaBbYyZz"));
+            sampleText = new JTextField(("Enter Text here: "));
+
             sampleText.setBorder(lowered);
             sampleText.setPreferredSize(new Dimension(300, 100));
         }
