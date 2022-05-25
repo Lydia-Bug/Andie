@@ -3,6 +3,7 @@ package cosc202.andie.Colours;
 import java.util.*;
 import java.awt.event.*;
 import javax.swing.*;
+import java.awt.geom.Rectangle2D;
 
 import cosc202.andie.ImageAction;
 
@@ -42,7 +43,6 @@ public class ColourActions {
         actions.add(new ConvertToGreyAction("Greyscale", null, "Convert to greyscale", Integer.valueOf(KeyEvent.VK_G)));
         actions.add(new AdjustBrightnessAction("Brightness", null, "Adjust brightness", Integer.valueOf(KeyEvent.VK_B)));
         actions.add(new AdjustContrastAction("Contrast", null, "Adjust contrast", Integer.valueOf(KeyEvent.VK_C)));
-        actions.add(new PosteriseAction("Posterise", null, "Posterise image", Integer.valueOf(KeyEvent.VK_P)));
     }
 
     /**
@@ -58,7 +58,6 @@ public class ColourActions {
         actions.get(0).putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_G, KeyEvent.CTRL_DOWN_MASK));
         actions.get(1).putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_B, KeyEvent.CTRL_DOWN_MASK));
         actions.get(2).putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_C, KeyEvent.CTRL_DOWN_MASK));
-        actions.get(3).putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_P, KeyEvent.CTRL_DOWN_MASK));
 
         for (Action action : actions) {
             ColourMenu.add(new JMenuItem(action));
@@ -103,7 +102,21 @@ public class ColourActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-            target.getImage().apply(new ConvertToGrey());
+            int x = 0;
+            int y = 0;
+            int width = 0;
+            int height = 0;
+            boolean selection = true;
+            try{
+                Rectangle2D m = target.GetMouseRectangle();
+                x = (int) m.getX();
+                y = (int) m.getY();
+                width = (int) m.getWidth();
+                height = (int) m.getHeight();
+            }catch(Exception ex){
+                selection = false;
+            }
+            target.getImage().apply(new ConvertToGrey(x, y, width, height, selection));
             target.repaint();
             target.getParent().revalidate();
         }
@@ -167,7 +180,21 @@ public class ColourActions {
                 brightness = (int) brightnessModel.getValue();
             }
 
-            target.getImage().apply(new AdjustBrightness(brightness));
+            int x = 0;
+            int y = 0;
+            int width = 0;
+            int height = 0;
+            boolean selection = true;
+            try{
+                Rectangle2D m = target.GetMouseRectangle();
+                x = (int) m.getX();
+                y = (int) m.getY();
+                width = (int) m.getWidth();
+                height = (int) m.getHeight();
+            }catch(Exception ex){
+                selection = false;
+            }
+            target.getImage().apply(new AdjustBrightness(brightness, x, y, width, height, selection));
             target.repaint();
             target.getParent().revalidate();
         }
@@ -231,75 +258,26 @@ public class ColourActions {
                 contrast = (int) contrastModel.getValue();
             }
 
-            target.getImage().apply(new AdjustContrast(contrast));
-            target.repaint();
-            target.getParent().revalidate();
-        }
-
-    }
-
-    /**
-     * <p>
-     * Action posterise an image
-     * </p>
-     * 
-     * @see Posterise
-     */
-    public class PosteriseAction extends ImageAction {
-
-        /**
-         * <p>
-         * Create a new posterise action.
-         * </p>
-         * 
-         * @param name     The name of the action (ignored if null).
-         * @param icon     An icon to use to represent the action (ignored if null).
-         * @param desc     A brief description of the action (ignored if null).
-         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
-         */
-        PosteriseAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
-            super(name, icon, desc, mnemonic);
-        }
-
-        /**
-         * <p>
-         * Callback for when the posterise is triggered.
-         * </p>
-         * 
-         * <p>
-         * This method is called whenever the PosteriseAction is triggered.
-         * It adjusts the posterises an image
-         * </p>
-         * 
-         * @param e The event triggering this callback.
-         */
-        public void actionPerformed(ActionEvent e) {
-            // Determine the contrast- ask the user.
-            int layers = 0;
-
-            // Pop-up dialog box to ask for the contrast value.
-            JSlider posteriseModel = new JSlider(JSlider.HORIZONTAL, 0, 30, 0);
-
-            posteriseModel.setMajorTickSpacing(10);
-            posteriseModel.setMinorTickSpacing(1);
-            posteriseModel.setPaintTicks(true);
-            posteriseModel.setPaintLabels(true);
-
-            int option = JOptionPane.showOptionDialog(null, posteriseModel, "Enter amount of colours",
-                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
-
-            // Check the return value from the dialog box.
-            if (option == JOptionPane.CANCEL_OPTION) {
-                return;
-            } else if (option == JOptionPane.OK_OPTION) {
-                layers = (int) posteriseModel.getValue();
+            int x = 0;
+            int y = 0;
+            int width = 0;
+            int height = 0;
+            boolean selection = true;
+            try{
+                Rectangle2D m = target.GetMouseRectangle();
+                x = (int) m.getX();
+                y = (int) m.getY();
+                width = (int) m.getWidth();
+                height = (int) m.getHeight();
+            }catch(Exception ex){
+                selection = false;
             }
-
-            target.getImage().apply(new Posterise(layers));
+            target.getImage().apply(new AdjustContrast(contrast, x, y, width, height, selection));
             target.repaint();
             target.getParent().revalidate();
         }
 
     }
+
 
 }
