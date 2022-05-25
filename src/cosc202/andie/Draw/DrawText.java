@@ -35,6 +35,7 @@ public class DrawText implements ImageOperation, java.io.Serializable {
     public String family;
     public int size;
     private int style;
+    Color colour;
 
     /**
      * <p>
@@ -43,7 +44,7 @@ public class DrawText implements ImageOperation, java.io.Serializable {
      * 
      * @param x,y,width,height,family,txt,size,style
      */
-    public DrawText(int x, int y, int width, int height, String family, String txt, int size, int style) {
+    public DrawText(int x, int y, int width, int height, String family, String txt, int size, int style, Color colour) {
         this.x = x;
         this.y = y;
         this.width = width;
@@ -52,6 +53,7 @@ public class DrawText implements ImageOperation, java.io.Serializable {
         this.family = family;
         this.size = size;
         this.style = style;
+        this.colour = colour;
     }
 
     /**
@@ -68,12 +70,9 @@ public class DrawText implements ImageOperation, java.io.Serializable {
     @Override
     public BufferedImage apply(BufferedImage input) {
         Graphics2D g = input.createGraphics();
-        ColorPicker c = new ColorPicker("Pick text Color: ");
-        if (size == 0) {
-            return input;
-        }
+
         g.setFont(new Font(family, style, size));
-        g.setColor(c.getPenColor());
+        g.setColor(colour);
 
         FontMetrics fm = g.getFontMetrics();
         int stringWidth = fm.stringWidth(txt);

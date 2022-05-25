@@ -559,7 +559,6 @@ public class JFontChooser extends JComponent {
         public void actionPerformed(ActionEvent e) {
             dialogResultValue = CANCEL_OPTION;
             dialog.setVisible(false);
-            dialog.dispose();
         }
     }
 
@@ -710,7 +709,7 @@ public class JFontChooser extends JComponent {
         if (sampleText == null) {
             Border lowered = BorderFactory.createLoweredBevelBorder();
 
-            sampleText = new JTextField(("Enter Text here: "));
+            sampleText = new JTextField((""));
 
             sampleText.setBorder(lowered);
             sampleText.setPreferredSize(new Dimension(300, 100));
