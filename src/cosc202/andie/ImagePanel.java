@@ -213,7 +213,7 @@ public class ImagePanel extends JPanel {
             g2.drawImage(image.getCurrentImage(), null, 0, 0);
             g2.setStroke(new BasicStroke(2));
 
-            if (selectedArea != null && selectedArea.getHeight()*selectedArea.getWidth() > 1) {
+            if (selectedArea != null && !(selectedArea.getHeight() == 0 && selectedArea.getWidth() == 0)) {
                 // if(isValidSelectedArea()) {
                 g2.setPaint(Color.RED);
                 g2.draw(selectedArea);
@@ -233,7 +233,7 @@ public class ImagePanel extends JPanel {
     }
 
     public Rectangle2D.Float makeRectangle(int x1, int y1, int x2, int y2) {
-        if(x1 - x2 == 0 || y1 - y2 == 0){
+        if(x1 - x2 == 0 && y1 - y2 == 0){
             return null;
         }
         return new Rectangle2D.Float(Math.min(x1, x2), Math.min(y1, y2),
