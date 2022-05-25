@@ -82,7 +82,7 @@ public class DrawShapeActions {
                 ColorPicker colorPicker = new ColorPicker("Select pen colour");
                 BrushThickness bt = new BrushThickness();
                 if (colorPicker.getPenColor() != null) {
-                    target.getImage().apply(new DrawRectangle(colorPicker.getPenColor(), bt.getThickness(), target));
+                    target.getImage().apply(new DrawRectangle(colorPicker.getPenColor(), null, bt.getThickness(), false, target));
                     target.deselectMouse();
                 }
                 CancelDrawOperation.drawCancelled = false;
@@ -120,8 +120,7 @@ public class DrawShapeActions {
                 BrushThickness bt = new BrushThickness();
 
                 if (outline.getPenColor() != null && fill.getPenColor() != null) {
-                    target.getImage().apply(new DrawFilledRectangle(outline.getPenColor(), fill.getPenColor(),
-                            bt.getThickness(), target));
+                    target.getImage().apply(new DrawRectangle(outline.getPenColor(), fill.getPenColor(), bt.getThickness(), true, target));
                     target.deselectMouse();
                 } 
                 CancelDrawOperation.drawCancelled = false;
@@ -158,7 +157,7 @@ public class DrawShapeActions {
                 BrushThickness bt = new BrushThickness();
 
                 if (colorPicker.getPenColor() != null) {
-                    target.getImage().apply(new DrawOval(colorPicker.getPenColor(), bt.getThickness(), target));
+                    target.getImage().apply(new DrawOval(colorPicker.getPenColor(), null, bt.getThickness(), false, target));
                     target.deselectMouse();
                 }
                 CancelDrawOperation.drawCancelled = false;
@@ -196,7 +195,7 @@ public class DrawShapeActions {
 
                 if (outline.getPenColor() != null && fill.getPenColor() != null) {
                     target.getImage().apply(
-                            new DrawFilledOval(outline.getPenColor(), fill.getPenColor(), bt.getThickness(), target));
+                            new DrawOval(outline.getPenColor(), fill.getPenColor(), bt.getThickness(), true, target));
                     target.deselectMouse();
                 } 
                 CancelDrawOperation.drawCancelled = false;

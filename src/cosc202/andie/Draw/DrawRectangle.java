@@ -1,12 +1,10 @@
-//Add mouse selection
-
 package cosc202.andie.Draw;
 
 import java.awt.image.*;
+import java.awt.geom.*;
 import java.awt.*;
 import cosc202.andie.ImageOperation;
 import cosc202.andie.ImagePanel;
-
 
 
 /**
@@ -26,7 +24,7 @@ import cosc202.andie.ImagePanel;
  * @author Ella Taylor
  * @version 1.0
  */
-public class DrawRectangle implements ImageOperation, java.io.Serializable   {
+public class DrawRectangle implements ImageOperation, java.io.Serializable  {
 
     /**
      * <p>
@@ -34,18 +32,18 @@ public class DrawRectangle implements ImageOperation, java.io.Serializable   {
      * </p>
      * @param clockwise Boolean datafield determining whether the image is flipped vertically or horizontally.
      */
-
-    Color c;
-    ImagePanel target;
+    Color outline, fill;
     int thickness;
-    
+    boolean isFilled;
+    ImagePanel target;
 
-    public DrawRectangle(Color c, int thickness, ImagePanel target) {
-        this.c = c;
+    public DrawRectangle(Color outline, Color fill, int thickness, boolean isFilled, ImagePanel target) {
+        this.outline = outline;
+        this.fill = fill;
         this.thickness = thickness;
+        this.isFilled = isFilled;
         this.target = target;
     }
-    
 
     /**
      * <p>
@@ -57,15 +55,20 @@ public class DrawRectangle implements ImageOperation, java.io.Serializable   {
      */
     public BufferedImage apply(BufferedImage input) {
         Graphics2D g2 = input.createGraphics();
+        Rectangle2D m = target.GetMouseRectangle();
         g2.setStroke(new BasicStroke(thickness));
-            // if(isValidSelectedArea()) {
-        g2.setPaint(c);
-        g2.draw(target.GetMouseRectangle());
-            // }
+        
+        g2.setPaint(outline);
+        g2.drawRect((int) m.getX(), (int) m.getY(), (int) m.getWidth(), (int) m.getHeight());
+
+        if(isFilled) {
+            g2.setPaint(fill);
+            g2.fillRect((int) m.getX(), (int) m.getY(), (int) m.getWidth(), (int) m.getHeight());
+        }
+
         g2.dispose();
         return input;
     }
     
 }
-
 
