@@ -119,6 +119,8 @@ public class FileActions {
          */
         public void actionPerformed(ActionEvent e) {
             // checks if image is saved before opening image
+            target.deselectMouse();
+            target.repaint();
             boolean openImage = false;
             if (EditableImage.isSaved()) {
                 openImage = true;
@@ -215,6 +217,8 @@ public class FileActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
+            target.deselectMouse();
+            target.repaint();
             try {
                 target.getImage().save();
             } catch (Exception ex) {
@@ -260,6 +264,8 @@ public class FileActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
+            target.deselectMouse();
+            target.repaint();
             JFileChooser fileChooser = new JFileChooser();
             int result = fileChooser.showSaveDialog(target);
 
