@@ -1,3 +1,8 @@
+/**
+ * Menu of drawLine actions
+ * @author Ella Taylor
+ */
+
 package cosc202.andie.Draw;
 
 import java.util.*;
@@ -12,7 +17,7 @@ public class DrawLineActions {
 
     /**
      * <p>
-     * Constructor. Creates an ArrayList of Colour menu actions.
+     * Constructor. Creates an ArrayList of Draw Line menu actions.
      * </p>
      */
     public DrawLineActions() {
@@ -29,8 +34,7 @@ public class DrawLineActions {
 
     /**
      * <p>
-     * Creates a menu containing the list of Transformation actions. Assigns
-     * keyboard shortcuts to each action.
+     * Creates a menu containing the list of Draw Line actions.
      * </p>
      * 
      * @return The Transformation menu UI element.
@@ -48,10 +52,10 @@ public class DrawLineActions {
 
     /**
      * <p>
-     * 
+     * Draws vertical line
      * </p>
      * 
-     * @see Rotate
+     * 
      */
     
     public class DrawVerticalLineAction extends ImageAction {
@@ -91,6 +95,14 @@ public class DrawLineActions {
         }
     }
 
+        /**
+     * <p>
+     * Draws downwards diagonal line
+     * </p>
+     * 
+     * 
+     */
+
     public class DrawDiagonalDownLineAction extends ImageAction {
 
         /**
@@ -128,6 +140,14 @@ public class DrawLineActions {
         }
     }
 
+    /**
+     * <p>
+     * Draws diagonal line upwards.
+     * </p>
+     * 
+     *
+     */
+
     public class DrawDiagonalUpLineAction extends ImageAction {
 
         /**
@@ -164,6 +184,14 @@ public class DrawLineActions {
             }
         }
     }
+
+    /**
+     * <p>
+     * Draws horizontal line.
+     * </p>
+     * 
+     *
+     */
 
     public class DrawHorizontalLineAction extends ImageAction {
 

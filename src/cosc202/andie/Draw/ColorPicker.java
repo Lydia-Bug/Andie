@@ -1,3 +1,8 @@
+/**
+ * Allows the user to select a colour from the JColorChooser GUI.
+ * @author Ella Taylor
+ */
+
 package cosc202.andie.Draw;
 
 import java.awt.Color;
@@ -20,11 +25,14 @@ public class ColorPicker {
                 return;
             } else if (option == JOptionPane.OK_OPTION) {
                 penColor = cc.getColor();
-                System.out.println("PEN COLOUR: " + String.valueOf(cc.getColor()));
             }
         }
     }
 
+    /**
+     * Accessor for pen colour.
+     * @return penColor, colour of graphics2D object
+     */
     public Color getPenColor() {
         return penColor;
     }

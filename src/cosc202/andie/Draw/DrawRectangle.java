@@ -9,12 +9,7 @@ import cosc202.andie.ImagePanel;
 
 /**
  * <p>
- * ImageOperation to flip an image horizontally or vertically. 
- * </p>
- * 
- * <p>
- * Segments of this code are adapted from Java Code Geeks, https://examples.javacodegeeks.com/desktop-java/awt/image/flipping-a-buffered-image/.
- * Citation: Kiourtzoglou, B. (2013, February 16). Flipping a buffered image. Examples Java Code Geeks. Retrieved April 14, 2022, from https://examples.javacodegeeks.com/desktop-java/awt/image/flipping-a-buffered-image/. 
+ * ImageOperation to draw rectangle.
  * </p>
  * 
  * <p>
@@ -28,9 +23,9 @@ public class DrawRectangle implements ImageOperation, java.io.Serializable  {
 
     /**
      * <p>
-     * Constructor. Creates a new Flip operation.
+     * Constructor. Creates a new DrawRectangle operation.
      * </p>
-     * @param clockwise Boolean datafield determining whether the image is flipped vertically or horizontally.
+     * 
      */
     Color outline, fill;
     int thickness;
@@ -47,11 +42,8 @@ public class DrawRectangle implements ImageOperation, java.io.Serializable  {
 
     /**
      * <p>
-     * Uses AffineTransform.translate to invert either the height (for vertical flip) or width (for horizontal flip) coordinates for a given image.
-     * This flips the image vertically or horizontally. 
+     * Draws rectangle on image.
      * </p>
-     * @param input The image to be flipped.
-     * @return input The flipped image. 
      */
     public BufferedImage apply(BufferedImage input) {
         Graphics2D g2 = input.createGraphics();

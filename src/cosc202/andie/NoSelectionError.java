@@ -1,3 +1,7 @@
+/**
+ * Simple error message for when no region is selected with mouse.
+ */
+
 package cosc202.andie;
 
 import javax.swing.*;

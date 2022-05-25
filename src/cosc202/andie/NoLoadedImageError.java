@@ -1,3 +1,7 @@
+/**
+ * Simple error message for when no image is loaded into workspace. 
+ */
+
 package cosc202.andie;
 
 import javax.swing.*;

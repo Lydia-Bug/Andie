@@ -1,3 +1,7 @@
+/**
+ * Custom error message. 
+ */
+
 package cosc202.andie;
 
 import javax.swing.*;
