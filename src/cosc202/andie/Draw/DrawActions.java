@@ -34,7 +34,11 @@ public class DrawActions {
                 null));
         actions.add(new DrawFilledOvalAction("Draw Filled Oval", null, "Draw Oval (with fill) in selected area",
                 null));
-        actions.add(new DrawLineAction("Draw Line", null, "Draw solid line in selected area",
+        actions.add(new DrawVerticalLineAction("Draw Vertical Line", null, "Draw solid vertical line in selected area",
+                null));
+        actions.add(new DrawHorizontalLineAction("Draw Horizontal Line", null, "Draw solid horizontal line in selected area",
+                null));
+        actions.add(new DrawDiagonalLineAction("Draw Diagonal Line", null, "Draw solid line between top-left and bottom-right corner of selected area",
                 null));
     }
 
@@ -138,7 +142,7 @@ public class DrawActions {
         }
     }
 
-    public class DrawLineAction extends ImageAction {
+    public class DrawVerticalLineAction extends ImageAction {
 
         /**
          * <p>
@@ -150,7 +154,7 @@ public class DrawActions {
          * @param desc     A brief description of the action (ignored if null).
          * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
          */
-        DrawLineAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+        DrawVerticalLineAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
 
@@ -165,7 +169,81 @@ public class DrawActions {
                 BrushThickness bt = new BrushThickness();
 
                 if(colorPicker.getPenColor() != null) {
-                    target.getImage().apply(new DrawLine(colorPicker.getPenColor(), bt.getThickness(), target));
+                    target.getImage().apply(new DrawLine(colorPicker.getPenColor(), bt.getThickness(), 0, target));
+                    target.deselectMouse();
+                }
+                operationCancelled = false;
+                target.repaint();
+                target.getParent().revalidate();
+            }
+        }
+    }
+
+    public class DrawDiagonalLineAction extends ImageAction {
+
+        /**
+         * <p>
+         * 
+         * </p>
+         * 
+         * @param name     The name of the action (ignored if null).
+         * @param icon     An icon to use to represent the action (ignored if null).
+         * @param desc     A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
+         */
+        DrawDiagonalLineAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        /**
+         * 
+         * @param e The event triggering this callback.
+         */
+        public void actionPerformed(ActionEvent e) {
+            if (checkErrors(target)) {
+
+                ColorPicker colorPicker = new ColorPicker("Select pen colour");
+                BrushThickness bt = new BrushThickness();
+
+                if(colorPicker.getPenColor() != null) {
+                    target.getImage().apply(new DrawLine(colorPicker.getPenColor(), bt.getThickness(), 2, target));
+                    target.deselectMouse();
+                }
+                operationCancelled = false;
+                target.repaint();
+                target.getParent().revalidate();
+            }
+        }
+    }
+
+    public class DrawHorizontalLineAction extends ImageAction {
+
+        /**
+         * <p>
+         * 
+         * </p>
+         * 
+         * @param name     The name of the action (ignored if null).
+         * @param icon     An icon to use to represent the action (ignored if null).
+         * @param desc     A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
+         */
+        DrawHorizontalLineAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        /**
+         * 
+         * @param e The event triggering this callback.
+         */
+        public void actionPerformed(ActionEvent e) {
+            if (checkErrors(target)) {
+
+                ColorPicker colorPicker = new ColorPicker("Select pen colour");
+                BrushThickness bt = new BrushThickness();
+
+                if(colorPicker.getPenColor() != null) {
+                    target.getImage().apply(new DrawLine(colorPicker.getPenColor(), bt.getThickness(), 1, target));
                     target.deselectMouse();
                 }
                 operationCancelled = false;
