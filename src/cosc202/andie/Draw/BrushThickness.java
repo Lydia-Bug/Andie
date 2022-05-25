@@ -16,7 +16,7 @@ import javax.swing.*;
 
 public class BrushThickness {
     /**
-     * Width of 
+     * Width of brush.
      */
     private int thickness;
 
