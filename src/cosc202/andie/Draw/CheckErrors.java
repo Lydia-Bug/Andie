@@ -1,3 +1,7 @@
+/**
+ * Checks whether image has been loaded and area has been selected before attempting to apply operation.
+ */
+
 package cosc202.andie.Draw;
 
 import cosc202.andie.*;

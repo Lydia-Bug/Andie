@@ -1,3 +1,8 @@
+
+/**
+ * Menu for shape operations.
+ * @author Ella Taylor
+ */
 package cosc202.andie.Draw;
 
 import java.util.*;
@@ -13,7 +18,7 @@ public class DrawShapeActions {
 
     /**
      * <p>
-     * Constructor. Creates an ArrayList of Colour menu actions.
+     * Constructor. Creates an ArrayList of Shape menu actions.
      * </p>
      */
     public DrawShapeActions() {
@@ -32,11 +37,10 @@ public class DrawShapeActions {
 
     /**
      * <p>
-     * Creates a menu containing the list of Transformation actions. Assigns
-     * keyboard shortcuts to each action.
+     * Creates a menu containing the list of Shape actions.
      * </p>
      * 
-     * @return The Transformation menu UI element.
+     * @return The Shape menu UI element.
      */
 
     public JMenu createMenu() {
@@ -51,10 +55,10 @@ public class DrawShapeActions {
 
     /**
      * <p>
-     * 
+     * Draws unfilled rectangle
      * </p>
      * 
-     * @see Rotate
+     * 
      */
     public class DrawRectangleAction extends ImageAction {
 
@@ -92,6 +96,13 @@ public class DrawShapeActions {
         }
     }
 
+    /**
+     * <p>
+     * Draws filled rectangle
+     * </p>
+     * 
+     * 
+     */
     public class DrawFilledRectangleAction extends ImageAction {
 
         /**
@@ -130,6 +141,13 @@ public class DrawShapeActions {
         }
     }
 
+    /**
+     * <p>
+     * Draws unfilled oval
+     * </p>
+     * 
+     * 
+     */
     public class DrawOvalAction extends ImageAction {
 
         /**
@@ -167,6 +185,13 @@ public class DrawShapeActions {
         }
     }
 
+    /**
+     * <p>
+     * Draws filled oval
+     * </p>
+     * 
+     * 
+     */
     public class DrawFilledOvalAction extends ImageAction {
 
         /**

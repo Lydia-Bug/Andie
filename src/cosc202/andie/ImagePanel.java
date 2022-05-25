@@ -14,6 +14,8 @@ import java.awt.geom.*;
  * This class extends {@link JPanel} to allow for rendering of an image, as well
  * as zooming
  * in and out.
+ * 
+ * This class uses code from http://blog.sodhanalibrary.com/2015/04/select-rectangular-area-in-image-using.html, accessed 25/05/22.
  * </p>
  * 
  * <p>
@@ -21,7 +23,7 @@ import java.awt.geom.*;
  * 4.0</a>
  * </p>
  * 
- * @author Steven Mills
+ * @author Steven Mills, Ella Taylor, Hamzah Alansi
  * @version 1.0
  */
 public class ImagePanel extends JPanel {
@@ -47,10 +49,17 @@ public class ImagePanel extends JPanel {
 
     private double scale;
 
+
+    /**
+     * Datafields for area selection. 
+     */
     Rectangle2D selectedArea = null;
     protected Point startDrag;
     protected Point endDrag;
 
+    /**
+     * Deselects mouse region
+     */
     public void deselectMouse() {
         selectedArea = null;
         startDrag = null;
@@ -70,6 +79,10 @@ public class ImagePanel extends JPanel {
         image = new EditableImage();
         scale = 1.0;
 
+        /**
+         * Listeners for mouse movement. Clicking initialises Point datafields, dragging updates coordinate values
+         * and releasing creates a rectangle using initial and final values.
+         */
         this.addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent e) {
                 System.out.println("DRAG LISTENER CALLED");
@@ -111,6 +124,10 @@ public class ImagePanel extends JPanel {
         });
     }
 
+    /**
+     * Accessors for ImageOperations etc.
+     * 
+     */
     public Point getStartDrag() {
         return this.startDrag;
     }
@@ -214,10 +231,8 @@ public class ImagePanel extends JPanel {
             g2.setStroke(new BasicStroke(2));
 
             if (selectedArea != null && !(selectedArea.getHeight() == 0 && selectedArea.getWidth() == 0)) {
-                // if(isValidSelectedArea()) {
                 g2.setPaint(Color.RED);
                 g2.draw(selectedArea);
-                // }
             }
 
             if (startDrag != null && endDrag != null) {
@@ -232,6 +247,16 @@ public class ImagePanel extends JPanel {
 
     }
 
+    /**
+     * Makes a rectangle using mouse coordinates. 
+     * @param x1 the initial mouse x coordinate
+     * @param y1 the initial mouse y coordinate
+     * @param x2 the final mouse x coordinate
+     * @param y2 the final mouse y coordinate
+     * @return Rectangle2D, a rectangular representation of the selected area that can be used in drawing 
+     * and other image manipulation
+     */
+
     public Rectangle2D.Float makeRectangle(int x1, int y1, int x2, int y2) {
         if(x1 - x2 == 0 && y1 - y2 == 0){
             return null;
@@ -239,15 +264,5 @@ public class ImagePanel extends JPanel {
         return new Rectangle2D.Float(Math.min(x1, x2), Math.min(y1, y2),
                 Math.abs(x1 - x2), Math.abs(y1 - y2));
     }
-
-    /**
-     * incomplete - needs fixing and to check that area selected is within image
-     * boundaries
-     * private boolean isValidSelectedArea() {
-     * return ((Math.abs(endDrag.x - startDrag.x) <
-     * image.getCurrentImage().getWidth()) &&
-     * (Math.abs(endDrag.y - startDrag.y) < image.getCurrentImage().getHeight()));
-     * }
-     */
 
 }

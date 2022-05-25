@@ -21,6 +21,9 @@ public class BrushThickness {
     private int thickness;
 
 
+    /**
+     * Creates JSlider if user has not cancelled previous operation. Thickness ranges from 1 - 21 pixels.  
+     */
     public BrushThickness() {
         if(!CancelDrawOperation.drawCancelled) {
             JSlider thicknessSlider = new JSlider(JSlider.HORIZONTAL, 1, 21, 2);
@@ -42,6 +45,10 @@ public class BrushThickness {
         }
     }
 
+    /**
+     * Accessor for thickness used in Actions classes
+     * @return thickness, width of brush
+     */
     public int getThickness() {
         return thickness;
     }

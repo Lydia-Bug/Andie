@@ -4,7 +4,8 @@
  * </p>
  * 
  * <p>
- * Adds text in a textbox to the image. The position of the text is determined by the location of the selected region. Text colo
+ * Adds text in a textbox to the image. The position of the text is determined by the location of the selected region. Text color, font and size
+ * can then be chosen in a gui.
  * </p>
  * 
  * <p>
@@ -12,7 +13,7 @@
  * 4.0</a>
  * </p>
  * 
- * @author Ella Taylor and Hamzah Alansi
+ * @author Hamzah Alansi
  * @version 1.0
  */
 
@@ -31,7 +32,7 @@ public class AddTextAction {
 
     /**
      * <p>
-     * Constructor. Creates an ArrayList of Colour menu actions.
+     * Constructor. Creates an ArrayList of Text menu actions 
      * </p>
      */
     public AddTextAction() {
@@ -43,7 +44,7 @@ public class AddTextAction {
 
     /**
      * <p>
-     * Creates a menu containing the list of Transformation actions. Assigns
+     * Creates a menu containing the list of text actions. Assigns
      * keyboard shortcuts to each action.
      * </p>
      * 

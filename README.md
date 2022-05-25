@@ -40,7 +40,7 @@ Although Callum didn't work on the second part of the project, he already did th
 #### *Implemented by Ella Taylor *
 - Accessed via: Corresponding menu tabs. Area of image must be selected first, then shape/line is drawn within.
 - Tested on transparent and opaque images. Tested attempting to draw a shape with selection fully out of bounds (no shape is drawn) and partially in bounds (shape is cut off at boundary). Warns the user if they attempt to draw shape when no image is loaded or if no area is selected. Successfully drawing a shape removes the area selection box. I chose to implement vertical and horizontal lines specifically (even though they are technically superfluous because they can be drawn with a mouse region of zero width etc.) because it is difficult to draw a perfectly straight line with the diagonal line method. 
-- Known issues...
+- Known issues: Doesn't work with macros or redo (undo works fine)
 <br/><br/>
 
 ### **Macros**
