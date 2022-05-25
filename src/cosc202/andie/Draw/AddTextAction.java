@@ -1,6 +1,7 @@
 package cosc202.andie.Draw;
 
 import java.util.*;
+import java.awt.Color;
 import java.awt.event.*;
 import java.awt.geom.Rectangle2D;
 import javax.swing.*;
@@ -86,13 +87,15 @@ public class AddTextAction {
             if (jf.dialogResultValue == jf.CANCEL_OPTION) {
                 return;
             }
+
             String s = jf.sampleText.getText();
             String fontFamily = jf.getSelectedFontFamily();
             int fontSize = jf.getSelectedFontSize();
             int fontStyle = jf.getSelectedFontStyle();
-
+            ColorPicker c = new ColorPicker("Pick text Color: ");
+            Color colour = c.getPenColor();
             target.getImage().apply(new DrawText((int) m.getX(), (int) m.getY(),
-                    (int) m.getWidth(), (int) m.getHeight(), fontFamily, s, fontSize, fontStyle));
+                    (int) m.getWidth(), (int) m.getHeight(), fontFamily, s, fontSize, fontStyle, colour));
             target.validate();
             target.deselectMouse();
             target.repaint();
