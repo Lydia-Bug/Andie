@@ -208,10 +208,8 @@ public class MacrosActions {
                     } else {
                         // checks if the file exists
                         try {
-                            System.out.println("test");
                             target.getImage();
                             target.getImage().load(imageFilepath);
-                            System.out.println("test2");
                         } catch (Exception ex) {
                             JFrame exceptionFrame = new JFrame();
                             JOptionPane.showMessageDialog(exceptionFrame, "Can't find that file");

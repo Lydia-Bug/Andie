@@ -70,7 +70,6 @@ public class AdjustContrast implements ImageOperation, java.io.Serializable {
             this.width = input.getWidth();
             this.height = input.getHeight();
         }
-System.out.println(x + " " + y +" "+ width + " " + height);
         for (int y = this.y; y < this.height+this.y; ++y) {
             for (int x = this.x; x < this.width+this.x; ++x) {
                 //double brightness = 20;
