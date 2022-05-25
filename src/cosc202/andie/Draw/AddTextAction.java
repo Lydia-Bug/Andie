@@ -6,11 +6,10 @@ import java.awt.geom.Rectangle2D;
 import javax.swing.*;
 import cosc202.andie.ImageAction;
 
-
 public class AddTextAction {
 
     protected ArrayList<Action> actions;
-    
+
     /**
      * <p>
      * Constructor. Creates an ArrayList of Colour menu actions.
@@ -83,6 +82,10 @@ public class AddTextAction {
             JFontChooser jf = new JFontChooser();
 
             jf.showDialog(jtxt);
+            System.out.println(jf.dialogResultValue);
+            if (jf.dialogResultValue == jf.CANCEL_OPTION) {
+                return;
+            }
             String s = jf.sampleText.getText();
             String fontFamily = jf.getSelectedFontFamily();
             int fontSize = jf.getSelectedFontSize();
@@ -97,4 +100,3 @@ public class AddTextAction {
         }
     }
 }
-

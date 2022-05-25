@@ -33,7 +33,7 @@ Although Callum didn't work on the second part of the project, he already did th
 #### *Implemented by Hamzah Alansi *
 - Accessed via: Transformation tab, Keyboard Shortcut (Shift + X), Crop to selection works by selecting a mouse region first before using the action. The best way to do this would be to mouse select then use the shortcut.
 - Tested on: 2 images with different background transparencies.
-- Known issues: When trying to crop an Image using mouse selection and going outside of the container bounds it breaks.
+- No known issues
 <br/><br/>
 
 ### **Drawing functions**
@@ -63,5 +63,5 @@ Although Callum didn't work on the second part of the project, he already did th
 #### *Implemented by Hamzah Alansi *
 - Accessed via: "Draw text" action in the "Draw in Selected Area" tab
 - Tested on: 2 Different Images with different Background transparencies
-- Known issues: When user clicks cancel after clicking the Draw Text Action it still draws the text.
+- No known issues
 <br/><br/>
