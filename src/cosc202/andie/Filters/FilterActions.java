@@ -157,6 +157,7 @@ public class FilterActions {
          */
         @Override
         public void actionPerformed(ActionEvent e) {
+            //target.getImage().apply(new MedianFilter());
             int x = 0;
             int y = 0;
             int width = 0;

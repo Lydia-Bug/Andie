@@ -34,11 +34,14 @@ public class DrawLine implements ImageOperation, java.io.Serializable   {
      */
     Color c;
     int thickness;
+    int lineType;
     ImagePanel target;
 
-    public DrawLine(Color c, int thickness, ImagePanel target) {
+
+    public DrawLine(Color c, int thickness, int lineType, ImagePanel target) {
         this.c = c;
         this.thickness = thickness;
+        this.lineType = lineType;
         this.target = target;
     }
 
@@ -54,10 +57,12 @@ public class DrawLine implements ImageOperation, java.io.Serializable   {
         Rectangle2D m = target.GetMouseRectangle();
         Graphics2D g2 = input.createGraphics();
         g2.setStroke(new BasicStroke(thickness));
-        // if(isValidSelectedArea()) {
         g2.setPaint(c);
-        g2.drawLine((int) m.getX(), (int) m.getY(), (int) (m.getWidth() + m.getX()), (int) (m.getHeight() + m.getY()));
-        // }
+
+        if(lineType == 0) g2.drawLine((int) m.getX(), (int) m.getY(), (int) m.getX(), (int) (m.getHeight() + m.getY()));
+        if(lineType == 1) g2.drawLine((int) m.getX(), (int) m.getY(), (int) (m.getWidth() + m.getX()), (int) m.getY());
+        if(lineType == 2) g2.drawLine((int) m.getX(), (int) m.getY(), (int) (m.getWidth() + m.getX()), (int) (m.getHeight() + m.getY()));
+        
         g2.dispose();
         return input;
     }

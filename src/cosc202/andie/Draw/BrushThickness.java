@@ -22,7 +22,7 @@ public class BrushThickness {
 
 
     public BrushThickness() {
-        if(!DrawActions.operationCancelled) {
+        if(!CancelDrawOperation.drawCancelled) {
             JSlider thicknessSlider = new JSlider(JSlider.HORIZONTAL, 0, 20, 2);
 
             thicknessSlider.setMajorTickSpacing(5);
@@ -34,7 +34,7 @@ public class BrushThickness {
         
             // Check the return value from the dialog box.
             if (option == JOptionPane.CANCEL_OPTION || option == JOptionPane.CLOSED_OPTION) {
-                DrawActions.operationCancelled = true;
+                CancelDrawOperation.drawCancelled = true;
                 return;
             } else if (option == JOptionPane.OK_OPTION) {
                 thickness = (int) thicknessSlider.getValue();

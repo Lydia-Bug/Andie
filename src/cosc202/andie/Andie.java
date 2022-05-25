@@ -5,7 +5,9 @@ import java.awt.*;
 import javax.swing.*;
 
 import cosc202.andie.Colours.ColourActions;
-import cosc202.andie.Draw.DrawActions;
+import cosc202.andie.Draw.AddTextAction;
+import cosc202.andie.Draw.DrawLineActions;
+import cosc202.andie.Draw.DrawShapeActions;
 import cosc202.andie.Filters.FilterActions;
 import cosc202.andie.Transformations.TransformationActions;
 import cosc202.andie.ViewActions.ViewActions;
@@ -42,7 +44,10 @@ public class Andie {
     private static FilterActions filterActions = new FilterActions();
     private static ColourActions colourActions = new ColourActions();
     private static TransformationActions transformActions = new TransformationActions();
-    private static DrawActions drawActions = new DrawActions();
+    private static AddTextAction textAction = new AddTextAction();
+    private static DrawShapeActions drawShapeActions = new DrawShapeActions();
+    private static DrawLineActions drawLineActions = new DrawLineActions();
+
 
     /**
      * <p>
@@ -118,7 +123,13 @@ public class Andie {
         menuBar.add(colourActions.createMenu());
 
         menuBar.add(transformActions.createMenu());
-        menuBar.add(drawActions.createMenu());
+
+        menuBar.add(textAction.createMenu());
+
+        menuBar.add(drawShapeActions.createMenu());
+
+        menuBar.add(drawLineActions.createMenu());
+
         frame.setJMenuBar(menuBar);
         frame.pack();
         frame.setVisible(true);
