@@ -3,6 +3,7 @@ package cosc202.andie.Filters;
 import java.util.*;
 import java.awt.event.*;
 import javax.swing.*;
+import java.awt.geom.Rectangle2D;
 
 import cosc202.andie.ImageAction;
 
@@ -112,7 +113,21 @@ public class FilterActions {
                 radius = (int) radNumModel.getValue();
             }
 
-            target.getImage().apply(new GaussianFilter(radius));
+            int x = 0;
+            int y = 0;
+            int width = 0;
+            int height = 0;
+            boolean selection = true;
+            try{
+                Rectangle2D m = target.GetMouseRectangle();
+                x = (int) m.getX();
+                y = (int) m.getY();
+                width = (int) m.getWidth();
+                height = (int) m.getHeight();
+            }catch(Exception ex){
+                selection = false;
+            }
+            target.getImage().apply(new GaussianFilter(radius, x, y, width, height, selection));
             target.repaint();
             target.getParent().revalidate();
         }
@@ -261,7 +276,21 @@ public class FilterActions {
             }
 
             // Create and apply the filter
-            target.getImage().apply(new MeanFilter(radius));
+            int x = 0;
+            int y = 0;
+            int width = 0;
+            int height = 0;
+            boolean selection = true;
+            try{
+                Rectangle2D m = target.GetMouseRectangle();
+                x = (int) m.getX();
+                y = (int) m.getY();
+                width = (int) m.getWidth();
+                height = (int) m.getHeight();
+            }catch(Exception ex){
+                selection = false;
+            }
+            target.getImage().apply(new MeanFilter(radius, x, y, width, height, selection));
             target.repaint();
             target.getParent().revalidate();
         }
@@ -325,7 +354,21 @@ public class FilterActions {
                 layers = (int) posteriseModel.getValue();
             }
 
-            target.getImage().apply(new Posterise(layers));
+            int x = 0;
+            int y = 0;
+            int width = 0;
+            int height = 0;
+            boolean selection = true;
+            try{
+                Rectangle2D m = target.GetMouseRectangle();
+                x = (int) m.getX();
+                y = (int) m.getY();
+                width = (int) m.getWidth();
+                height = (int) m.getHeight();
+            }catch(Exception ex){
+                selection = false;
+            }
+            target.getImage().apply(new Posterise(layers, x, y, width, height, selection));
             target.repaint();
             target.getParent().revalidate();
         }
@@ -380,15 +423,6 @@ public class FilterActions {
             angleModel.setPaintTicks(true);
             angleModel.setPaintLabels(true);
 
-            /*
-            Hashtable labelTable = new Hashtable();
-            labelTable.put(0, new JLabel("right"));
-            labelTable.put(90, new JLabel("upward"));
-            labelTable.put(180, new JLabel("left"));
-            labelTable.put(270, new JLabel("downward"));
-            angleModel.setLabelTable( labelTable );
-            angleModel.setPaintLabels(true);
-*/
             int option = JOptionPane.showOptionDialog(null, angleModel, "Enter emboss angle",
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 
@@ -400,7 +434,21 @@ public class FilterActions {
             }
 
             // Create and apply the filter
-            target.getImage().apply(new EmbossFilter(angle));
+            int x = 0;
+            int y = 0;
+            int width = 0;
+            int height = 0;
+            boolean selection = true;
+            try{
+                Rectangle2D m = target.GetMouseRectangle();
+                x = (int) m.getX();
+                y = (int) m.getY();
+                width = (int) m.getWidth();
+                height = (int) m.getHeight();
+            }catch(Exception ex){
+                selection = false;
+            }
+            target.getImage().apply(new EmbossFilter(angle,x, y, width, height, selection));
             target.repaint();
             target.getParent().revalidate();
         }
@@ -457,7 +505,21 @@ public class FilterActions {
                 horizontal = false;
             }
             // Create and apply the filter
-            target.getImage().apply(new SobelFilter(horizontal));
+            int x = 0;
+            int y = 0;
+            int width = 0;
+            int height = 0;
+            boolean selection = true;
+            try{
+                Rectangle2D m = target.GetMouseRectangle();
+                x = (int) m.getX();
+                y = (int) m.getY();
+                width = (int) m.getWidth();
+                height = (int) m.getHeight();
+            }catch(Exception ex){
+                selection = false;
+            }
+            target.getImage().apply(new SobelFilter(horizontal, x, y, width, height, selection));
             target.repaint();
             target.getParent().revalidate();
         }
