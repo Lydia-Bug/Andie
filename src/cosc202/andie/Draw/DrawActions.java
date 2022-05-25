@@ -84,9 +84,9 @@ public class DrawActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-            
-            if(checkErrors(target)) {
-                ColorPicker colorPicker = new ColorPicker("Select pen colour"); 
+
+            if (checkErrors(target)) {
+                ColorPicker colorPicker = new ColorPicker("Select pen colour");
                 BrushThickness bt = new BrushThickness();
                 target.getImage().apply(new DrawRectangle(colorPicker.getPenColor(), bt.getThickness(), target));
                 target.deselectMouse();
@@ -117,13 +117,14 @@ public class DrawActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-            
+
             if (checkErrors(target)) {
-                ColorPicker outline = new ColorPicker("Select outline colour"); 
+                ColorPicker outline = new ColorPicker("Select outline colour");
                 ColorPicker fill = new ColorPicker("Select fill colour");
                 BrushThickness bt = new BrushThickness();
 
-                target.getImage().apply(new DrawFilledRectangle(outline.getPenColor(), fill.getPenColor(), bt.getThickness(), target));
+                target.getImage().apply(
+                        new DrawFilledRectangle(outline.getPenColor(), fill.getPenColor(), bt.getThickness(), target));
                 target.deselectMouse();
                 target.repaint();
                 target.getParent().revalidate();
@@ -152,7 +153,7 @@ public class DrawActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-            if(checkErrors(target)) {
+            if (checkErrors(target)) {
 
                 ColorPicker colorPicker = new ColorPicker("Select pen colour");
                 BrushThickness bt = new BrushThickness();
@@ -186,9 +187,9 @@ public class DrawActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-            if(checkErrors(target)) {
+            if (checkErrors(target)) {
 
-                ColorPicker colorPicker = new ColorPicker("Select pen colour"); 
+                ColorPicker colorPicker = new ColorPicker("Select pen colour");
                 BrushThickness bt = new BrushThickness();
 
                 target.getImage().apply(new DrawOval(colorPicker.getPenColor(), bt.getThickness(), target));
@@ -221,11 +222,12 @@ public class DrawActions {
          */
         public void actionPerformed(ActionEvent e) {
             if (checkErrors(target)) {
-                ColorPicker outline = new ColorPicker("Select outline colour"); 
+                ColorPicker outline = new ColorPicker("Select outline colour");
                 ColorPicker fill = new ColorPicker("Select fill colour");
                 BrushThickness bt = new BrushThickness();
 
-                target.getImage().apply(new DrawFilledOval(outline.getPenColor(), fill.getPenColor(), bt.getThickness(), target));
+                target.getImage().apply(
+                        new DrawFilledOval(outline.getPenColor(), fill.getPenColor(), bt.getThickness(), target));
                 target.deselectMouse();
                 target.repaint();
                 target.getParent().revalidate();
@@ -271,18 +273,16 @@ public class DrawActions {
         public void actionPerformed(ActionEvent e) {
             Rectangle2D m = target.GetMouseRectangle();
             JTextField jtxt = new JTextField("Enter Text: ", 0);
-            // Extras to be edited
-            // target.add(jtxt);
-            // jtxt.setEditable(true);
-
             JFontChooser jf = new JFontChooser();
+
             jf.showDialog(jtxt);
-            // String textArea = jtxt.getText();
-            target.add(jtxt);
-            // jf.getSelectedFont();
-            Font fontSize = jf.getSelectedFont();
+            String s = jf.sampleText.getText();
+            String fontFamily = jf.getSelectedFontFamily();
+            int fontSize = jf.getSelectedFontSize();
+            int fontStyle = jf.getSelectedFontStyle();
+
             target.getImage().apply(new DrawText((int) m.getX(), (int) m.getY(),
-                    (int) m.getWidth(), (int) m.getHeight(), fontSize));
+                    (int) m.getWidth(), (int) m.getHeight(), fontFamily, s, fontSize, fontStyle));
             target.validate();
             target.deselectMouse();
             target.repaint();
@@ -298,7 +298,7 @@ public class DrawActions {
         if (target.GetMouseRectangle() == null) {
             new NoSelectionError();
             return false;
-        }    
+        }
         return true;
     }
 
