@@ -157,7 +157,7 @@ public class FilterActions {
          */
         @Override
         public void actionPerformed(ActionEvent e) {
-            target.getImage().apply(new MedianFilter());
+            //target.getImage().apply(new MedianFilter());
             target.repaint();
             target.getParent().revalidate();
         }

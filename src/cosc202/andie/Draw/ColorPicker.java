@@ -8,7 +8,7 @@ public class ColorPicker {
     protected String titleText;
 
     public ColorPicker(String titleText) {
-        if (!DrawActions.operationCancelled) {
+        if (!CancelDrawOperation.drawCancelled) {
             JColorChooser cc = new JColorChooser();
 
             int option = JOptionPane.showOptionDialog(null, cc, titleText,
@@ -16,7 +16,7 @@ public class ColorPicker {
         
             // Check the return value from the dialog box.
             if (option == JOptionPane.CANCEL_OPTION || option == JOptionPane.CLOSED_OPTION) {
-                DrawActions.operationCancelled = true;
+                CancelDrawOperation.drawCancelled = true;
                 return;
             } else if (option == JOptionPane.OK_OPTION) {
                 penColor = cc.getColor();
