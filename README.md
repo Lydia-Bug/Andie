@@ -5,7 +5,7 @@
 Although Callum didn't work on the second part of the project, he already did the extended filters when he created the filters in the first part of the project. Callum write the code for the extended filters and Lydia copy and pasted them to the mean filter where it hadn't been implimented. 
 - Accessed via: There's 'extended filter' code used for the mean, and gaussian filter, the other kernal filters don't have the issue of a black border, because the radius of the kernals used is too small to see any difference
 - I've tested it on various images, including transperent.
-- The filter does cause a kinda of blury border around the edge, its not nearly as noticable and the hard black border. This can't really be fixed, different implmentations will lead to differnt non-perfect results, so this is appceptable.
+- The filter does cause a kinda of blury border around the edge, its not nearly as noticable and the hard black border. This can't really be fixed, different implmentations will lead to differnt non-perfect results, so this is acceptable.
 <br/><br/>
 
 ### **Emboss and edge detection filters (filters w/ negative results)**
@@ -23,9 +23,9 @@ Although Callum didn't work on the second part of the project, he already did th
 <br/><br/>
 
 ### **Mouse selection of rectangular regions**
-#### *Implemented by *
-- Accessed via: 
-- Tested on images that are zoomed in or out, previously it didn't work at would draw the rectangular behind or infront of the mouse. Now the rectangular selection considers the scale of the image, and it works fine. Also won't select rectanlge of zero area if you just click, which caused issues
+#### *Implemented by Ella Taylor and Hamzah Alansi *
+- Accessed via: Clicking and dragging across the screen.
+- Tested on images that are zoomed in or out, and transparent/opaque images. Previously it didn't work and would draw the rectangular behind or infront of the mouse. Now the rectangular selection considers the scale of the image, and it works fine. Also won't select 1x1 rectangle if you just click. Automatically deselects when save/open options are used and after a shape has been drawn/crop/filter has been applied. Can select area outside of the image, as this is consistent with some other photo editors I have used. However, shapes etc. will be cut off by the edge of the image (aren't drawn outside the image).
 - Known issues...
 <br/><br/>
 
@@ -37,9 +37,9 @@ Although Callum didn't work on the second part of the project, he already did th
 <br/><br/>
 
 ### **Drawing functions**
-#### *Implemented by *
-- Accessed via: 
-- Tested on...
+#### *Implemented by Ella Taylor *
+- Accessed via: Corresponding menu tabs. Area of image must be selected first, then shape/line is drawn within.
+- Tested on transparent and opaque images. Tested attempting to draw a shape with selection fully out of bounds (no shape is drawn) and partially in bounds (shape is cut off at boundary). Warns the user if they attempt to draw shape when no image is loaded or if no area is selected. Successfully drawing a shape removes the area selection box. I chose to implement vertical and horizontal lines specifically (even though they are technically superfluous because they can be drawn with a mouse region of zero width etc.) because it is difficult to draw a perfectly straight line with the diagonal line method. 
 - Known issues...
 <br/><br/>
 

@@ -62,6 +62,7 @@ public class DrawLine implements ImageOperation, java.io.Serializable   {
         if(lineType == 0) g2.drawLine((int) m.getX(), (int) m.getY(), (int) m.getX(), (int) (m.getHeight() + m.getY()));
         if(lineType == 1) g2.drawLine((int) m.getX(), (int) m.getY(), (int) (m.getWidth() + m.getX()), (int) m.getY());
         if(lineType == 2) g2.drawLine((int) m.getX(), (int) m.getY(), (int) (m.getWidth() + m.getX()), (int) (m.getHeight() + m.getY()));
+        if(lineType == 3) g2.drawLine((int) m.getX(), (int) (m.getHeight() + m.getY()), (int) (m.getWidth() + m.getX()), (int) m.getY());
         
         g2.dispose();
         return input;
