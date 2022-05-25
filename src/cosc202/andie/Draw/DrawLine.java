@@ -56,7 +56,7 @@ public class DrawLine implements ImageOperation, java.io.Serializable   {
         g2.setStroke(new BasicStroke(thickness));
         // if(isValidSelectedArea()) {
         g2.setPaint(c);
-        g2.drawLine((int) m.getX(), (int) m.getY(), (int) m.getWidth(), (int) m.getHeight());
+        g2.drawLine((int) m.getX(), (int) m.getY(), (int) (m.getWidth() + m.getX()), (int) (m.getHeight() + m.getY()));
         // }
         g2.dispose();
         return input;
