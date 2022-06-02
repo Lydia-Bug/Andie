@@ -53,7 +53,7 @@ Although Callum didn't work on the second part of the project, he already did th
 ## **Show us something**
 
 ### **Filters can be applied to rectangular selection**
-#### *Implemented by *
+#### *Implemented by Lydia Acton*
 - Accessed via: By selecting an area then applying a filter or colour filter
 - I've tested this on all the filter and colour filters, I've test that it works if you select a region outside an image.
 - No known issues
